@@ -48,7 +48,7 @@ class AddTimestampsToTables extends Migration {
 
 		Schema::table('deal', function(Blueprint $table) {
 			$table->dropColumn('created_at');
-			$table->dropColumn('updated_at');
+			$table->dropColumn('updated_at');	
 		});
 
 		Schema::table('product', function(Blueprint $table) {
