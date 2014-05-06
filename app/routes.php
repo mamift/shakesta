@@ -13,5 +13,25 @@
 
 Route::get('/', function()
 {
-	return View::make('hello');
+	return View::make('index');
+});
+
+Route::get('user-login', function() 
+{
+	return View::make('login');
+});
+
+Route::get('user-viewdeals', function()
+{
+	return View::make('user-viewdeals');
+});
+
+Route::get('user-createdeal', function() 
+{
+	return View::make('user-createdeal');
+});
+
+Route::get('contact-us', function()
+{
+	return View::make('contactus');	
 });

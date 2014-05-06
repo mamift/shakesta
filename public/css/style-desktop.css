@@ -1,0 +1,132 @@
+
+	
+	form
+	{
+	}
+	
+		form .button
+		{
+			margin: 0 0.5em 0 0.5em;
+		}
+	
+	.button
+	{
+		padding: 1em 2.35em 1em 2.35em;
+		font-size: 1.1em;
+	}
+
+		.button-big
+		{
+			font-size: 1.5em;
+			letter-spacing: -0.025em;
+		}
+
+	.box
+	{
+		padding: 2em 2em 2.5em 2em;
+	}
+	
+	.boxfoad
+	{
+		padding: 2em 2em 2.5em 2em;
+		margin-left:0px;
+		margin-right:-450px;
+		
+		
+	}
+
+		.box h3
+		{
+			margin-bottom: 0.25em;
+		}
+
+		.box .image-centered
+		{
+			margin-bottom: 1.25em;
+		}
+
+		.box .image-full
+		{
+			position: relative;
+			left: 2em;
+			top: 2em;
+			margin: -4em 0 4em -4em;
+			width: auto;
+		}
+		
+		
+		.boxfoad h3
+		{
+			margin-bottom: 0.25em;
+			
+		}
+
+		.boxfoad .image-centered
+		{
+			margin-bottom: 1.25em;
+		}
+
+		.boxfoad .image-full
+		{
+			position: relative;
+			left: 2em;
+			top: 2em;
+			margin: 4em 0 4em 4em;
+			width: auto;
+		}
+		
+		.boxfoad ul
+		{
+			font-size:150%;
+			text-align:left;
+			padding-left:75px;
+			padding-bottom:30px;
+			padding-top:50px;
+		}
+		
+		.boxfoad li
+		{
+			padding-bottom:15px;
+		}
+
+
+
+/*********************************************************************************/
+/* Wrappers                                                                      */
+/*********************************************************************************/
+
+	
+	.wrapper
+	{
+	
+		text-align: left;
+	}
+	
+	
+
+
+
+/*********************************************************************************/
+/* Articles                                                                      */
+/*********************************************************************************/
+
+
+		
+	#contact
+	{
+		width: 600px;
+		margin: 0 auto;
+	}
+		#contact footer
+		{
+			font-size: 0.9em;
+		}
+		
+/*********************************************************************************/
+/* Copyright                                                                     */
+/*********************************************************************************/
+
+	#copyright
+	{
+		font-size: 1em;
+	}
