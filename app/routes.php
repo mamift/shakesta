@@ -11,6 +11,8 @@
 |
 */
 
+Route::resource('deals', 'DealsController');
+
 Route::get('/', function()
 {
 	return View::make('index');
