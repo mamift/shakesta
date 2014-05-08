@@ -2,11 +2,11 @@
 
 @section('content')
 
-	<style> @import url('/login.css'); </style>
+	<style> @import url('/css/tabulus.css'); </style>
 
 	<div class="login" style="">
 
-		{{ Form::open() }}
+		{{ Form::open(['route' => 'deals.store']) }}
 			{{ Formgenerator::generate('deal') }}
 		{{ Form::close() }}
 

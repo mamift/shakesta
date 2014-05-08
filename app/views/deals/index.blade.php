@@ -24,7 +24,7 @@
 				<td>{{ $deal->begins_time }}</td>
 				<td>{{ $deal->expires_time }}</td>
 				<td>{{ $deal->category }}</td>
-				<td><a href="{{ URL::route('deals.edit', $deal->id) }}">Edit</a></td>
+				<td><a href="{{ URL::route('deals.edit', $deal->deal_id) }}">Edit</a></td>
 				<td>
 					{{ Form::open(['route' => ['deals.destroy', $deal->deal_id]]) }}
 						{{ Form::hidden('_method', 'DELETE') }}

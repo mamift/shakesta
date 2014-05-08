@@ -26,7 +26,7 @@
 		<ul>	
 			<li><a href="/">Home</a></li>
 			<li><a href="/user-login">Login</a></li>
-			<li><a href="/user-viewdeals">View My Deals</a></li>
+			<li><a href="/deals">View My Deals</a></li>
 			<li><a href="/user-createdeal">Create Deal</a></li>
 			<li><a href="/contact-us">Contact Us</a></li>
 		</ul>

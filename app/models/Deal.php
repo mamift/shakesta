@@ -9,6 +9,9 @@ class Deal extends Eloquent {
 		// 'title' => 'required'
 	];
 
+	// hidden
+	protected $hidden = ['deal_id'];
+
 	protected $table = 'deal';
 	protected $primaryKey = 'deal_id';
 
@@ -17,4 +20,7 @@ class Deal extends Eloquent {
 
 	// these fields are mass-assignable
 	protected $fillable = ['price_discount','terms','expires_time','begins_time','category'];
+
+	// these fields aren't
+	protected $guarded = ['deal_id'];
 }

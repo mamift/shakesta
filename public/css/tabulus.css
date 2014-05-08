@@ -1,0 +1,262 @@
+﻿/**
+Stylsheet for a custom formatted table
+**/
+
+.tabulus-menu .toolbar {
+/**	border-top: 2pt #333333 dotted;
+	border-bottom: 2pt #333333 dotted; */
+	display: block;
+	
+/**	text-align: center; */
+	
+	width: 50%;
+	margin: 0 auto 0 auto;
+	padding: 5px 0 5px 0;
+	
+	font-weight: bold;
+	
+/**	float: left; */
+}
+
+.tabulus .toolbar:first-child {
+	float:  none;
+}
+
+.tabulus-menu {
+	width: 100%;
+/**	border-bottom: thin #000000 solid; */
+	
+	text-align: center;
+	
+	height: 40px;
+	
+	padding-top: 12pt;
+	padding-bottom: 6pt;
+	
+	float: none;
+}
+
+.tabulus-menu hr {
+	border-top: 3pt #000000 dotted;
+	
+	margin: 5pt 0 5pt 0;
+	
+	width: 500px;
+}
+
+.tabulus {
+	border: 1px #000000 solid;
+	border-style: solid none none none;
+	border-collapse: collapse;
+	
+	margin-left: auto; 
+	margin-right: auto;
+/**	margin-top: 15px;*/
+	margin-bottom: 0;
+	
+	vertical-align: top;
+	
+	font-size: 9pt;
+	width: 100%;
+}
+.tabulus tr {
+	border: 1px #000000 solid;
+	border-style: inherit;
+}
+
+.tabulus td {
+	padding: 0 6px 0 6px;
+	
+	border-left-style: none;
+	border-right: .75pt dotted #000000; 
+	border-top-style: none;
+	border-bottom: .75pt solid #000000; 
+/**	background-color: white;*/
+	
+	padding: 4px 4px 4px 4px;
+	text-align: left;
+}
+
+.tabulus td:last-of-type {
+
+}
+.tabulus thead {
+	text-transform: none;
+	font-weight: normal;
+	font-family: inherit;
+	font-stretch: expanded;
+	font-size: 10pt;
+
+	background-color: #808080;
+	border-bottom: 1px #000000 solid;
+/**	border-top: 1.5px #000000 solid;*/
+}
+.tabulus thead tr th {
+	padding: 3px 6px 3px 6px;
+	border-top: 0;
+	
+	text-transform: uppercase;
+	
+	letter-spacing: 1px;
+	
+	color: #FFFFFF; 
+	
+	height: 25px;
+}
+.tabulus thead:first-of-type {
+	
+}
+.tabulus thead th:first-of-type {
+
+}
+.tabulus thead th:last-of-type {
+	border-right-style: none;
+}
+.tabulus tbody tr td:first-of-type {
+
+}
+.tabulus tbody tr td:last-of-type {
+	border-right-style: none;
+}
+.tabulus tbody tr:nth-child(even) {	
+	background-color: #CDCDCD;
+}
+.tabulus tbody tr:nth-child(odd) {
+	background-color: #FFFFFF;
+}
+
+.tabulus .search-subheading > th {
+	color: #000000 !important;
+	background-color: #C0C0C0;
+	
+	font-size: 9pt;
+	
+	text-transform: capitalize;
+}
+
+/** Center the first column of the {ITEM_TABLE} **/
+.record-row td:nth-child(1) {
+	text-align: center;
+	
+	font-weight: bold;
+}
+
+/** Right-align the prices displayed in the {ITEM_TABLE} **/
+.item-table .record-row td:nth-child(6) {
+	text-align: right;
+	
+	padding-right: 9px;
+}
+
+/** Centre the little td that states how many results the search returned**/
+.record-row td[colspan="3"] {
+	text-align: center;
+}
+
+.record-row td[colspan] {
+	text-align: center;
+}
+
+/** When the tabulus is in a form, keep it in the middle*/
+form .tabulus, div .tabulus {
+	border: 1px #000000 solid;
+	border-collapse: collapse;
+	border-top-style: solid;
+	
+	margin-left: auto; 
+	margin-right: auto;
+	margin-top: 0;
+	margin-bottom: 0;
+	
+	vertical-align: top;
+	
+	font-size: 9pt;
+	width: 90%;
+}
+
+.tabulus-form tr td:first-child { /** Bold the first column, which display the form input names **/
+	font-weight: bold;
+}
+
+input[type=search] + input, input + select { /** Applies only for .tabulus-form */
+	margin-right: 8px;
+	margin-left: 8px;
+}
+
+tr > td:hover { /** This brings up the darkened bg color on td's inside tr's **/
+	border-left-style: solid;
+	border-left: 1px #000000 solid;
+	border-right-style: solid;
+	border-right: 1px #000000 solid;
+
+	background-color: #808080;
+	color: #FFFFFF;
+}
+
+.tabulus tfoot {
+	text-transform: none;
+	font-weight: normal;
+	font-family: inherit;
+	font-stretch: expanded;
+	font-size: 9pt;
+
+	border-bottom: 1px #000000 solid;
+/**	border-top: 1.5px #000000 solid;*/
+}
+.tabulus tfoot tr th {
+	padding: 3px 6px 3px 6px;
+	border-top: 0;
+	
+	text-transform: uppercase;
+	letter-spacing: 0.5px;
+	color: #FFF;
+
+	background-color: #808080;
+	
+	text-align: center; 
+	
+	height: 25px;
+}
+.tabulus tfoot tr td input {
+	font-size: 10pt;
+	margin: 6pt 0 6pt 0;
+
+	-webkit-appearance: default;
+}
+.tabulus tfoot tr td {
+	text-align: center;
+	
+	background-color: #808080;
+}
+.tabulus tfoot tr > td:hover { /** This brings up the darkened bg color on td's inside tr's **/
+	border-left-style: solid;
+	border-left: 1px #000000 solid;
+	border-right-style: solid;
+	border-right: 1px #000000 solid;
+
+	background-color: #808080;
+	color: #FFFFFF;
+}
+.vendor-info-box {	
+/**	margin-left: auto;
+	margin-right: auto; **/
+	
+	width: 250px;
+	
+	color: #0000FF;
+}
+
+.item-table-expiration_date-detail td input {
+	width: 160px;
+}
+
+.this-is-youser {
+	background-color: #6FB7FF;
+	color: #333333;
+	
+	font-weight: bold;
+}
+
+#item-bid-form .bid-table-summary-detail td input[type=number] {
+	width: 20px;
+}

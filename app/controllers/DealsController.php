@@ -66,7 +66,7 @@ class DealsController extends \BaseController {
 	{
 		$deal = Deal::find($id);
 
-		return View::make('deals.edit', compact('deal'));
+		return View::make('deals.edit')->with('deal', $deal);
 	}
 
 	/**
