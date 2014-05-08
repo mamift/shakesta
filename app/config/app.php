@@ -121,7 +121,7 @@ return array(
 		'Illuminate\Workbench\WorkbenchServiceProvider',
 
 		'Way\Generators\GeneratorsServiceProvider',
-		// 'RobinMalfait\Formgenerator\FormgeneratorServiceProvider',
+		's2757691\Formgenerator\FormgeneratorServiceProvider',
 	),
 
 	/*
@@ -188,7 +188,7 @@ return array(
 		'Validator'       => 'Illuminate\Support\Facades\Validator',
 		'View'            => 'Illuminate\Support\Facades\View',
 
-		// 'Formgenerator' => 'RobinMalfait\Formgenerator\Facades\Formgenerator',
+		'Formgenerator' => 's2757691\Formgenerator\Facades\Formgenerator',
 	),
 
 );

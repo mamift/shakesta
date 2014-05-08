@@ -3,9 +3,16 @@
 	"description": "The Laravel Framework.",
 	"keywords": ["framework", "laravel"],
 	"license": "MIT",
+	"repositories": [
+	    {
+	        "type": "vcs",
+	        "url" : "/Users/Muhammad/Developer/Laravel/formgenerator/"
+	    }
+	],
 	"require": {
 		"laravel/framework": "4.1.*",
-		"way/generators": "2.*"
+		"way/generators": "2.*",
+		"s2757691/formgenerator": "dev-master"
 	},
 	"autoload": {
 		"classmap": [

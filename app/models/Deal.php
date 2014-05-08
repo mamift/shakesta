@@ -12,8 +12,8 @@ class Deal extends Eloquent {
 	protected $table = 'deal';
 	protected $primaryKey = 'deal_id';
 
-	protected $timestamps = true;
-	protected $incrementing = true;
+	public $timestamps = true;
+	public $incrementing = true;
 
 	// these fields are mass-assignable
 	protected $fillable = ['price_discount','terms','expires_time','begins_time','category'];
