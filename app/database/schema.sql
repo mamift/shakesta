@@ -73,3 +73,10 @@ ALTER TABLE `deal` CHANGE `begins_time` `begins_time` DATETIME NULL DEFAULT NULL
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+
+/* Actually the constraint here is bad, the deal table must have a fk to product, not the other way around */
+ALTER TABLE `product` DROP FOREIGN KEY `product`.`deal_product_FK1`;
+ALTER TABLE `product` DROP `deal_id`;
+ALTER TABLE `deal` ADD `product_id` MEDIUMINT NULL AFTER `deal_id`, ADD UNIQUE (`product_id`);
+ALTER TABLE `deal` ADD CONSTRAINT `deal_product_FK1` FOREIGN KEY (`product_id`) REFERENCES `product` (`product_id`);
+

@@ -3,22 +3,30 @@
 @section('content')
 
 	<style> @import url('/css/tabulus.css'); </style>
-
+	<div class="">
+		<a href="{{ URL::route('deals.index') }}">Back to deals</a>
+	</div>
 	<div>
 		{{ Form::model($deal, ['method' => 'PATCH', 'route' => ['deals.update', $deal->deal_id]] ) }}
 			<table class="tabulus tabulus-form">
 				<thead>
 					<tr>
 						<th colspan="2">
-							<h3>View Deal</h3>
+							<h3>Edit Deal &#35;{{ $deal->deal_id }}</h3>
 						</th>
 					</tr>
 				</thead>
 				<tbody>
 					<tr>
-						<td>{{ Form::label('deal_id', 'ID') }}</td>
+						<td>{{ Form::label('deal_id', 'ID') }} <br/>(product must already exist)</td>
 						<td>
-							{{ Form::input('number', 'deal_id') }}
+							{{ Form::input('text', 'deal_id', 'AUTO_INCREMENT', ['readonly' => 'readonly']) }}
+						</td>
+					</tr>
+					<tr>
+						<td>{{ Form::label('_product', 'For Product: ') }}</td>
+						<td>
+							{{ Form::select('_product', ['PRODUCT_NAME'], 'PRODUCT_NAME', ['disabled' => 'disabled']) }}
 						</td>
 					</tr>
 					<tr>
@@ -35,11 +43,11 @@
 					</tr>
 					<tr>
 						<td>{{ Form::label('begins', 'Begins') }}</td>
-						<td>{{ Form::input('text', 'begins_time') }}</td>
+						<td>{{ Form::input('text', 'begins_time', '0000-00-00 00:00:00') }}</td>
 					</tr>
 					<tr>
 						<td>{{ Form::label('expires', 'Expires') }}</td>
-						<td>{{ Form::input('text', 'expires_time') }}</td>
+						<td>{{ Form::input('text', 'expires_time', '0000-00-00 00:00:00') }}</td>
 					</tr>
 					<tr>
 						<td>{{ Form::label('category', 'Category') }}</td>
@@ -47,11 +55,11 @@
 					</tr>
 					<tr>
 						<td>Created </td>
-						<td>{{ Form::input('time', 'created_at') }}</td>
+						<td>{{ Form::input('time', 'created_at', null, ['readonly' => 'readonly']) }}</td>
 					</tr>
 					<tr>
 						<td>Last updated</td>
-						<td>{{ Form::input('time', 'updated_at') }}</td>
+						<td>{{ Form::input('time', 'updated_at', null, ['readonly' => 'readonly']) }}</td>
 					</tr>
 				</tbody>
 				<tfoot>
@@ -64,4 +72,5 @@
 			</table>
 		{{ Form::close() }}
 	</div>
+
 @stop

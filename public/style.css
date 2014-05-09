@@ -126,12 +126,3 @@ tr:nth-child(even) {
 tr:last-child {
 	border-bottom: 1px solid rgb(0,0,0);
 }
-
-tfoot * {
-	border-bottom: 1px solid transparent;
-	border-left: 1px solid transparent;
-	border-right: 1px solid transparent;
-}
-
-
-    
