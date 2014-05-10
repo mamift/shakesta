@@ -33,9 +33,9 @@
 				<td>{{ $deal->category }}</td>
 				<td><a href="{{ URL::route('deals.edit', $deal->deal_id) }}">Edit</a></td>
 				<td>
-					{{ Form::open(['route' => ['deals.destroy', $deal->deal_id]]) }}
+					{{ Form::open(['route' => ['deals.destroy', $deal->deal_id], 'onSubmit' => 'return confirm_delete();']) }}
 						{{ Form::hidden('_method', 'DELETE') }}
-						{{ Form::submit('Delete', ['onClick' => 'confirm_delete();']) }}
+						{{ Form::submit('Delete') }}
 					{{ Form::close() }}
 				</td>
 			</tr>
