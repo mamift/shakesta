@@ -13,6 +13,8 @@
 
 Route::resource('deals', 'DealsController');
 
+Route::resource('products', 'ProductsController');
+
 Route::get('/', function()
 {
 	return View::make('index');

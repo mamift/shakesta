@@ -12,7 +12,8 @@
 	"require": {
 		"laravel/framework": "4.1.*",
 		"way/generators": "2.*",
-		"s2757691/formgenerator": "dev-master"
+		"s2757691/formgenerator": "dev-master",
+		"fzaninotto/faker": "v1.3.0"
 	},
 	"autoload": {
 		"classmap": [

@@ -1,7 +1,5 @@
 <?php
 
-// Schema note: you must grab a deal for a product.
-
 class Deal extends Eloquent {
 	
 	// validation rules here

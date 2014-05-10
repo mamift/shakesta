@@ -1,0 +1,1 @@
+/Users/Muhammad/Sites/shakesta/app/views/products/edit.blade.php
