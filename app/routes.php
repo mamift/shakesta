@@ -15,6 +15,8 @@ Route::resource('deals', 'DealsController');
 
 Route::resource('products', 'ProductsController');
 
+Route::resource('retailers', 'RetailersController');
+
 Route::get('/', function()
 {
 	return View::make('index');
