@@ -24,7 +24,7 @@
 	@if (count($deals) > 0)
     @foreach($deals as $deal)
 			<tr>
-				<td>{{ $deal->deal_id }}</td>
+				<td><a href="{{ URL::route('deals.show', $deal->deal_id) }}">{{ $deal->deal_id }}</a></td>
 				<td>{{ $deal->product_id }}</td>
 				<td>{{ $deal->price_discount }} </td>
 				<td>{{ $deal->terms }}</td>

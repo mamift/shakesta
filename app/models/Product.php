@@ -21,4 +21,14 @@ class Product extends \Eloquent {
 
 	// these fields aren't
 	protected $guarded = ['product_id'];
+
+	protected $appends = array('created_at_datetime', 'updated_at_datetime');
+
+	public function getCreatedAtDatetimeAttribute() {
+		return date("l jS F Y h:i:s A", strtotime($this->attributes['created_at']));
+	}
+
+	public function getUpdatedAtDatetimeAttribute() {
+		return date("l jS F Y h:i:s A", strtotime($this->attributes['updated_at']));	
+	}
 }

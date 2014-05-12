@@ -21,4 +21,23 @@ class Deal extends Eloquent {
 
 	// these fields aren't
 	protected $guarded = ['deal_id'];
+
+	protected $appends = array('begins_datetime', 'exprires_datetime', 'created_at_datetime', 'updated_at_datetime');
+
+	public function getBeginsDatetimeAttribute() {
+		return date("l jS F Y h:i:s A", strtotime($this->attributes['begins_time']));
+	}
+
+	public function getExpiresDatetimeAttribute() {
+		return date("l jS F Y h:i:s A", strtotime($this->attributes['expires_time']));
+	}
+
+	public function getCreatedAtDatetimeAttribute() {
+		return date("l jS F Y h:i:s A", strtotime($this->attributes['created_at']));
+	}
+
+	public function getUpdatedAtDatetimeAttribute() {
+		return date("l jS F Y h:i:s A", strtotime($this->attributes['updated_at']));	
+	}
+
 }
