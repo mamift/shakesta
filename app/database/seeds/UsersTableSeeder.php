@@ -9,12 +9,24 @@ class UsersTableSeeder extends Seeder {
 	{
 		$faker = Faker::create();
 
-		foreach(range(1, 10) as $index)
+		// Eloquent::unguard();
+		User::create([
+			'user_id' => 1, 
+			'username' => 'admin', 
+			'password' => Hash::make('gizmoe99'), 
+			'retailer_id' => null
+		]);
+
+		foreach(range(1, 3) as $index)
 		{
 			User::create([
-
+				'username' => $faker->text(10), 
+				'password' => Hash::make('password'),
+				'retailer_id' => null
 			]);
 		}
+
+		// Eloquent::guard();
 	}
 
 }

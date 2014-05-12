@@ -82,3 +82,6 @@ ALTER TABLE `deal` ADD CONSTRAINT `deal_product_FK1` FOREIGN KEY (`product_id`) 
 
 ALTER TABLE `retailer` ADD `title` TINYTEXT NULL AFTER `retailer_id`;
 
+/* Default user */
+INSERT INTO `shakesta`.`user` (`user_id`, `username`, `password`, `retailer_id`, `created_at`, `updated_at`) VALUES ('1', 'admin', 'gizmo', NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00');
+

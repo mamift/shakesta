@@ -17,7 +17,7 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 	 *
 	 * @var array
 	 */
-	protected $hidden = array('password');
+	protected $hidden = ['password'];
 
 	/**
 	 * Get the unique identifier for the user.
@@ -79,5 +79,36 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 	{
 		return $this->email;
 	}
+
+
+	public static $rules = [
+		'username' => 'required'
+	];
+
+	// fields that are mass assignable
+	protected $fillable = ['username','password'];
+
+	protected $primaryKey = 'user_id';
+
+	public $timestamps = true;
+	public $incrementing = true;
+
+	// these fields aren't
+	protected $guarded = ['user_id'];
+
+	protected $appends = array('created_at_datetime','updated_at_datetime','id');
+
+	public function getCreatedAtDatetimeAttribute() {
+		return date("l jS F Y h:i:s A", strtotime($this->attributes['created_at']));
+	}
+
+	public function getUpdatedAtDatetimeAttribute() {
+		return date("l jS F Y h:i:s A", strtotime($this->attributes['updated_at']));	
+	}
+
+	public function getIdAttribute() {
+		return $this->attributes['user_id'];
+	}
+
 
 }
