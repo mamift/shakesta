@@ -80,13 +80,12 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 		return $this->email;
 	}
 
-
 	public static $rules = [
 		'username' => 'required'
 	];
 
 	// fields that are mass assignable
-	protected $fillable = ['username','password'];
+	protected $fillable = ['username','password','email'];
 
 	protected $primaryKey = 'user_id';
 
@@ -109,6 +108,4 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 	public function getIdAttribute() {
 		return $this->attributes['user_id'];
 	}
-
-
 }
