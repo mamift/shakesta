@@ -14,6 +14,7 @@ class UsersTableSeeder extends Seeder {
 			'user_id' => 1, 
 			'username' => 'admin', 
 			'password' => Hash::make('gizmoe99'), 
+			'email' => 'admin@shakesta.com',
 			'retailer_id' => null
 		]);
 
@@ -22,6 +23,7 @@ class UsersTableSeeder extends Seeder {
 			User::create([
 				'username' => $faker->text(10), 
 				'password' => Hash::make('password'),
+				'email' => $faker->email(),
 				'retailer_id' => null
 			]);
 		}
