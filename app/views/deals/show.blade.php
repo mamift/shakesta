@@ -66,6 +66,7 @@
 					<tr class="">
 						<td colspan="2">
 							{{ Form::submit('Back') }}
+							<button type="button" onClick="window.location='{{ URL::route('deals.edit', $deal->deal_id) }}'">Edit deal</button>
 						</td>
 					</tr>
 				</tfoot>

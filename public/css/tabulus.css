@@ -1,6 +1,10 @@
 ﻿/**
 Stylsheet for a custom formatted table
 **/
+.tabulus-form .image-td-span {
+	text-align: center;
+}
+
 
 .tabulus-menu .toolbar {
 /**	border-top: 2pt #333333 dotted;
@@ -267,3 +271,4 @@ tr > td:hover { /** This brings up the darkened bg color on td's inside tr's **/
 #item-bid-form .bid-table-summary-detail td input[type=number] {
 	width: 20px;
 }
+
