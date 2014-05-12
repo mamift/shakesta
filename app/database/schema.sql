@@ -80,3 +80,5 @@ ALTER TABLE `product` DROP `deal_id`;
 ALTER TABLE `deal` ADD `product_id` MEDIUMINT NULL AFTER `deal_id`, ADD UNIQUE (`product_id`);
 ALTER TABLE `deal` ADD CONSTRAINT `deal_product_FK1` FOREIGN KEY (`product_id`) REFERENCES `product` (`product_id`);
 
+ALTER TABLE `retailer` ADD `title` TINYTEXT NULL AFTER `retailer_id`;
+
