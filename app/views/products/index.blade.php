@@ -24,14 +24,14 @@
     @foreach($products as $product)
 			<tr>
 				<td>{{ $product->product_id }}</td>
-				<td>{{ $product->title }}</td>
+				<td><a href="{{ URL::route('products.show', $product->product_id) }}">{{ $product->title }}</a></td>
 				<td>{{ $product->description }} </td>
 				<td>{{ $product->retail_id }}</td>
 				<td>{{ $product->retail_price }}</td>
 				<td>{{{ $product->image or 'None' }}}</td>
 				<td><a href="{{ URL::route('products.edit', $product->product_id) }}">Edit</a></td>
 				<td>
-					{{ Form::open(['route' => ['products.destroy', $product->deal_id], 'onSubmit' => 'return confirm_delete();']) }}
+					{{ Form::open(['route' => ['products.destroy', $product->product_id], 'onSubmit' => 'return confirm_delete();']) }}
 						{{ Form::hidden('_method', 'DELETE') }}
 						{{ Form::submit('Delete') }}
 					{{ Form::close() }}
@@ -46,7 +46,7 @@
 		</tbody>
 		<tfoot>
 			<tr>
-				<td colspan="8"><a href="{{ URL::route('products.create') }}">Create a new deal</a></td>
+				<td colspan="8"><a href="{{ URL::route('products.create') }}">Create a new product</a></td>
 			</tr>
 		</tfoot>
 	</table>
