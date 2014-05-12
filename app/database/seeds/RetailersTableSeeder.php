@@ -9,10 +9,11 @@ class RetailersTableSeeder extends Seeder {
 	{
 		$faker = Faker::create();
 
-		foreach(range(1, 10) as $index)
+		foreach(range(1, 8) as $index)
 		{
 			Retailer::create([
-
+				'title' => $faker->text(15),
+				'description' => $faker->paragraph(3) 
 			]);
 		}
 	}

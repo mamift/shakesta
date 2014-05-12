@@ -11,7 +11,7 @@ class RetailersController extends \BaseController {
 	{
 		$retailers = Retailer::all();
 
-		return View::make('retailers.index', compact('retailers'));
+		return View::make('retailers.index')->with('retailers', $retailers);
 	}
 
 	/**

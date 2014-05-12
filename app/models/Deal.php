@@ -22,7 +22,7 @@ class Deal extends Eloquent {
 	// these fields aren't
 	protected $guarded = ['deal_id'];
 
-	protected $appends = array('begins_datetime', 'exprires_datetime', 'created_at_datetime', 'updated_at_datetime');
+	protected $appends = array('begins_datetime','exprires_datetime','created_at_datetime','updated_at_datetime','id');
 
 	public function getBeginsDatetimeAttribute() {
 		return date("l jS F Y h:i:s A", strtotime($this->attributes['begins_time']));
@@ -38,6 +38,10 @@ class Deal extends Eloquent {
 
 	public function getUpdatedAtDatetimeAttribute() {
 		return date("l jS F Y h:i:s A", strtotime($this->attributes['updated_at']));	
+	}
+
+	public function getIdAttribute() {
+		return $this->attributes['deal_id'];
 	}
 
 }
