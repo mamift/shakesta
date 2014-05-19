@@ -12,7 +12,6 @@
 				<th>ID</th>
 				<th>Title</th>
 				<th>Description</th>
-
 				<th>Edit</th>
 				<th>Delete</th>
 			</tr>
@@ -24,7 +23,6 @@
 				<td>{{ $retailer->id }}</td>
 				<td><a href="{{ URL::route('retailers.show', $retailer->id) }}">{{ $retailer->title }}</a></td>
 				<td>{{ $retailer->description }} </td>
-				
 				<td><a href="{{ URL::route('retailers.edit', $retailer->id) }}">Edit</a></td>
 				<td>
 					{{ Form::open(['route' => ['retailers.destroy', $retailer->id], 'onSubmit' => 'return confirm_delete();']) }}

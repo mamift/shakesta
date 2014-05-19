@@ -12,7 +12,6 @@
 				<th>ID</th>
 				<th>Username</th>
 				<th>E-mail</th>
-
 				<th>Edit</th>
 				<th>Delete</th>
 			</tr>
@@ -24,7 +23,6 @@
 				<td>{{ $user->id }}</td>
 				<td><a href="{{ URL::route('users.show', $user->id) }}">{{ $user->username }}</a></td>
 				<td>{{ $user->email }} </td>
-				
 				<td><a href="{{ URL::route('users.edit', $user->id) }}">Edit</a></td>
 				<td>
 					{{ Form::open(['route' => ['users.destroy', $user->id], 'onSubmit' => 'return confirm_delete();']) }}

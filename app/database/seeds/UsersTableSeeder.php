@@ -9,7 +9,6 @@ class UsersTableSeeder extends Seeder {
 	{
 		$faker = Faker::create();
 
-		// Eloquent::unguard();
 		User::create([
 			'user_id' => 1, 
 			'username' => 'admin', 
@@ -27,8 +26,5 @@ class UsersTableSeeder extends Seeder {
 				'retailer_id' => null
 			]);
 		}
-
-		// Eloquent::guard();
 	}
-
 }

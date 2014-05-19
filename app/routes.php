@@ -11,6 +11,16 @@
 |
 */
 
+Route::get('/authtest', array
+	(
+		'before' => 'auth.basic', 
+		function() {
+		    // return View::make('hello');
+		    return "Hello!";
+		}
+	)
+);
+
 Route::resource('deals', 'DealsController');
 
 Route::resource('products', 'ProductsController');
