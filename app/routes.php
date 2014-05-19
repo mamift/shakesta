@@ -11,15 +11,23 @@
 |
 */
 
+// authentication test using basic HTTP auth
 Route::get('/authtest', array
 	(
 		'before' => 'auth.basic', 
 		function() {
 		    // return View::make('hello');
-		    return "Hello!";
+		    return "Hello! You successfully authenticated!";
 		}
 	)
 );
+
+// route group for API versioning, this will setup a response for http://example.com/api/v1/url
+Route::group(array('prefix' => 'api/v1', 'before' => 'auth.basic'), function()
+{
+    Route::resource('url', 'UrlController');
+});
+
 
 Route::resource('deals', 'DealsController');
 
