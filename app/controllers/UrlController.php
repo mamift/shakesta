@@ -99,13 +99,11 @@ class UrlController extends \BaseController {
 	{
 		$url = Url::findOrFail($id);
  
-		if ( Request::get('url') )
-		{
+		if (Request::get('url')) {
 			$url->url = Request::get('url');
 		}
 
-		if ( Request::get('description') )
-		{
+		if (Request::get('description')) {
 			$url->description = Request::get('description');
 		}
 
