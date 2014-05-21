@@ -44,25 +44,26 @@ class APIController extends \BaseController {
 	public function store()
 	{
 		$deal = new ProductDeal;
-		// $deal->deal = Request::get('deal');
+
+		$input = Input::all();
+
+		(isset($input['price_discount'])) 	? $deal->price_discount 	= $input['price_discount'] 	: null;
+		(isset($input['terms'])) 			? $deal->terms 				= $input['terms'] 			: null;
+		(isset($input['expires_time'])) 	? $deal->expires_time 		= $input['expires_time'] 	: null;
+		(isset($input['begins_time'])) 		? $deal->begins_time 		= $input['begins_time'] 	: null;
+		(isset($input['category'])) 		? $deal->category 			= $input['category'] 		: null;
+		(isset($input['product_id'])) 		? $deal->product_id 		= $input['product_id'] 		: null;
  
-		if (Request::get('deal')) {
-			$deal->deal = Request::get('deal');
-		}
+		$status = !$deal->save();
 
-		if (Request::get('description')) {
-			$deal->description = Request::get('description');
-		}
-
-		if (isset($deal)) 
-			$status = $deal->save();
-
-		$response = array('status' => $status, 'message' => null);
+		$response = array('status' => $status, 'message' => null, 'deal' => null);
 
 		if ($status) {
 			$response['message'] = 'cannot create record';
 		} else {
 			$response['message'] = 'record was created';
+			$response['deal'] = $input;
+			// $response['deal'] = $input['price_discount'];
 		}
 
 		return Response::json($response, 200);
@@ -78,7 +79,7 @@ class APIController extends \BaseController {
 	{
 		$deal = ProductDeal::find($id);
 
-		$status = isset($deal);
+		$status = !isset($deal);
 		$response = array('status' => $status, 'message' => null, 'deal' => null);
 
 		if ($status) {
@@ -121,7 +122,7 @@ class APIController extends \BaseController {
 		}
 
 		if (isset($deal)) 
-			$status = $deal->save();
+			$status = !$deal->save();
 
 		$response = array('status' => $status, 'message' => null);
 
@@ -144,7 +145,7 @@ class APIController extends \BaseController {
 	{
 		$deal = ProductDeal::find($id);
 
-		$status = isset($deal);
+		$status = !isset($deal);
 		$response = array('status' => $status, 'message' => null);
 
 		if ($status) {
