@@ -39,6 +39,9 @@ class APIController extends \BaseController {
 	/**
 	 * Store a newly created resource in storage.
 	 * $fillable = ['price_discount','terms','expires_time','begins_time','category','product_id'];
+	 * test with: 
+	 * (false) curl -i --user admin:gizmoe99 -d 'price_discount=0.5&terms=blah blah' localhost:8000/api/v1.1/productdeals
+	 * (success) curl -i --user admin:gizmoe99 -d 'price_discount=0.5&terms=blah blah&expires_time=2014-05-31 05:12:00&begins_time=2014-05-01 00:00:01&category=Home goods&product_id=5' localhost:8000/api/v1.1/productdeals
 	 * @return Response
 	 */
 	public function store()
@@ -46,24 +49,65 @@ class APIController extends \BaseController {
 		$deal = new ProductDeal;
 
 		$input = Input::all();
+		$null_validated = true;
+		$product_validated = true;
+		$status = false; // false means OK! that we don't have a situation
 
-		(isset($input['price_discount'])) 	? $deal->price_discount 	= $input['price_discount'] 	: null;
-		(isset($input['terms'])) 			? $deal->terms 				= $input['terms'] 			: null;
-		(isset($input['expires_time'])) 	? $deal->expires_time 		= $input['expires_time'] 	: null;
-		(isset($input['begins_time'])) 		? $deal->begins_time 		= $input['begins_time'] 	: null;
-		(isset($input['category'])) 		? $deal->category 			= $input['category'] 		: null;
-		(isset($input['product_id'])) 		? $deal->product_id 		= $input['product_id'] 		: null;
- 
-		$status = !$deal->save();
+		$validator = Validator::make($input, ProductDeal::$rules);
+		$validated = $validator->passes();
+
+		foreach($input as $key => $val) 
+		{
+			// if any keys have a null value, then validation has failed
+			if (!isset($input[$key]) || $input[$key] == null) { $null_validated = false; break; }
+
+			// check that each of these fields are set
+			if (!isset($input['price_discount']))	{ $null_validated = false; break; }
+			if (!isset($input['terms']))			{ $null_validated = false; break; }
+			if (!isset($input['expires_time']))		{ $null_validated = false; break; }
+			if (!isset($input['begins_time']))		{ $null_validated = false; break; }
+			if (!isset($input['category']))			{ $null_validated = false; break; }
+			if (!isset($input['product_id']))		{ $null_validated = false; break; }
+		}
+ 	
+ 		if ($null_validated) {
+	 		$deal->price_discount 	= $input['price_discount'];
+			$deal->terms 			= $input['terms'];
+			$deal->expires_time 	= $input['expires_time'];
+			$deal->begins_time 		= $input['begins_time'];
+			$deal->category 		= $input['category'];
+			$deal->product_id 		= $input['product_id'];
+
+			// must check for a product
+			$product = Product::find($input['product_id']);
+			if (!isset($product)) $product_validated = false;
+
+			if ($product_validated)
+				$status = !$deal->save();
+			else 
+				$status = false; // for now, when product validation fails, set this as false (to mean that everything's fine); we'll use the $product_validated variable to check later
+
+ 		} else {
+			$status = true; // we have a situation
+ 		}
 
 		$response = array('status' => $status, 'message' => null, 'deal' => null);
 
+		$response['deal'] = [
+					'input provided was' => $input, 
+					'product_id ok?' => $product_validated,
+					'validation passed?' => $validated,
+					'validation messages' => array($validator->messages()->all())
+			];
+
+		// if we have a situation...
 		if ($status) {
-			$response['message'] = 'cannot create record';
+			$response['message'] = "cannot create record; check that a value exists for 'price_discount', 'terms', 'expires_time', 'begins_time', 'category', 'product_id' ";
+		// if we cannot find a valid product (based on 'product_id')
+		} else if (!$product_validated) {
+			$response['message'] = "cannot create record; product_id supplied is invalid (must already exist; use web interface to enter new products)";
 		} else {
 			$response['message'] = 'record was created';
-			$response['deal'] = $input;
-			// $response['deal'] = $input['price_discount'];
 		}
 
 		return Response::json($response, 200);

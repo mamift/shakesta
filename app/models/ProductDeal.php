@@ -3,7 +3,12 @@
 class ProductDeal extends \Eloquent {
 	// validation rules here
 	public static $rules = [
-		// 'title' => 'required'
+		'price_discount'  	=> 'required',
+		'terms' 		 	=> 'required',
+		'expires_time' 	 	=> 'required',
+		'begins_time' 	 	=> 'required',
+		'category' 		 	=> 'required',
+		'product_id' 	 	=> 'required'
 	];
 
 	// hidden
