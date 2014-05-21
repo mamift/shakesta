@@ -22,23 +22,27 @@ Route::get('/authtest', array
 	)
 );
 
-/** this was for the test API **/
+/** this was for the test API */
 // route group for API versioning, this will setup a response for http://example.com/api/v1/url
 Route::group(array('prefix' => 'api/v1', 'before' => 'auth.basic'), function()
 {
     Route::resource('url', 'UrlController');
 });
-/** end test API **/
+/** end test API */
 
-/** this is the real API **/
-// route group for API versioning, this will setup a response for http://example.com/api/v1.1/url
+/** this is the real API */
+// route group for API versioning, this will setup a response for http://example.com/api/v1.1/deal
+/** list of routes:
+	/api/v1.1/productdeals
+	/api/v1.1/dealsonly
+*/
 Route::group(array('prefix' => 'api/v1.1', 'before' => 'auth.basic'), function()
 {
 	Route::get('dealsonly', 'APIController@dealsindex'); // see the dealsindex() function inside the \APIController class
-    Route::resource('deal', 'APIController');
+    Route::resource('productdeals', 'APIController');
 });
 
-/** end real API **/
+/** end real API */
 
 Route::resource('deals', 'DealsController');
 

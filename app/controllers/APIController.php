@@ -11,7 +11,7 @@ class APIController extends \BaseController {
 	{
 		$deals = ProductDeal::all();
 
-		return Response::json($deals);
+		return Response::json($deals->toArray(), 200);
 	}
 
 	/**
@@ -23,7 +23,7 @@ class APIController extends \BaseController {
 	{
 		$deals = Deal::all();
 
-		return Response::json($deals);
+		return Response::json($deals->toArray(), 200);
 	}
 
 	/**
@@ -38,27 +38,34 @@ class APIController extends \BaseController {
 
 	/**
 	 * Store a newly created resource in storage.
-	 *
+	 * $fillable = ['price_discount','terms','expires_time','begins_time','category','product_id'];
 	 * @return Response
 	 */
 	public function store()
 	{
 		$deal = new ProductDeal;
-		$deal->deal = Request::get('deal');
-		$deal->description = Request::get('description');
-		$deal->user_id = Auth::user()->id;
+		// $deal->deal = Request::get('deal');
+ 
+		if (Request::get('deal')) {
+			$deal->deal = Request::get('deal');
+		}
 
-		// validation and filtering done here
+		if (Request::get('description')) {
+			$deal->description = Request::get('description');
+		}
 
-		$deal->save();
+		if (isset($deal)) 
+			$status = $deal->save();
 
-		return Response::json(array
-		(
-			'error' => false,
-			// 'deals' => $deal->toArray()),
-			'message' => 'deal created'),
-			200
-		);
+		$response = array('status' => $status, 'message' => null);
+
+		if ($status) {
+			$response['message'] = 'cannot create record';
+		} else {
+			$response['message'] = 'record was created';
+		}
+
+		return Response::json($response, 200);
 	}
 
 	/**
@@ -69,7 +76,19 @@ class APIController extends \BaseController {
 	 */
 	public function show($id)
 	{
-		//
+		$deal = ProductDeal::find($id);
+
+		$status = isset($deal);
+		$response = array('status' => $status, 'message' => null, 'deal' => null);
+
+		if ($status) {
+			$response['message'] = 'cannot find record';
+		} else {
+			$response['message'] = 'record was found';
+			$response['deal'] = $deal;
+		}
+
+		return Response::json($response, 200);
 	}
 
 	/**
@@ -80,7 +99,7 @@ class APIController extends \BaseController {
 	 */
 	public function edit($id)
 	{
-		//
+		//not needed
 	}
 
 	/**
@@ -91,7 +110,28 @@ class APIController extends \BaseController {
 	 */
 	public function update($id)
 	{
-		//
+		$deal = ProductDeal::find($id);
+ 
+		if (Request::get('deal')) {
+			$deal->deal = Request::get('deal');
+		}
+
+		if (Request::get('description')) {
+			$deal->description = Request::get('description');
+		}
+
+		if (isset($deal)) 
+			$status = $deal->save();
+
+		$response = array('status' => $status, 'message' => null);
+
+		if ($status) {
+			$response['message'] = 'cannot update record';
+		} else {
+			$response['message'] = 'record was updated';
+		}
+
+		return Response::json($response, 200);
 	}
 
 	/**
@@ -102,7 +142,19 @@ class APIController extends \BaseController {
 	 */
 	public function destroy($id)
 	{
-		//
+		$deal = ProductDeal::find($id);
+
+		$status = isset($deal);
+		$response = array('status' => $status, 'message' => null);
+
+		if ($status) {
+			$response['message'] = 'cannot delete record';
+		} else {
+			$response['message'] = 'record was deleted';
+			$deal->delete();
+		}
+
+		return Response::json($response, 200);
 	}
 
 }

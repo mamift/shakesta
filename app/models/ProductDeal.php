@@ -7,7 +7,7 @@ class ProductDeal extends \Eloquent {
 	];
 
 	// hidden
-	protected $hidden = ['id','created_at','updated_at'];
+	protected $hidden = ['created_at','updated_at'];
 
 	protected $table = 'product_deals';
 	protected $primaryKey = 'id';
@@ -16,10 +16,10 @@ class ProductDeal extends \Eloquent {
 	public $incrementing = true;
 
 	// these fields are mass-assignable
-	protected $fillable = ['price_discount','terms','expires_time','begins_time','category'];
+	protected $fillable = ['price_discount','terms','expires_time','begins_time','category','product_id'];
 
 	// these fields aren't
-	protected $guarded = ['id'];
+	protected $guarded = ['id','product_title','product_description','original_price','image_url'];
 
 	// custom attributes
 	protected $appends = [];
