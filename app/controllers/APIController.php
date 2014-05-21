@@ -3,11 +3,23 @@
 class APIController extends \BaseController {
 
 	/**
-	 * Display a listing of the resource.
+	 * Display a listing of the resource. Returns data from the 'product_deals' database view.
 	 *
 	 * @return Response
 	 */
 	public function index()
+	{
+		$deals = ProductDeal::all();
+
+		return Response::json($deals);
+	}
+
+	/**
+	 * Returns only data from the 'deal' table.
+	 * 
+	 * @return Response
+	 */
+	public function dealsindex()
 	{
 		$deals = Deal::all();
 
@@ -31,7 +43,22 @@ class APIController extends \BaseController {
 	 */
 	public function store()
 	{
-		//
+		$deal = new ProductDeal;
+		$deal->deal = Request::get('deal');
+		$deal->description = Request::get('description');
+		$deal->user_id = Auth::user()->id;
+
+		// validation and filtering done here
+
+		$deal->save();
+
+		return Response::json(array
+		(
+			'error' => false,
+			// 'deals' => $deal->toArray()),
+			'message' => 'deal created'),
+			200
+		);
 	}
 
 	/**
