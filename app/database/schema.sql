@@ -86,4 +86,8 @@ ALTER TABLE `retailer` ADD `title` TINYTEXT NULL AFTER `retailer_id`;
 INSERT INTO `shakesta`.`user` (`user_id`, `username`, `password`, `retailer_id`, `created_at`, `updated_at`) VALUES ('1', 'admin', '$2y$10$G52UpoIxmzf7ZkOgvP4T6eX6hdm2SuXnHUpV67GwCBRbR6zfWr2nK', NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00');
 
 ALTER TABLE `user` ADD `email` MEDIUMTEXT NULL AFTER `password`;
+ALTER TABLE `product` ADD `image_url` TEXT NULL AFTER `image`;
+
+ALTER TABLE `shakesta`.`deal` DROP INDEX `product_id`, ADD INDEX `product_id` (`product_id`)COMMENT '';
+
 

@@ -28,6 +28,11 @@ Route::group(array('prefix' => 'api/v1', 'before' => 'auth.basic'), function()
     Route::resource('url', 'UrlController');
 });
 
+// route group for API versioning, this will setup a response for http://example.com/api/v1.1/url
+Route::group(array('prefix' => 'api/v1.1', 'before' => 'auth.basic'), function()
+{
+    Route::resource('deal', 'APIController');
+});
 
 Route::resource('deals', 'DealsController');
 

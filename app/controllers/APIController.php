@@ -9,7 +9,9 @@ class APIController extends \BaseController {
 	 */
 	public function index()
 	{
-		//
+		$deals = Deal::all();
+
+		return Response::json($deals);
 	}
 
 	/**
