@@ -38,8 +38,10 @@ Route::group(array('prefix' => 'api/v1', 'before' => 'auth.basic'), function()
 */
 Route::group(array('prefix' => 'api/v1.1', 'before' => 'auth.basic'), function()
 {
-	Route::get('dealsonly', 'APIController@dealsindex'); // see the dealsindex() function inside the \APIController class
-    Route::resource('productdeals', 'APIController');
+	Route::get('current_deals', 'APIController@index_unexpired_deals');
+	Route::get('todays_deals', 'APIController@index_todays_deals');
+	Route::get('weekly_deals', 'APIController@index_thisweeks_deals');
+    Route::resource('deals', 'APIController');
 });
 
 /** end real API */
