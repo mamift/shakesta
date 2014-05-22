@@ -5,7 +5,7 @@ class APIController extends \BaseController {
 	/**
 	 * Returns all records from the 'product_deals' database view.
 	 *
-	 * @return Response
+	 * @return JSON Response
 	 */
 	public function index()
 	{
@@ -17,7 +17,7 @@ class APIController extends \BaseController {
 	/**
 	 * Returns only records from the 'product_deals' database view where deals have not expired (i.e. expired_datetime is before current date/time)
 	 *
-	 * @return Response
+	 * @return JSON Response
 	 */
 	public function index_unexpired_deals()
 	{
@@ -29,7 +29,7 @@ class APIController extends \BaseController {
 	/**
 	 * Returns records from the 'product_deals' database view where deals only begun today (i.e. expired_datetime is before current date/time)
 	 *
-	 * @return Response
+	 * @return JSON Response
 	 */
 	public function index_todays_deals()
 	{
@@ -41,7 +41,7 @@ class APIController extends \BaseController {
 	/**
 	 * Returns records from the 'product_deals' database view where deals only begun at the beginning of this week (from Monday of the current week) (i.e. begun_datetime is after the date of this week's Monday)
 	 *
-	 * @return Response
+	 * @return JSON Response
 	 */
 	public function index_thisweeks_deals()
 	{
@@ -54,7 +54,7 @@ class APIController extends \BaseController {
 	/**
 	 * Returns only data from the 'deal' table; (so no product information provided)
 	 * 
-	 * @return Response
+	 * @return JSON Response
 	 */
 	public function index_deals_only()
 	{
@@ -64,23 +64,23 @@ class APIController extends \BaseController {
 	}
 
 	/**
-	 * Show the form for creating a new resource.
+	 * Unneeded method.
 	 *
 	 * @return Response
 	 */
 	public function create()
 	{
-		//
+		//not needed
 	}
 
 	/**
-	 * Store a newly created resource in storage.
+	 * Used to create a new record in the 'product_deals' database view. Cannot be used to create a new product, only deals. Must specify all fields in the deals table, including product_id so a product must already exist. 
 	 * $fillable = ['price_discount','terms','expires_time','begins_time','category','product_id'];
 	 * test with: 
 	 * (fail test 1) curl -i --user admin:gizmoe99 -d 'price_discount=0.5&terms=blah blah' localhost:8000/api/v1.1/productdeals
 	 * (fail test 2) curl -i --user admin:gizmoe99 -d 'price_discount=0.5&terms=blah blah&expires_time=2014-05-31 05:12:00&begins_time=2014-05-01 00:00:01&category=Home goods&product_id=99' localhost:8000/api/v1.1/productdeals
 	 * (success test) curl -i --user admin:gizmoe99 -d 'price_discount=0.5&terms=blah blah&expires_time=2014-05-31 05:12:00&begins_time=2014-05-01 00:00:01&category=Home goods&product_id=5' localhost:8000/api/v1.1/productdeals
-	 * @return Response
+	 * @return JSON Response indicating if the record was successfully created.
 	 */
 	public function store()
 	{
@@ -152,10 +152,10 @@ class APIController extends \BaseController {
 	}
 
 	/**
-	 * Display the specified resource.
+	 * Display JSON representation of a deal from the product_deals database view.
 	 *
 	 * @param  int  $id
-	 * @return Response
+	 * @return JSON Response of a deal
 	 */
 	public function show($id)
 	{
@@ -175,7 +175,7 @@ class APIController extends \BaseController {
 	}
 
 	/**
-	 * Show the form for editing the specified resource.
+	 * Unneeded method.
 	 *
 	 * @param  int  $id
 	 * @return Response
@@ -186,13 +186,13 @@ class APIController extends \BaseController {
 	}
 
 	/**
-	 * Update the specified resource in storage.
+	 * Update a record by deal ID in the 'products_deal' database view. Can only be used to update deal information and not products information. Use the web interface for that.
 	 * test cases:
 	 * (success) curl -i -X PUT --user admin:gizmoe99 -d 'expires_time=2014-05-31 05:12:00&begins_time=2014-05-01 00:00:01' localhost:8000/api/v1.1/deals/5
 	 * (fail) curl -i -X PUT --user admin:gizmoe99 -d 'expires_time=2014-05-31 05:12:00&begins_time=2014-05-01 00:00:01' localhost:8000/api/v1.1/deals/99
 	 *
 	 * @param  int  $id
-	 * @return Response
+	 * @return JSON Response indicating whether the specified record was updated or not.
 	 */
 	public function update($id)
 	{
@@ -230,10 +230,10 @@ class APIController extends \BaseController {
 	}
 
 	/**
-	 * Remove the specified resource from storage.
+	 * Remove a record from the database by ID number.
 	 *
 	 * @param  int  $id
-	 * @return Response
+	 * @return JSON Response containing a message indicating if the record was successfully deleted or not.
 	 */
 	public function destroy($id)
 	{
