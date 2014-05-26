@@ -90,4 +90,7 @@ ALTER TABLE `product` ADD `image_url` TEXT NULL AFTER `image`;
 
 ALTER TABLE `shakesta`.`deal` DROP INDEX `product_id`, ADD INDEX `product_id` (`product_id`)COMMENT '';
 
+/* http://laravel.com/docs/security#configuration */
+ALTER TABLE `user` ADD `remember_token` VARCHAR(100) NULL AFTER `retailer_id`;
+
 
