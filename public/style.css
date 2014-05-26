@@ -67,6 +67,10 @@ a:active {color:black;}  /* selected link */
 	margin-bottom: 20px;
 }
 
+.nav li ul li {
+	list-style-type: disc;
+}
+
 .content
 {
     

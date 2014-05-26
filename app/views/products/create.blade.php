@@ -36,9 +36,9 @@
 						</td>
 					</tr>
 					<tr>
-						<td>{{ Form::label('_retailer_id', 'For Retailer: ') }} <br/>(retailer must already exist)</td>
+						<td>{{ Form::label('retailer_id', 'For Retailer: ') }} <br/>(retailer must already exist)</td>
 						<td>
-							{{ Form::select('_retailer_id', ['RETAILER_ID'], 'RETAILER_ID', ['disabled' => 'disabled']) }}
+							{{ Form::select('retailer_id', $all_retailers, $retailer_id, ['disabled' => 'disabled']) }}
 						</td>
 					</tr>
 					<tr>

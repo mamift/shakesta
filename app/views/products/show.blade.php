@@ -50,6 +50,7 @@
 					<tr>
 						<td colspan="2" class="image-td-span">
 							<img src="/images/hive-logo.png" />
+							<br/>(no image set)
 						</td>
 					</tr>
 					<!-- <tr>

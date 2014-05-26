@@ -17,7 +17,7 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 	 *
 	 * @var array
 	 */
-	protected $hidden = ['password'];
+	protected $hidden = ['password','remember_token','created_at','updated_at'];
 
 	/**
 	 * Get the unique identifier for the user.
@@ -95,7 +95,7 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 	// these fields aren't
 	protected $guarded = ['user_id','retailer_id'];
 
-	protected $appends = array('created_at_datetime','updated_at_datetime','id','user_type');
+	protected $appends = ['created_at_datetime','updated_at_datetime','id','user_type'];
 
 	public function getCreatedAtDatetimeAttribute() {
 		return date("l jS F Y h:i:s A", strtotime($this->attributes['created_at']));
@@ -114,5 +114,11 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 		$retailer_id_set = (isset($this->attributes['retailer_id']) || $this->attributes['retailer_id'] > 0);
 
 		return ($retailer_id_set ? 'retailer' : 'admin');
+	}
+
+	// user has one retailer
+	public function retailer() 
+	{	
+		return $this->belongsTo('Retailer','retailer_id');
 	}
 }

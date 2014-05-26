@@ -26,7 +26,7 @@
 				<td>{{ $product->product_id }}</td>
 				<td><a href="{{ URL::route('products.show', $product->product_id) }}">{{ $product->title }}</a></td>
 				<td>{{ $product->description }} </td>
-				<td>{{ $product->retail_id }}</td>
+				<td>{{ $product->retailer_id }}</td>
 				<td>{{ $product->retail_price }}</td>
 				<td>{{{ $product->image or 'None' }}}</td>
 				<td><a href="{{ URL::route('products.edit', $product->product_id) }}">Edit</a></td>

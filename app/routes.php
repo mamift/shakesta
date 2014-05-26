@@ -49,10 +49,12 @@ Route::group(array('prefix' => 'api/v1.1', 'before' => 'auth.basic'), function()
 });
 /** end real API */
 
-Route::resource('deals', 'DealsController');
-Route::resource('products', 'ProductsController');
-Route::resource('retailers', 'RetailersController');
-Route::resource('users', 'UsersController');
+Route::group(['before' => 'auth'], function() {
+	Route::resource('deals', 'DealsController');
+	Route::resource('products', 'ProductsController');
+	Route::resource('retailers', 'RetailersController');
+	Route::resource('users', 'UsersController');
+});
 
 Route::get('/', function()
 {

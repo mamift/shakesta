@@ -47,9 +47,18 @@
 
 			@elseif (Auth::user()->user_type === 'retailer')
 
-			<li><a href="/deals">View My Deals</a></li>
-			<li><a href="/user-createdeal">Create Deal</a></li>
+			<li><a href="/deals">View My Deals</a>
+				<ul>
+					<li><a href="/deals/create">Create Deal</a></li>
+				</ul>
+			</li>
+			
 
+			<li><a href="/products">View My Products</a>
+				<ul>
+					<li><a href="/products/create">Create Product</a></li>
+				</ul>
+			</li>
 			@endif
 			
 			<li><a href="/user-logout">Logout</a></li>

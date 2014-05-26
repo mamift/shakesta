@@ -11,7 +11,7 @@ class Retailer extends \Eloquent {
 	protected $fillable = ['title','description'];
 
 	// hidden
-	protected $hidden = ['retailer_id'];
+	protected $hidden = ['retailer_id','created_at','updated_at'];
 
 	protected $table = 'retailer';
 	protected $primaryKey = 'retailer_id';

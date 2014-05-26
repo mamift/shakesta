@@ -36,9 +36,9 @@
 						</td>
 					</tr>
 					<tr>
-						<td>{{ Form::label('_retailer_id', 'For Retailer: ') }} <br/>(retailer must already exist)</td>
+						<td>{{ Form::label('retailer_id', 'For Retailer: ') }} <br/>(retailer must already exist)</td>
 						<td>
-							{{ Form::select('_retailer_id', ['RETAILER_ID'], 'RETAILER_ID', ['disabled' => 'disabled']) }}
+							{{ Form::select('retailer_id', $all_retailers, $product->retailer_id, ['disabled' => 'disabled']) }}
 						</td>
 					</tr>
 					<tr>
@@ -56,6 +56,7 @@
 						<td>{{ Form::label('image', 'Image') }}</td>
 						<td>{{ Form::file('image') }}</td>
 					</tr>
+					{{-- var_dump($all_retailers); --}}
 					<!-- <tr>
 						<td>Created </td>
 						<td>{{ Form::input('time', 'created_at', null, ['readonly' => 'readonly']) }}</td>

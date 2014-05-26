@@ -8,7 +8,6 @@ VIEW `retail_users` AS
         `user`.`username` AS `username`,
         `user`.`email` AS `email`,
         `user`.`retailer_id` AS `retailer_id`,
-		COUNT(*) AS `isAdmin`,
         `retailer`.`title` AS `retailer`,
         `retailer`.`description` AS `retailer_description`,
         `user`.`created_at` AS `created_at`,
