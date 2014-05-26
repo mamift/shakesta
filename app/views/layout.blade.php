@@ -34,24 +34,29 @@
 				@endif
 				</a>
 			</li>
-		@if (Auth::check())
-		
-			@if (Auth::user()->user_type === 'admin')
-			<li><a href="/users">Manage users</a></li>
-			@endif
 
-			@if (Auth::check())
+		@if (Auth::check())
+
+			@if (Auth::user()->user_type === 'admin')
+
+			<li><a href="/users">Manage Users</a></li>
+			<li><a href="/deals">Manage Deals</a></li>
+			<li><a href="/products">Manage Products</a></li>
+			<li><a href="/retailers">Manage Retailers</a></li>
+			<li><a href="/shops">Manage Shop Locations</a></li>
+
+			@elseif (Auth::user()->user_type === 'retailer')
+
 			<li><a href="/deals">View My Deals</a></li>
 			<li><a href="/user-createdeal">Create Deal</a></li>
+
 			@endif
-
-			<li><a href="/contact-us">Contact Us</a></li>
-
-			@if (Auth::check())
+			
 			<li><a href="/user-logout">Logout</a></li>
-			@endif
 
 		@endif
+
+			<li><a href="/contact-us">Contact Us</a></li>
 		</ul>
 	</div>
 	
