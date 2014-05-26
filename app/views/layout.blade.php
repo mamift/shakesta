@@ -25,14 +25,20 @@
 	<div class="nav">
 		<ul>	
 			<li><a href="/">Home</a></li>
-			<li><a href="/user-login">
-			
-			@if (Auth::check())	
-				User page
-			@else
-				Login
+			<li>
+				<a href="/user-login">
+				@if (Auth::check())	
+					User page
+				@else
+					Login
+				@endif
+				</a>
+			</li>
+		@if (Auth::check())
+		
+			@if (Auth::user()->user_type === 'admin')
+			<li><a href="/users">Manage users</a></li>
 			@endif
-			</a></li>
 
 			@if (Auth::check())
 			<li><a href="/deals">View My Deals</a></li>
@@ -44,6 +50,8 @@
 			@if (Auth::check())
 			<li><a href="/user-logout">Logout</a></li>
 			@endif
+
+		@endif
 		</ul>
 	</div>
 	

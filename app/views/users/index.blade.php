@@ -25,10 +25,13 @@
 				<td>{{ $user->email }} </td>
 				<td><a href="{{ URL::route('users.edit', $user->id) }}">Edit</a></td>
 				<td>
+					{{-- You can't delete the admin user --}}
+					@if (Auth::user()->user_type === 'admin' and $user->username !== 'admin')
 					{{ Form::open(['route' => ['users.destroy', $user->id], 'onSubmit' => 'return confirm_delete();']) }}
 						{{ Form::hidden('_method', 'DELETE') }}
 						{{ Form::submit('Delete') }}
 					{{ Form::close() }}
+					@endif
 				</td>
 			</tr>
     @endforeach

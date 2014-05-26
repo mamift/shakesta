@@ -93,9 +93,9 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 	public $incrementing = true;
 
 	// these fields aren't
-	protected $guarded = ['user_id'];
+	protected $guarded = ['user_id','retailer_id'];
 
-	protected $appends = array('created_at_datetime','updated_at_datetime','id');
+	protected $appends = array('created_at_datetime','updated_at_datetime','id','user_type');
 
 	public function getCreatedAtDatetimeAttribute() {
 		return date("l jS F Y h:i:s A", strtotime($this->attributes['created_at']));
@@ -107,5 +107,12 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 
 	public function getIdAttribute() {
 		return $this->attributes['user_id'];
+	}
+
+	// if a retailer_id is set in the user table, then this user record belongs to a regular 'retailer', otherwise it's an admin user
+	public function getUserTypeAttribute() {
+		$retailer_id_set = (isset($this->attributes['retailer_id']) || $this->attributes['retailer_id'] > 0);
+
+		return ($retailer_id_set ? 'retailer' : 'admin');
 	}
 }
