@@ -25,10 +25,25 @@
 	<div class="nav">
 		<ul>	
 			<li><a href="/">Home</a></li>
-			<li><a href="/user-login">Login</a></li>
+			<li><a href="/user-login">
+			
+			@if (Auth::check())	
+				User page
+			@else
+				Login
+			@endif
+			</a></li>
+
+			@if (Auth::check())
 			<li><a href="/deals">View My Deals</a></li>
 			<li><a href="/user-createdeal">Create Deal</a></li>
+			@endif
+
 			<li><a href="/contact-us">Contact Us</a></li>
+
+			@if (Auth::check())
+			<li><a href="/user-logout">Logout</a></li>
+			@endif
 		</ul>
 	</div>
 	

@@ -12,22 +12,26 @@
 */
 
 // authentication test using basic HTTP auth
-Route::get('/authtest', array
-	(
+Route::get('/httpauth_login', [
 		'before' => 'auth.basic', 
 		function() {
-		    // return View::make('hello');
 		    return "Hello! You successfully authenticated!";
 		}
-	)
+	]
 );
+
+Route::get('/httpauth_logout', function() 
+{
+	Auth::logout();
+	return Redirect::to('/');
+});
 
 /** this was for the test API */
 // route group for API versioning, this will setup a response for http://example.com/api/v1/url
-Route::group(array('prefix' => 'api/v1', 'before' => 'auth.basic'), function()
-{
-    Route::resource('url', 'UrlController');
-});
+// Route::group(array('prefix' => 'api/v1', 'before' => 'auth.basic'), function()
+// {
+//     Route::resource('url', 'UrlController');
+// });
 /** end test API */
 
 /** this is the real API */
@@ -43,15 +47,11 @@ Route::group(array('prefix' => 'api/v1.1', 'before' => 'auth.basic'), function()
 	Route::get('weekly_deals', 'APIController@index_thisweeks_deals');
     Route::resource('deals', 'APIController');
 });
-
 /** end real API */
 
 Route::resource('deals', 'DealsController');
-
 Route::resource('products', 'ProductsController');
-
 Route::resource('retailers', 'RetailersController');
-
 Route::resource('users', 'UsersController');
 
 Route::get('/', function()
@@ -59,10 +59,10 @@ Route::get('/', function()
 	return View::make('index');
 });
 
-Route::get('user-login', function() 
-{
-	return View::make('login');
-});
+// User authentication
+Route::get('user-login', ['uses' => 'AuthenticationController@index']);
+Route::get('user-logout', ['uses' => 'AuthenticationController@destroy']);
+Route::post('user-login', ['uses' => 'AuthenticationController@authenticate']);
 
 Route::get('user-viewdeals', function()
 {
