@@ -2,16 +2,31 @@
 
 class DealsController extends \BaseController {
 
+	private static function get_product($deal) {
+
+	}
+
+	private static function get_retailer($product) {
+		
+	}
+
 	/**
 	 * Display a listing of deals
 	 *
 	 * @return Response
 	 */
 	public function index()
-	{
-		$deals = Deal::all();
+	{	
+		$user_type = Auth::user()->user_type;
 
-		return View::make('deals.index', compact('deals'));
+		if  ($user_type == 'admin') {
+			$deals = ProductDealsRetailers::all();
+			return View::make('deals.index-admin', compact('deals'))->with('user_type', $user_type);
+
+		} else {
+			$deals = Deal::all();
+			return View::make('deals.index', compact('deals'))->with('user_type', $user_type);
+		}
 	}
 
 	/**
@@ -52,8 +67,14 @@ class DealsController extends \BaseController {
 	public function show($id)
 	{
 		$deal = Deal::findOrFail($id);
+		$product = [
+			'id' => $deal->product->product_id, 
+			'title' => $deal->product->product_id . ": " . $deal->product->title
+		];
 
-		return View::make('deals.show', compact('deal'));
+		$retailer = Retailer::findOrFail(1);
+
+		return View::make('deals.show', ['deal' => $deal, 'product' => $product, 'retailer' => $retailer]);
 	}
 
 	/**

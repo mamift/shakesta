@@ -117,8 +117,7 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 	}
 
 	// user has one retailer
-	public function retailer() 
-	{	
+	public function retailer() {	
 		return $this->belongsTo('Retailer','retailer_id');
 	}
 }

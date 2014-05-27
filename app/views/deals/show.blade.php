@@ -18,15 +18,17 @@
 				</thead>
 				<tbody>
 					<tr>
-						<td>{{ Form::label('deal_id', 'ID') }} <br/>(product must already exist)</td>
+						<td>{{ Form::label('deal_id', 'ID') }}</td>
 						<td>
 							{{ $deal->deal_id }}
 						</td>
 					</tr>
 					<tr>
-						<td>{{ Form::label('_product', 'For Product: ') }}</td>
+						<td>{{ Form::label('product', 'For Product: ') }}</td>
 						<td>
-							{{ Form::select('_product', ['PRODUCT_NAME'], 'PRODUCT_NAME', ['disabled' => 'disabled']) }}
+							<a href="{{ URL::route('products.show', $product['id']) }}">
+								{{ $product['title'] }}
+							</a>
 						</td>
 					</tr>
 					<tr>

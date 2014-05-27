@@ -8,7 +8,11 @@
 		<p>You are already logged in.</p>
 		<p>You are a <strong>{{ Auth::user()->user_type; }}</strong> user</p>
 		{{-- <p>Retailer: {{ Retailer::find(Auth::user()->retailer_id); }}</p> --}}
+		@if (Auth::user()->user_type === 'retailer')
 		<p>Retailer: {{ $retailer = User::find(Auth::user()->user_id)->retailer->title; }}</p>
+		@else
+		<p>You are an administrator and can manage other users.</p>
+		@endif
 		<p><a href="{{ URL::to('user-logout') }}">Click here to logout.</a></p>
 	@else
 	<h1>Login to Web App</h1>

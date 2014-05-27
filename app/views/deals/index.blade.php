@@ -6,6 +6,7 @@
 			return confirm("Are you sure about deleting this?");
 		}
 	</script>
+	<h1>Current Deals listed for {{ $retailer = User::find(Auth::user()->user_id)->retailer->title; }}</h1>
 	<table>
 		<thead>	
 			<tr>

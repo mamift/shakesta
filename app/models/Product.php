@@ -35,4 +35,8 @@ class Product extends \Eloquent {
 	public function getIdAttribute() {
 		return $this->attributes['product_id'];
 	}
+
+	public function retailer() {
+		return $this->belongsTo('Retailer','retailer_id');
+	}
 }

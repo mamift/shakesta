@@ -1,4 +1,6 @@
-﻿/**
+﻿
+
+/**
 Stylsheet for a custom formatted table
 **/
 .tabulus-form .image-td-span {
@@ -60,7 +62,7 @@ Stylsheet for a custom formatted table
 	
 	vertical-align: top;
 	
-	font-size: 9pt;
+	font-size: 8pt;
 	width: 100%;
 }
 .tabulus tr {
