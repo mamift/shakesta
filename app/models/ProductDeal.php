@@ -27,5 +27,13 @@ class ProductDeal extends \Eloquent {
 	protected $guarded = ['id','product_title','product_description','original_price','image_url'];
 
 	// custom attributes
-	protected $appends = [];
+	protected $appends = ['begins_date_time','expires_date_time'];
+
+	public function getBeginsDatetimeAttribute() {
+		return date("l jS F Y h:i:s A", strtotime($this->attributes['begins_time']));
+	}
+
+	public function getExpiresDatetimeAttribute() {
+		return date("l jS F Y h:i:s A", strtotime($this->attributes['expires_time']));	
+	}
 }

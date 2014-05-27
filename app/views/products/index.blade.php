@@ -6,6 +6,11 @@
 			return confirm("Are you sure about deleting this?");
 		}
 	</script>
+	@if (Auth::user()->user_type == 'retailer')
+	<h1>Current products for {{ Auth::user()->retailer->title }}</h1>
+	@else
+	<h1>All Products</h1>
+	@endif
 	<table>
 		<thead>	
 			<tr>

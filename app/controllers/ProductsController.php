@@ -2,8 +2,7 @@
 
 class ProductsController extends \BaseController {
 
-	private static function get_products() 
-	{
+	private static function get_products()  {
 		$user_type = Auth::user()->user_type;
 		$products = array();
 
@@ -19,8 +18,7 @@ class ProductsController extends \BaseController {
 		return $products;
 	}
 
-	private static function get_all_retailers_list() 
-	{
+	private static function get_all_retailers_list() {
 		$all_retailer_titles = DB::table('retailer')->lists('title','retailer_id');
 		$all_retailers = array();
 

@@ -6,6 +6,7 @@
 			return confirm("Are you sure about deleting this?");
 		}
 	</script>
+	<h1>All Retailers</h1>
 	<table>
 		<thead>	
 			<tr>

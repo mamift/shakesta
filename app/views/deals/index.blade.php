@@ -11,8 +11,8 @@
 		<thead>	
 			<tr>
 				<th>ID</th>
-				<th>P. ID</th>
-				<th>Price Discount %</th>
+				<th>Product</th>
+				<th>Price + Discount</th>
 				<th>Terms</th>
 				<th>Begins</th>
 				<th>Expires</th>
@@ -25,16 +25,24 @@
 	@if (count($deals) > 0)
     @foreach($deals as $deal)
 			<tr>
-				<td><a href="{{ URL::route('deals.show', $deal->deal_id) }}">{{ $deal->deal_id }}</a></td>
-				<td>{{ $deal->product_id }}</td>
-				<td>{{ $deal->price_discount }} </td>
-				<td>{{ $deal->terms }}</td>
-				<td>{{ $deal->begins_time }}</td>
-				<td>{{ $deal->expires_time }}</td>
-				<td>{{ $deal->category }}</td>
-				<td><a href="{{ URL::route('deals.edit', $deal->deal_id) }}">Edit</a></td>
+				<td><a href="{{ URL::route('deals.show', $deal->ID) }}">{{ $deal->id }}</a></td>
 				<td>
-					{{ Form::open(['route' => ['deals.destroy', $deal->deal_id], 'onSubmit' => 'return confirm_delete();']) }}
+					<a href="{{ URL::route('products.show', $deal->product_id) }}">
+						{{ $deal->product_id . ": " . $deal->product_title }}
+					</a>
+				</td>
+				<td>
+					Original: &dollar;{{ $deal->original_price }} <br />
+					Discount: {{ $deal->price_discount * 100 }} &percnt; <br/>
+					Deal price: &dollar;{{ $deal->original_price - ($deal->original_price * $deal->price_discount) }}
+				</td>
+				<td>{{ $deal->terms }}</td>
+				<td>{{ $deal->begins_datetime }}</td>
+				<td>{{ $deal->expires_datetime }}</td>
+				<td>{{ $deal->category }}</td>
+				<td><a href="{{ URL::route('deals.edit', $deal->id) }}">Edit</a></td>
+				<td>
+					{{ Form::open(['route' => ['deals.destroy', $deal->id], 'onSubmit' => 'return confirm_delete();']) }}
 						{{ Form::hidden('_method', 'DELETE') }}
 						{{ Form::submit('Delete') }}
 					{{ Form::close() }}

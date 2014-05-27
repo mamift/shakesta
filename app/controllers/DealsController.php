@@ -1,13 +1,21 @@
 <?php
 
 class DealsController extends \BaseController {
+	
+	private static function get_deals() {
+		$user_type = Auth::user()->user_type;
+		$deals = array();
 
-	private static function get_product($deal) {
+		if ($user_type === "admin") {
+			//show all deals
+			$deals = ProductDealsRetailers::all();
+		} else {
+			$retailer_id = User::find(Auth::user()->user_id)->retailer->id;
+			// show only deals that belongs to the user
+			$deals = ProductDealsRetailers::where('retailer_id','=', $retailer_id)->get();
+		}
 
-	}
-
-	private static function get_retailer($product) {
-		
+		return $deals;
 	}
 
 	/**
@@ -17,15 +25,12 @@ class DealsController extends \BaseController {
 	 */
 	public function index()
 	{	
-		$user_type = Auth::user()->user_type;
+		$deals = DealsController::get_deals();
 
-		if  ($user_type == 'admin') {
-			$deals = ProductDealsRetailers::all();
-			return View::make('deals.index-admin', compact('deals'))->with('user_type', $user_type);
-
+		if (Auth::user()->user_type === 'admin') {
+			return View::make('deals.index-admin', ['deals' => $deals]);
 		} else {
-			$deals = Deal::all();
-			return View::make('deals.index', compact('deals'))->with('user_type', $user_type);
+			return View::make('deals.index', ['deals' => $deals]);
 		}
 	}
 
