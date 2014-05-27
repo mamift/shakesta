@@ -39,9 +39,18 @@
 						</td>
 					</tr>
 					<tr>
-						<td>{{ Form::label('retailer_id', 'For Retailer: ') }} <br/>(retailer must already exist)</td>
 						<td>
+							{{ Form::label('retailer_id', 'For Retailer: ') }} <br/>
+						</td>
+						<td>
+							@if (Auth::user()->is_admin)
+							{{ Form::select('retailer_id', $all_retailers) }}
+							<a href="{{ URL::route('retailers.create') }}">
+							(Click here to create new retailer)
+							</a>
+							@else 
 							{{ Form::select('retailer_id', [$retailer_id => $all_retailers[$retailer_id]], $retailer_id) }}
+							@endif
 						</td>
 					</tr>
 					<tr>

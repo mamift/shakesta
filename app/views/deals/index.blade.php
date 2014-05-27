@@ -25,7 +25,7 @@
 	@if (count($deals) > 0)
     @foreach($deals as $deal)
 			<tr>
-				<td><a href="{{ URL::route('deals.show', $deal->ID) }}">{{ $deal->id }}</a></td>
+				<td><a href="{{ URL::route('deals.show', $deal->id) }}">{{ $deal->id }}</a></td>
 				<td>
 					<a href="{{ URL::route('products.show', $deal->product_id) }}">
 						{{ $deal->product_id . ": " . $deal->product_title }}
@@ -37,7 +37,7 @@
 					Deal price: &dollar;{{ $deal->original_price - ($deal->original_price * $deal->price_discount) }}
 				</td>
 				<td>{{ $deal->terms }}</td>
-				<td>{{ $deal->begins_datetime }}</td>
+				<td><a href="{{ URL::route('deals.show', $deal->id) }}">{{ $deal->begins_datetime }}</a></td>
 				<td>{{ $deal->expires_datetime }}</td>
 				<td>{{ $deal->category }}</td>
 				<td><a href="{{ URL::route('deals.edit', $deal->id) }}">Edit</a></td>

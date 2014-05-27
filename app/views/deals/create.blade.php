@@ -20,19 +20,31 @@
 					<tr>
 						<td>{{ Form::label('deal_id', 'ID') }}</td>
 						<td>
-							{{ Form::input('text', 'deal_id', 'AUTO_INCREMENT', ['readonly' => 'readonly']) }}
+							{{ Form::input('text', 'deal_id', $new_id, ['readonly' => 'readonly']) }}
 						</td>
 					</tr>
 					<tr>
-						<td>{{ Form::label('_product', 'For Product: ') }} <br/>(product must already exist)</td>
 						<td>
-							{{ Form::select('_product', ['PRODUCT_NAME'], 'PRODUCT_NAME', ['disabled' => 'disabled']) }}
+							{{ Form::label('product_id', 'For Product: ') }} 
+						</td>
+						<td>
+							{{ Form::select('product_id', $all_products) }}
+							@if (Auth::user()->is_admin)
+							<br />
+							<a href="{{ URL::route('products.create') }}">
+							(Click here to create new product)
+							</a>
+							@endif
+							@if ($errors->first('product_id'))
+								<span class="error">{{ $title_message = $errors->first('product_id') }}</span>
+							@endif
 						</td>
 					</tr>
 					<tr>
 						<td>{{ Form::label('price_discount', 'Price Discount') }} </td>
 						<td>
-							{{ Form::input('number', 'price_discount') }}
+							&percnt; {{ Form::input('number', 'price_discount') }} 
+							Enter as percentage (e.g 50 for 50 &percnt;)
 						</td>
 					</tr>
 					<tr>

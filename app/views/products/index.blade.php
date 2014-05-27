@@ -17,7 +17,7 @@
 				<th>ID</th>
 				<th>Title</th>
 				<th>Description</th>
-				<th>R.ID</th>
+				<th>Retailer</th>
 				<th>Retail Price</th>
 				<th>Image</th>
 				<th>Edit</th>
@@ -31,8 +31,8 @@
 				<td>{{ $product->product_id }}</td>
 				<td><a href="{{ URL::route('products.show', $product->product_id) }}">{{ $product->title }}</a></td>
 				<td>{{ $product->description }} </td>
-				<td>{{ $product->retailer_id }}</td>
-				<td>{{ $product->retail_price }}</td>
+				<td>{{ $product->retailer->title }}</td>
+				<td>&dollar;{{ $product->retail_price }}</td>
 				<td>{{{ $product->image or 'None' }}}</td>
 				<td><a href="{{ URL::route('products.edit', $product->product_id) }}">Edit</a></td>
 				<td>

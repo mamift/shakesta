@@ -52,8 +52,13 @@ class ProductsController extends \BaseController {
 		$new_id = $latest_product->product_id + 1;
 
 		$all_retailers = ProductsController::get_all_retailers_list();
-		return View::make('products.create', ['retailer_id' => Auth::user()->retailer_id, 'new_id' => $new_id])
+
+		if (Auth::user()->is_admin) {
+			return View::make('products.create', ['all_retailers' => $all_retailers, 'new_id' => $new_id]);
+		} else {
+			return View::make('products.create', ['retailer_id' => Auth::user()->retailer_id, 'new_id' => $new_id])
 												->with('all_retailers', $all_retailers);
+		}
 	}
 
 	/**

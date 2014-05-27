@@ -4,7 +4,7 @@ class Deal extends Eloquent {
 	
 	// validation rules here
 	public static $rules = [
-		// 'title' => 'required'
+		'product_id' => 'required'
 	];
 
 	// hidden
@@ -17,7 +17,7 @@ class Deal extends Eloquent {
 	public $incrementing = true;
 
 	// these fields are mass-assignable
-	protected $fillable = ['price_discount','terms','expires_time','begins_time','category'];
+	protected $fillable = ['price_discount','terms','expires_time','begins_time','category','product_id'];
 
 	// these fields aren't
 	protected $guarded = ['deal_id'];

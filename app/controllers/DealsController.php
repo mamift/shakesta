@@ -2,7 +2,7 @@
 
 class DealsController extends \BaseController {
 	
-	private static function get_deals() {
+	private static function get_deals_list() {
 		$user_type = Auth::user()->user_type;
 		$deals = array();
 
@@ -18,6 +18,30 @@ class DealsController extends \BaseController {
 		return $deals;
 	}
 
+	private static function get_products_list() {
+		$is_admin = Auth::user()->is_admin;
+		$all_product_titles = DB::table('product_retailers')->lists('title','product_id');
+		$all_product_retailers = DB::table('product_retailers')->lists('retailer','product_id');
+		$all_products = array();
+
+		// only retrieve products that belong to the current user (retailer)
+		if (!$is_admin) {
+			$retailer_id = User::find(Auth::user()->user_id)->retailer->retailer_id;
+			$all_product_titles = DB::table('product')->where('retailer_id','=', $retailer_id)->lists('title','product_id');
+		}
+
+		// this loop just adds the primary key to the product title.
+		foreach ($all_product_titles as $key => $val) {
+			if ($is_admin) $all_products[$key] = "Retailer: " . $all_product_retailers[$key] . ", Product: " . $key . ", " . $val; 
+			else $all_products[$key] = "" . $key . ": " . $val;
+		}
+
+		// var_dump($all_products);
+		// exit();
+
+		return $all_products;
+	}
+
 	/**
 	 * Display a listing of deals
 	 *
@@ -25,7 +49,7 @@ class DealsController extends \BaseController {
 	 */
 	public function index()
 	{	
-		$deals = DealsController::get_deals();
+		$deals = DealsController::get_deals_list();
 
 		if (Auth::user()->user_type === 'admin') {
 			return View::make('deals.index-admin', ['deals' => $deals]);
@@ -41,7 +65,17 @@ class DealsController extends \BaseController {
 	 */
 	public function create()
 	{
-		return View::make('deals.create');
+		$latest_deal = DB::table('deal')->orderBy('deal_id','desc')->first();
+		$new_id = $latest_deal->deal_id + 1;
+
+		$all_products = DealsController::get_products_list();
+
+		if (Auth::user()->is_admin) {
+			return View::make('deals.create', ['all_products' => $all_products, 'new_id' => $new_id]);
+		} else {
+			return View::make('deals.create', ['retailer_id' => Auth::user()->retailer_id, 'new_id' => $new_id])
+												->with('all_products', $all_products);
+		}
 	}
 
 	/**
