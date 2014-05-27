@@ -38,7 +38,7 @@
 					<tr>
 						<td>{{ Form::label('_retailer_id', 'Retailer: ') }} <br/></td>
 						<td>
-							{{ $product->retailer_id }}
+							{{ $all_retailers[$product->retailer_id] }}
 						</td>
 					</tr>
 					<tr>

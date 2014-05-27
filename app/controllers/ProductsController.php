@@ -2,17 +2,44 @@
 
 class ProductsController extends \BaseController {
 
+	private static function get_products() 
+	{
+		$user_type = Auth::user()->user_type;
+		$products = array();
+
+		if ($user_type === "admin") {
+			//show all products
+			$products = Product::all();
+		} else {
+			$retailer_id = User::find(Auth::user()->user_id)->retailer->id;
+			// show only products that belongs to the user
+			$products = Product::where('retailer_id','=', $retailer_id)->get();
+		}
+
+		return $products;
+	}
+
+	private static function get_all_retailers_list() 
+	{
+		$all_retailer_titles = DB::table('retailer')->lists('title','retailer_id');
+		$all_retailers = array();
+
+		// this loop just adds the primary key to the retailer title.
+		foreach ($all_retailer_titles as $key => $val) {
+			$all_retailers[$key] = "" . $key . ": " . $val;
+		}
+
+		return $all_retailers;
+	}
+
 	/**
 	 * Display a listing of products
 	 *
 	 * @return Response
 	 */
 	public function index()
-	{
-		$retailer_id = User::find(Auth::user()->user_id)->retailer->id;
-		// show only products that belongs to the user
-		$products = Product::where('retailer_id','=',$retailer_id)->get();
-
+	{	
+		$products = ProductsController::get_products();
 		return View::make('products.index', compact('products'));
 	}
 
@@ -23,14 +50,12 @@ class ProductsController extends \BaseController {
 	 */
 	public function create()
 	{
-		$all_retailer_titles = DB::table('retailer')->lists('title','retailer_id');
-		$all_retailers = array();
+		$latest_product = DB::table('product')->orderBy('product_id','desc')->first();
+		$new_id = $latest_product->product_id + 1;
 
-		$count = 1;
-		foreach ($all_retailer_titles as $key => $val) {
-			$all_retailers[$key] = "" . $key . ": " . $val;
-		}
-		return View::make('products.create', ['retailer_id' => Auth::user()->retailer_id])->with('all_retailers', $all_retailers);
+		$all_retailers = ProductsController::get_all_retailers_list();
+		return View::make('products.create', ['retailer_id' => Auth::user()->retailer_id, 'new_id' => $new_id])
+												->with('all_retailers', $all_retailers);
 	}
 
 	/**
@@ -61,13 +86,8 @@ class ProductsController extends \BaseController {
 	public function show($id)
 	{
 		$product = Product::findOrFail($id);
-		$all_retailer_titles = DB::table('retailer')->lists('title','retailer_id');
-		$all_retailers = array();
-
-		$count = 1;
-		foreach ($all_retailer_titles as $key => $val) {
-			$all_retailers[$key] = "" . $key . ": " . $val;
-		}
+		
+		$all_retailers = ProductsController::get_all_retailers_list();
 
 		return View::make('products.show', compact('product'))->with('all_retailers', $all_retailers);
 	}
@@ -80,15 +100,9 @@ class ProductsController extends \BaseController {
 	 */
 	public function edit($id)
 	{
-		$product = Product::find($id);
-		$all_retailer_titles = DB::table('retailer')->lists('title','retailer_id');
-		$all_retailers = array();
-
-		$count = 1;
-		foreach ($all_retailer_titles as $key => $val) {
-			$all_retailers[$key] = "" . $key . ": " . $val;
-		}
-
+		$product = Product::findOrFail($id);
+		
+		$all_retailers = ProductsController::get_all_retailers_list();
 
 		return View::make('products.edit', ['product' => $product])->with('all_retailers', $all_retailers);
 	}

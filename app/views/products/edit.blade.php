@@ -20,13 +20,16 @@
 					<tr>
 						<td>{{ Form::label('product_id', 'ID') }}</td>
 						<td>
-							{{ Form::input('text', 'product_id', 'AUTO_INCREMENT', ['readonly' => 'readonly']) }}
+							{{ Form::input('text', 'product_id', $product->product_id, ['readonly' => 'readonly']) }}
 						</td>
 					</tr>
 					<tr>
 						<td>{{ Form::label('title','Title:') }}</td>
 						<td>
 							{{ Form::text('title') }}
+							@if ($errors->first('title'))
+								<span class="error">{{ $title_message = $errors->first('title') }}</span>
+							@endif
 						</td>
 					</tr>
 					<tr>
@@ -44,7 +47,7 @@
 					<tr>
 						<td>{{ Form::label('retail_price','Retail Price:') }}</td>
 						<td>
-							{{ Form::input('number', 'retail_price') }}
+							&dollar; {{ Form::input('number', 'retail_price') }}
 						</td>
 					</tr>
 					<tr>

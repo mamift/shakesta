@@ -20,13 +20,16 @@
 					<tr>
 						<td>{{ Form::label('product_id', 'ID') }}</td>
 						<td>
-							{{ Form::input('text', 'product_id', 'AUTO_INCREMENT', ['readonly' => 'readonly']) }}
+							{{ Form::input('text', 'product_id', $new_id, ['readonly' => 'readonly']) }}
 						</td>
 					</tr>
 					<tr>
 						<td>{{ Form::label('title','Title:') }}</td>
 						<td>
 							{{ Form::text('title') }}
+							@if ($errors->first('title'))
+								<span class="error">{{ $title_message = $errors->first('title') }}</span>
+							@endif
 						</td>
 					</tr>
 					<tr>
@@ -38,7 +41,7 @@
 					<tr>
 						<td>{{ Form::label('retailer_id', 'For Retailer: ') }} <br/>(retailer must already exist)</td>
 						<td>
-							{{ Form::select('retailer_id', $all_retailers, $retailer_id, ['disabled' => 'disabled']) }}
+							{{ Form::select('retailer_id', [$retailer_id => $all_retailers[$retailer_id]], $retailer_id) }}
 						</td>
 					</tr>
 					<tr>
