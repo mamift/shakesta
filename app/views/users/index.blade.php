@@ -13,6 +13,7 @@
 				<th>ID</th>
 				<th>Username</th>
 				<th>E-mail</th>
+				<th>For retailer</th>
 				<th>Edit</th>
 				<th>Delete</th>
 			</tr>
@@ -24,6 +25,15 @@
 				<td>{{ $user->id }}</td>
 				<td><a href="{{ URL::route('users.show', $user->id) }}">{{ $user->username }}</a></td>
 				<td>{{ $user->email }} </td>
+				<td>
+					@if ($user->user_type === 'admin')
+						------
+					@else
+					<a href="{{ URL::route('retailers.show', $user->retailer->retailer_id )}}">
+						{{{ $user->retailer->title or "----" }}}
+					</a>
+					@endif
+				</td>
 				<td><a href="{{ URL::route('users.edit', $user->id) }}">Edit</a></td>
 				<td>
 					{{-- You can't delete the admin user --}}
@@ -38,13 +48,13 @@
     @endforeach
     @else
     	<tr>
-    		<td colspan="5" style="text-align: center;">No users here!</td>
+    		<td colspan="6" style="text-align: center;">No users here!</td>
     	</tr>
     @endif
 		</tbody>
 		<tfoot>
 			<tr>
-				<td colspan="5"><a href="{{ URL::route('users.create') }}">Create a new user</a></td>
+				<td colspan="6"><a href="{{ URL::route('users.create') }}">Create a new user</a></td>
 			</tr>
 		</tfoot>
 	</table>

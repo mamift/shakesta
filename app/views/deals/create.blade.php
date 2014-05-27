@@ -43,8 +43,8 @@
 					<tr>
 						<td>{{ Form::label('price_discount', 'Price Discount') }} </td>
 						<td>
-							&percnt; {{ Form::input('number', 'price_discount') }} 
-							Enter as percentage (e.g 50 for 50 &percnt;)
+							{{ Form::input('number', 'price_discount', null, ['step' => '0.01']) }} 
+							Enter as decimal (e.g 0.5 for 50 &percnt;)
 						</td>
 					</tr>
 					<tr>

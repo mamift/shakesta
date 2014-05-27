@@ -35,6 +35,12 @@
 							{{ Form::textarea('email') }}
 						</td>
 					</tr>
+					<tr>
+						<td>{{ Form::label('retailer_id','Retailer:') }}</td>
+						<td>
+							{{ Form::select('retailer_id', $retailers) }}
+						</td>
+					</tr>
 					<!-- <tr>
 						<td>Created </td>
 						<td>{{ Form::input('time', 'created_at', null, ['readonly' => 'readonly']) }}</td>

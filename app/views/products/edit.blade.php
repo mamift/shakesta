@@ -47,7 +47,7 @@
 					<tr>
 						<td>{{ Form::label('retail_price','Retail Price:') }}</td>
 						<td>
-							&dollar; {{ Form::input('number', 'retail_price') }}
+							&dollar; {{ Form::input('number', 'retail_price', null, ['step' => '0.01']) }}
 						</td>
 					</tr>
 					<tr>

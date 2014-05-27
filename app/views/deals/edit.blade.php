@@ -18,21 +18,22 @@
 				</thead>
 				<tbody>
 					<tr>
-						<td>{{ Form::label('deal_id', 'ID') }} <br/>(product must already exist)</td>
+						<td>{{ Form::label('deal_id', 'ID') }}</td>
 						<td>
-							{{ Form::input('text', 'deal_id', 'AUTO_INCREMENT', ['readonly' => 'readonly']) }}
+							{{ Form::input('text', 'deal_id', $deal->id, ['readonly' => 'readonly']) }}
 						</td>
 					</tr>
 					<tr>
-						<td>{{ Form::label('_product', 'For Product: ') }}</td>
+						<td>{{ Form::label('product_id', 'For Product: ') }}</td>
 						<td>
-							{{ Form::select('_product', ['PRODUCT_NAME'], 'PRODUCT_NAME', ['disabled' => 'disabled']) }}
+							{{ Form::select('product_id', [$deal->product->id => $deal->product->id . ": " .$deal->product->title], $deal->product->id) }}
 						</td>
 					</tr>
 					<tr>
 						<td>{{ Form::label('price_discount', 'Price Discount') }} </td>
 						<td>
-							{{ Form::input('number', 'price_discount') }}
+							{{ Form::input('number', 'price_discount', null, ['step' => '0.01']) }}
+							Enter as decimal (e.g 0.5 for 50 &percnt;)
 						</td>
 					</tr>
 					<tr>
@@ -43,11 +44,11 @@
 					</tr>
 					<tr>
 						<td>{{ Form::label('begins', 'Begins') }}</td>
-						<td>{{ Form::input('text', 'begins_time', '0000-00-00 00:00:00') }}</td>
+						<td>{{ Form::input('text', 'begins_time', $deal->begins_time) }}</td>
 					</tr>
 					<tr>
 						<td>{{ Form::label('expires', 'Expires') }}</td>
-						<td>{{ Form::input('text', 'expires_time', '0000-00-00 00:00:00') }}</td>
+						<td>{{ Form::input('text', 'expires_time', $deal->expires_time) }}</td>
 					</tr>
 					<tr>
 						<td>{{ Form::label('category', 'Category') }}</td>
