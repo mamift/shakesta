@@ -1,6 +1,6 @@
 <?php
 
-class ProductDeal extends \Eloquent {
+class ProductDeal extends \Deal {
 	// validation rules here
 	public static $rules = [
 		'price_discount'  	=> 'required',
@@ -27,7 +27,7 @@ class ProductDeal extends \Eloquent {
 	protected $guarded = ['id','product_title','product_description','original_price','image_url'];
 
 	// custom attributes
-	protected $appends = ['begins_date_time','expires_date_time'];
+	protected $appends = ['begins_date_time','expires_date_time','expiry_time'];
 
 	public function getBeginsDatetimeAttribute() {
 		$empty_datetime = new DateTime('0000-00-00 00:00:00');
@@ -49,5 +49,12 @@ class ProductDeal extends \Eloquent {
 			//l jS F Y h:i:s A for seconds
 			return date("l jS F Y h:i A", strtotime($this->attributes['expires_time']));
 		}
+	}
+
+	public function getExpiryTimeAttribute() {
+		$now_datetime = new DateTime('now');
+		$datetime = new DateTime($this->attributes['expires_time']);
+
+		return $now_datetime->diff($datetime)->format('%R%d days, %h hours, %s secs');
 	}
 }

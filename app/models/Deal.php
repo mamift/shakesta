@@ -23,7 +23,7 @@ class Deal extends Eloquent {
 	// these fields aren't
 	protected $guarded = ['deal_id'];
 
-	protected $appends = ['id','begins_datetime','expires_datetime'];
+	protected $appends = ['id','begins_datetime','expires_datetime','expiry_time'];
 
 	public function getIdAttribute() {
 		return $this->attributes['deal_id'];
@@ -49,6 +49,13 @@ class Deal extends Eloquent {
 			//l jS F Y h:i:s A for seconds
 			return date("l jS F Y h:i A", strtotime($this->attributes['expires_time']));
 		}
+	}
+
+	public function getExpiryTimeAttribute() {
+		$now_datetime = new DateTime('now');
+		$datetime = new DateTime($this->attributes['expires_time']);
+
+		return $now_datetime->diff($datetime)->format('%R%d days, %h hours, %s secs');
 	}
 
 	public function product() {
