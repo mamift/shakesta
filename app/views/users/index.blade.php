@@ -5,6 +5,9 @@
 	<table>
 		<thead>	
 			<tr>
+				<td colspan="6"><a href="{{ URL::route('users.create') }}">Create a new user</a></td>
+			</tr>
+			<tr>
 				<th>ID</th>
 				<th>Username</th>
 				<th>E-mail</th>

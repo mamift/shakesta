@@ -10,6 +10,9 @@
 	<table>
 		<thead>	
 			<tr>
+				<td colspan="10"><a href="{{ URL::route('deals.create') }}">Create a new deal</a></td>
+			</tr>
+			<tr>
 				<th>ID</th>
 				<th>Product</th>
 				<th>Price + Discount</th>

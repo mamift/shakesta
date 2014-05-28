@@ -43,7 +43,7 @@
 				<li><a href="/deals">Manage Deals</a></li>
 				<li><a href="/products">Manage Products</a></li>
 				<li><a href="/retailers">Manage Retailers</a></li>
-				<li><a href="/shops">Manage Shop Locations</a></li>
+				<!-- <li><a href="/shops">Manage Shop Locations</a></li> -->
 
 				@elseif (Auth::user()->user_type === 'retailer')
 

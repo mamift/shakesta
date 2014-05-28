@@ -39,6 +39,8 @@ class DealsController extends \BaseController {
 		// var_dump($all_products);
 		// exit();
 
+		$all_products["NULL"] = "(choose one)";
+
 		return $all_products;
 	}
 
@@ -98,7 +100,7 @@ class DealsController extends \BaseController {
 	 */
 	public function store()
 	{
-		$validator = Validator::make($data = Input::all(), Deal::$rules);
+		$validator = Validator::make($data = Input::all(), Deal::$create_rules);
 
 		if ($validator->fails())
 		{
@@ -152,7 +154,7 @@ class DealsController extends \BaseController {
 	{
 		$deal = Deal::findOrFail($id);
 
-		$validator = Validator::make($data = Input::all(), Deal::$rules);
+		$validator = Validator::make($data = Input::all(), Deal::$create_rules);
 
 		if ($validator->fails())
 		{

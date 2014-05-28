@@ -3,13 +3,17 @@
 class Deal extends Eloquent {
 	
 	// validation rules here
-	public static $rules = [
-		'product_id' => 'required',
-		'price_discount' => 'required|numeric|min:0.01|max:0.99'
+	public static $create_rules = [
+		'product_id' 		=> 'required|numeric',
+		'price_discount' 	=> 'required|numeric|min:0.01|max:0.99',
+		'terms' 		 	=> 'required',
+		'begins_time' 	 	=> 'required|date|date_format:"Y-m-d H:i:s"',
+		'expires_time' 	 	=> 'required|date|date_format:"Y-m-d H:i:s"|after:begins_time',
+		'category' 		 	=> 'required',
 	];
 
 	// hidden
-	protected $hidden = ['deal_id','created_at','updated_at'];
+	protected $hidden = ['deal_id','created_at','updated_at','begins_time','expires_time'];
 
 	protected $table = 'deal';
 	protected $primaryKey = 'deal_id';
@@ -23,7 +27,7 @@ class Deal extends Eloquent {
 	// these fields aren't
 	protected $guarded = ['deal_id'];
 
-	protected $appends = ['id','begins_datetime','expires_datetime','expiry_time'];
+	protected $appends = ['id','begins_datetime','expires_datetime','expiry_time','is_expired'];
 
 	public function getIdAttribute() {
 		return $this->attributes['deal_id'];
@@ -56,6 +60,15 @@ class Deal extends Eloquent {
 		$datetime = new DateTime($this->attributes['expires_time']);
 
 		return $now_datetime->diff($datetime)->format('%R%d days, %h hours, %s secs');
+	}
+
+	public function getIsExpiredAttribute() {
+		$now_datetime = new DateTime('now');
+		$datetime = new DateTime($this->attributes['expires_time']);
+
+		$is_expired = $now_datetime->diff($datetime)->format('%R%s') < 0 ? true : false;
+
+		return $is_expired;
 	}
 
 	public function product() {

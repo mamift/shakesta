@@ -10,6 +10,9 @@
 	<table>
 		<thead>	
 			<tr>
+				<td colspan="5"><a href="{{ URL::route('retailers.create') }}">Create a new retailer</a></td>
+			</tr>
+			<tr>
 				<th>ID</th>
 				<th>Title</th>
 				<th>Description</th>

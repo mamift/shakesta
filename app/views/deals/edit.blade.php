@@ -17,16 +17,19 @@
 					</tr>
 				</thead>
 				<tbody>
-					<tr>
+					<!-- <tr>
 						<td>{{ Form::label('deal_id', 'ID') }}</td>
 						<td>
 							{{ Form::input('text', 'deal_id', $deal->id, ['readonly' => 'readonly']) }}
 						</td>
-					</tr>
+					</tr> -->
 					<tr>
 						<td>{{ Form::label('product_id', 'For Product: ') }}</td>
 						<td>
 							{{ Form::select('product_id', [$deal->product->id => $deal->product->id . ": " .$deal->product->title], $deal->product->id) }}
+							@if ($errors)
+								<span class="error">{{ $errors->first('product_id') }}</span>
+							@endif
 						</td>
 					</tr>
 					<tr>
@@ -35,27 +38,47 @@
 							(enter as decimal&colon; e.g. 0.5 &equals; 50&percnt;)
 						</td>
 						<td>
-							{{ Form::input('number', 'price_discount', null, ['step' => '0.01', 'placeholder' => 'Decimal: 0.5 = 50%']) }} 
-							<span class="error">{{{ $pdmsg = $errors->first('price_discount') }}}</span>
+							{{ Form::input('number', 'price_discount', null, ['step' => '0.01', 'placeholder' => 'Decimal: 0.5 = 50%']) }}
+							@if ($errors)
+								<span class="error">{{ $errors->first('price_discount') }}</span>
+							@endif
 						</td>
 					</tr>
 					<tr>
 						<td>{{ Form::label('terms','Terms:') }}</td>
 						<td>
 							{{ Form::textarea('terms') }}
+							@if ($errors)
+								<span class="error">{{ $errors->first('terms') }}</span>
+							@endif
 						</td>
 					</tr>
 					<tr>
 						<td>{{ Form::label('begins', 'Begins') }}</td>
-						<td>{{ Form::input('text', 'begins_time', $deal->begins_time, ['class' => 'datetime_field']) }}</td>
+						<td>
+							{{ Form::input('text', 'begins_time', $deal->begins_time, ['class' => 'datetime_field']) }}
+							@if ($errors)
+								<span class="error">{{ $errors->first('begins_time') }}</span>
+							@endif
+						</td>
 					</tr>
 					<tr>
 						<td>{{ Form::label('expires', 'Expires') }}</td>
-						<td>{{ Form::input('text', 'expires_time', $deal->expires_time, ['class' => 'datetime_field']) }}</td>
+						<td>
+							{{ Form::input('text', 'expires_time', $deal->expires_time, ['class' => 'datetime_field']) }}
+							@if ($errors)
+								<span class="error">{{ $errors->first('expires_time') }}</span>
+							@endif
+						</td>
 					</tr>
 					<tr>
 						<td>{{ Form::label('category', 'Category') }}</td>
-						<td>{{ Form::input('text', 'category') }}</td>
+						<td>
+							{{ Form::input('text', 'category') }}
+							@if ($errors)
+								<span class="error">{{ $errors->first('category') }}</span>
+							@endif
+						</td>
 					</tr>
 					<tr>
 						<td>Created </td>

@@ -14,6 +14,9 @@
 	<table>
 		<thead>	
 			<tr>
+				<td colspan="8"><a href="{{ URL::route('products.create') }}">Create a new product</a></td>
+			</tr>
+			<tr>
 				<th>ID</th>
 				<th>Title</th>
 				<th>Description</th>

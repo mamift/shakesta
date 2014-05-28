@@ -34,6 +34,14 @@ Route::get('/httpauth_logout', function()
 // });
 /** end test API */
 
+Route::get('productdeals', function() {
+	return ProductDeal::all();
+});
+
+Route::get('productdealsretailers', function() {
+	return ProductDealsRetailers::all();
+});
+
 /** this is the real API */
 // route group for API versioning, this will setup a response for http://example.com/api/v1.1/deal
 /** list of routes:

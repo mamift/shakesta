@@ -6,9 +6,12 @@
 			return confirm("Are you sure about deleting this?");
 		}
 	</script>
-	<h1>All Deals for All Products and Retailers</h1>
+	<h1>All Deals</h1>
 	<table>
 		<thead>	
+			<tr>
+				<td colspan="12"><a href="{{ URL::route('deals.create') }}">Create a new deal</a></td>
+			</tr>
 			<tr>
 				<th>ID</th>
 				<th>Product</th>
