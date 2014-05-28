@@ -55,25 +55,13 @@ return array(
 		'mysql' => array(
 			'driver'    => 'mysql',
 			'host'      => 'localhost',
-			'database'  => 'shakesta',
-			'username'  => 'shakesta',
+			'database'  => 'chana13_shakesta',
+			'username'  => 'chana13_shakesta',
 			'password'  => 'martymez14$$',
 			'charset'   => 'utf8',
 			'collation' => 'utf8_unicode_ci',
 			'prefix'    => '',
 		),
-		/* for deployment
-		'mysql' => array(
-			'driver'    => 'mysql',
-			'host'      => 'dealdb-instance.ckwfrlkojl3l.us-east-1.rds.amazonaws.com:3306',
-			'database'  => 'deal_db',
-			'username'  => 'dealdb_admin',
-			'password'  => 'sH9fqDM2AY',
-			'charset'   => 'utf8',
-			'collation' => 'utf8_unicode_ci',
-			'prefix'    => '',
-		),
-		*/
 		'pgsql' => array(
 			'driver'   => 'pgsql',
 			'host'     => 'localhost',

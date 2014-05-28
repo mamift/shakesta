@@ -11,10 +11,10 @@ SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+10:00";
 
 --
--- Database: `shakesta`
+-- Database: `chana13_shakesta`
 --
-CREATE DATABASE IF NOT EXISTS `shakesta` DEFAULT CHARACTER SET latin1 COLLATE latin1_swedish_ci;
-USE `shakesta`;
+CREATE DATABASE IF NOT EXISTS `chana13_shakesta` DEFAULT CHARACTER SET latin1 COLLATE latin1_swedish_ci;
+USE `chana13_shakesta`;
 
 -- --------------------------------------------------------
 
@@ -214,7 +214,7 @@ CREATE TABLE IF NOT EXISTS `user` (
 --
 DROP TABLE IF EXISTS `admin_users`;
 
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `admin_users` AS (select `user`.`user_id` AS `user_id`,`user`.`username` AS `username`,`user`.`password` AS `password`,`user`.`email` AS `email`,`user`.`retailer_id` AS `retailer_id`,`user`.`remember_token` AS `remember_token`,`user`.`created_at` AS `created_at`,`user`.`updated_at` AS `updated_at` from `user` where isnull(`user`.`retailer_id`));
+CREATE VIEW `admin_users` AS (select `user`.`user_id` AS `user_id`,`user`.`username` AS `username`,`user`.`password` AS `password`,`user`.`email` AS `email`,`user`.`retailer_id` AS `retailer_id`,`user`.`remember_token` AS `remember_token`,`user`.`created_at` AS `created_at`,`user`.`updated_at` AS `updated_at` from `user` where isnull(`user`.`retailer_id`));
 
 -- --------------------------------------------------------
 
@@ -223,7 +223,7 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW 
 --
 DROP TABLE IF EXISTS `product_deals`;
 
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `product_deals` AS select `deal`.`deal_id` AS `id`,`deal`.`product_id` AS `product_id`,`deal`.`price_discount` AS `price_discount`,`deal`.`terms` AS `terms`,`deal`.`expires_time` AS `expires_time`,`deal`.`begins_time` AS `begins_time`,`deal`.`category` AS `category`,`deal`.`created_at` AS `created_at`,`deal`.`updated_at` AS `updated_at`,`product`.`title` AS `product_title`,`product`.`description` AS `product_description`,`product`.`retail_price` AS `original_price`,`product`.`image_url` AS `image_url` from (`deal` join `product` on((`product`.`product_id` = `deal`.`product_id`)));
+CREATE VIEW `product_deals` AS select `deal`.`deal_id` AS `id`,`deal`.`product_id` AS `product_id`,`deal`.`price_discount` AS `price_discount`,`deal`.`terms` AS `terms`,`deal`.`expires_time` AS `expires_time`,`deal`.`begins_time` AS `begins_time`,`deal`.`category` AS `category`,`deal`.`created_at` AS `created_at`,`deal`.`updated_at` AS `updated_at`,`product`.`title` AS `product_title`,`product`.`description` AS `product_description`,`product`.`retail_price` AS `original_price`,`product`.`image_url` AS `image_url` from (`deal` join `product` on((`product`.`product_id` = `deal`.`product_id`)));
 
 -- --------------------------------------------------------
 
@@ -232,7 +232,7 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW 
 --
 DROP TABLE IF EXISTS `product_deals_retailers`;
 
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `product_deals_retailers` AS select `deal`.`deal_id` AS `id`,`deal`.`product_id` AS `product_id`,`deal`.`price_discount` AS `price_discount`,`deal`.`terms` AS `terms`,`deal`.`expires_time` AS `expires_time`,`deal`.`begins_time` AS `begins_time`,`deal`.`category` AS `category`,`deal`.`created_at` AS `created_at`,`deal`.`updated_at` AS `updated_at`,`product`.`title` AS `product_title`,`product`.`description` AS `product_description`,`product`.`retail_price` AS `original_price`,`product`.`image_url` AS `image_url`,`product`.`retailer_id` AS `retailer_id`,`retailer`.`title` AS `retailer` from ((`deal` join `product` on((`product`.`product_id` = `deal`.`product_id`))) join `retailer` on((`product`.`retailer_id` = `retailer`.`retailer_id`)));
+CREATE VIEW `product_deals_retailers` AS select `deal`.`deal_id` AS `id`,`deal`.`product_id` AS `product_id`,`deal`.`price_discount` AS `price_discount`,`deal`.`terms` AS `terms`,`deal`.`expires_time` AS `expires_time`,`deal`.`begins_time` AS `begins_time`,`deal`.`category` AS `category`,`deal`.`created_at` AS `created_at`,`deal`.`updated_at` AS `updated_at`,`product`.`title` AS `product_title`,`product`.`description` AS `product_description`,`product`.`retail_price` AS `original_price`,`product`.`image_url` AS `image_url`,`product`.`retailer_id` AS `retailer_id`,`retailer`.`title` AS `retailer` from ((`deal` join `product` on((`product`.`product_id` = `deal`.`product_id`))) join `retailer` on((`product`.`retailer_id` = `retailer`.`retailer_id`)));
 
 -- --------------------------------------------------------
 
@@ -241,7 +241,7 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW 
 --
 DROP TABLE IF EXISTS `product_retailers`;
 
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `product_retailers` AS select `product`.`product_id` AS `product_id`,`product`.`title` AS `title`,`product`.`description` AS `description`,`product`.`retailer_id` AS `retailer_id`,`product`.`retail_price` AS `retail_price`,`product`.`image` AS `image`,`product`.`image_url` AS `image_url`,`product`.`created_at` AS `created_at`,`product`.`updated_at` AS `updated_at`,`retailer`.`title` AS `retailer` from (`product` join `retailer` on((`product`.`retailer_id` = `retailer`.`retailer_id`)));
+CREATE VIEW `product_retailers` AS select `product`.`product_id` AS `product_id`,`product`.`title` AS `title`,`product`.`description` AS `description`,`product`.`retailer_id` AS `retailer_id`,`product`.`retail_price` AS `retail_price`,`product`.`image` AS `image`,`product`.`image_url` AS `image_url`,`product`.`created_at` AS `created_at`,`product`.`updated_at` AS `updated_at`,`retailer`.`title` AS `retailer` from (`product` join `retailer` on((`product`.`retailer_id` = `retailer`.`retailer_id`)));
 
 -- --------------------------------------------------------
 
@@ -250,7 +250,7 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW 
 --
 DROP TABLE IF EXISTS `retail_users`;
 
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `retail_users` AS select distinct `user`.`user_id` AS `user_id`,`user`.`username` AS `username`,`user`.`email` AS `email`,`user`.`retailer_id` AS `retailer_id`,`retailer`.`title` AS `retailer`,`retailer`.`description` AS `retailer_description`,`user`.`created_at` AS `created_at`,`user`.`updated_at` AS `updated_at` from (`user` `users_table` join (`retailer` join `user` on((`user`.`retailer_id` = `retailer`.`retailer_id`))));
+CREATE VIEW `retail_users` AS select distinct `user`.`user_id` AS `user_id`,`user`.`username` AS `username`,`user`.`email` AS `email`,`user`.`retailer_id` AS `retailer_id`,`retailer`.`title` AS `retailer`,`retailer`.`description` AS `retailer_description`,`user`.`created_at` AS `created_at`,`user`.`updated_at` AS `updated_at` from (`user` `users_table` join (`retailer` join `user` on((`user`.`retailer_id` = `retailer`.`retailer_id`))));
 
 --
 -- Constraints for dumped tables
@@ -279,3 +279,7 @@ ALTER TABLE `shop`
 --
 ALTER TABLE `user`
   ADD CONSTRAINT `retailer_user_FK1` FOREIGN KEY (`retailer_id`) REFERENCES `retailer` (`retailer_id`);
+
+
+/* default admin user */
+INSERT INTO `user` (`user_id`, `username`, `password`, `retailer_id`, `created_at`, `updated_at`) VALUES ('1', 'admin', '$2y$10$G52UpoIxmzf7ZkOgvP4T6eX6hdm2SuXnHUpV67GwCBRbR6zfWr2nK', NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00');
