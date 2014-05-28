@@ -9,7 +9,10 @@ class APIController extends \BaseController {
 	 */
 	public function index()
 	{
-		$deals = ProductDeal::all();
+		// $deals = ProductDeal::all();
+		$deals = ProductDealsRetailers::where('begins_time','>','0000-00-00 00:00:00')->paginate(10);
+
+		// to get page 2, shakesta.com/api/v1.1/deals/?page=2
 
 		return Response::json($deals->toArray(), 200);
 	}

@@ -3,9 +3,9 @@
 @section('content')
 
 	<style> @import url('/css/tabulus.css'); </style>
-	<div class="">
-		<a href="{{ URL::route('users.index') }}">Back to users</a>
-	</div>
+	<h2 class="">
+		<a href="{{ URL::route('users.index') }}">&lt; Back to users</a>
+	</h2>
 	<div>
 		{{ Form::open(['route' => 'users.store']) }}
 			<table class="tabulus tabulus-form">
@@ -18,15 +18,16 @@
 				</thead>
 				<tbody>
 					<tr>
-						<td>{{ Form::label('user_id', 'ID') }}</td>
+						<!-- <td>{{ Form::label('user_id', 'ID') }}</td>
 						<td>
 							{{ Form::input('text', 'user_id', $new_id, ['readonly' => 'readonly']) }}
-						</td>
+						</td> -->
 					</tr>
 					<tr>
 						<td>{{ Form::label('username','Username:') }}</td>
 						<td>
 							{{ Form::text('username') }}
+							<span class="error">{{{ $username_message = $errors->first('username') }}}</span>
 						</td>
 					</tr>
 					<tr>
@@ -39,6 +40,13 @@
 						<td>{{ Form::label('retailer_id','Retailer:') }}</td>
 						<td>
 							{{ Form::select('retailer_id', $retailers) }}
+						</td>
+					</tr>
+					<tr>
+						<td>{{ Form::label('password','Password:') }}</td>
+						<td>
+							{{ Form::password('password', ['placeholder' => '(Minimum 6 chars)']) }} 
+							<span class="error">{{{ $password_message = $errors->first('password') }}}</span>
 						</td>
 					</tr>
 					<!-- <tr>

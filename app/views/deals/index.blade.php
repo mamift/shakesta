@@ -38,7 +38,7 @@
 				</td>
 				<td>{{ $deal->terms }}</td>
 				<td><a href="{{ URL::route('deals.show', $deal->id) }}">{{ $deal->begins_datetime }}</a></td>
-				<td>{{ $deal->expires_datetime }}</td>
+				<td><a href="{{ URL::route('deals.show', $deal->id) }}">{{ $deal->expires_datetime }}</a></td>
 				<td>{{ $deal->category }}</td>
 				<td><a href="{{ URL::route('deals.edit', $deal->id) }}">Edit</a></td>
 				<td>

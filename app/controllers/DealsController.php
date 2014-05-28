@@ -42,6 +42,19 @@ class DealsController extends \BaseController {
 		return $all_products;
 	}
 
+	// same as index(), except items are sorted by category
+	public function index_deals_by_category() {
+		$deals = DealsController::get_deals_list();
+		//sort
+		$deals->sortBy(function($deal) { return $deal->category; });
+
+		if (Auth::user()->user_type === 'admin') {
+			return View::make('deals.index-admin', ['deals' => $deals]);
+		} else {
+			return View::make('deals.index', ['deals' => $deals]);
+		}
+	}
+
 	/**
 	 * Display a listing of deals
 	 *

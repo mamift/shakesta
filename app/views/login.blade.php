@@ -4,7 +4,12 @@
 <style> @import url('/login.css'); </style>
 <div class="login">
 	@if (Auth::check())
-		<p>Hello, {{ Auth::user()->username; }}</p>
+		
+		<p>Hello, {{ Auth::user()->username; }} </p>
+		{{-- this $User_message is displayed if a retailer user has tried to access an admin-only page --}}
+		@if ($user_message = Session::get('user_message'))
+		<p><span class="error">{{ $user_message or "" }}</span></p>
+		@endif
 		<p>You are already logged in.</p>
 		<p>You are a <strong>{{ Auth::user()->user_type; }}</strong> user</p>
 		{{-- <p>Retailer: {{ Retailer::find(Auth::user()->retailer_id); }}</p> --}}
@@ -14,6 +19,7 @@
 		<p>You are an administrator and can manage other users.</p>
 		@endif
 		<p><a href="{{ URL::to('user-logout') }}">Click here to logout.</a></p>
+		
 	@else
 	<h1>Login to Web App</h1>
 

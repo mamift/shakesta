@@ -22,6 +22,20 @@ App::after(function($request, $response)
 	//
 });
 
+/* shakesta.app filters */
+// disallow retailer users from admin only functions and pages
+Route::filter('disallow_retailers', function() 
+{
+	$user_type = Auth::user()->user_type;
+	$is_admin = Auth::user()->is_admin;
+
+	if (!$is_admin && $user_type == 'retailer') {
+		return Redirect::to('/user-login')->with('user_message', "You need to be a logged-in admin user to do that!");
+	}
+});
+
+/* end shakesta.app filters */
+
 /*
 |--------------------------------------------------------------------------
 | Authentication Filters

@@ -50,10 +50,15 @@ Route::group(array('prefix' => 'api/v1.1', 'before' => 'auth.basic'), function()
 /** end real API */
 
 Route::group(['before' => 'auth'], function() {
+	Route::get('deals_by_category', 'DealsController@index_deals_by_category');
 	Route::resource('deals', 'DealsController');
 	Route::resource('products', 'ProductsController');
-	Route::resource('retailers', 'RetailersController');
-	Route::resource('users', 'UsersController');
+
+	//only administrators can access these
+	Route::group(['before' => 'disallow_retailers'], function() {
+		Route::resource('retailers', 'RetailersController');
+		Route::resource('users', 'UsersController');
+	});
 });
 
 Route::get('/', function()

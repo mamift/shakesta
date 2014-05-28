@@ -1,11 +1,6 @@
 @extends('layout')
 
 @section('content')
-	<script type="text/javascript">
-		function confirm_delete() {
-			return confirm("Are you sure about deleting this?");
-		}
-	</script>
 	<h1>All Users</h1>
 	<table>
 		<thead>	

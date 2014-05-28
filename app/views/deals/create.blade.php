@@ -3,9 +3,9 @@
 @section('content')
 
 	<style> @import url('/css/tabulus.css'); </style>
-	<div class="">
-		<a href="{{ URL::route('deals.index') }}">Back to deals</a>
-	</div>
+	<h2>
+		<a href="{{ URL::route('deals.index') }}">&lt; Go to deals</a>
+	</h2>
 	<div>
 		{{ Form::open(['route' => 'deals.store']) }}
 			<table class="tabulus tabulus-form">
@@ -41,10 +41,13 @@
 						</td>
 					</tr>
 					<tr>
-						<td>{{ Form::label('price_discount', 'Price Discount') }} </td>
 						<td>
-							{{ Form::input('number', 'price_discount', null, ['step' => '0.01']) }} 
-							Enter as decimal (e.g 0.5 for 50 &percnt;)
+							{{ Form::label('price_discount', 'Price Discount') }} <br/>
+							(enter as decimal&colon; e.g. 0.5 &equals; 50&percnt;)
+						</td>
+						<td>
+							{{ Form::input('number', 'price_discount', null, ['step' => '0.01', 'placeholder' => 'Decimal: 0.5 = 50%']) }} 
+							<span class="error">{{{ $pdmsg = $errors->first('price_discount') }}}</span>
 						</td>
 					</tr>
 					<tr>
@@ -55,11 +58,11 @@
 					</tr>
 					<tr>
 						<td>{{ Form::label('begins', 'Begins') }}</td>
-						<td>{{ Form::input('text', 'begins_time', '0000-00-00 00:00:00') }}</td>
+						<td>{{ Form::input('text', 'begins_time', '0000-00-00 00:00:00', ['class' => 'datetime_field']) }}</td>
 					</tr>
 					<tr>
 						<td>{{ Form::label('expires', 'Expires') }}</td>
-						<td>{{ Form::input('text', 'expires_time', '0000-00-00 00:00:00') }}</td>
+						<td>{{ Form::input('text', 'expires_time', '0000-00-00 00:00:00', ['class' => 'datetime_field']) }}</td>
 					</tr>
 					<tr>
 						<td>{{ Form::label('category', 'Category') }}</td>

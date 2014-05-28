@@ -2,6 +2,25 @@
 
 class UsersController extends \BaseController {
 
+	private static function hash_value_on_input_field(&$input, $field) {
+		if (!isset($input[$field])) {
+			throw new Exception("Field '" . $field . "' is not set on input variable!");
+
+		} else {
+			$field_to_hash = $input[$field];
+			$hashed_value = Hash::make($input[$field]);
+
+			//quick check
+			if (!Hash::check($field_to_hash, $hashed_value)) {
+				return false; // return false on failure
+
+			} else {
+				$input[$field] = $hashed_value;
+				return true;
+			}
+		}
+	}
+
 	private static function get_retailers_list() {
 		$all_retailers = DB::table('retailer')->lists('title','retailer_id');
 
@@ -38,7 +57,7 @@ class UsersController extends \BaseController {
 		$new_id = $latest_user->user_id + 1;
 
 		// use this option to create another admin user; admin users can be used for API interfacing
-		$retailers[""] = "none (create an admin user)";
+		$retailers["NULL"] = "none (create an admin user)";
 
 		return View::make('users.create', ['retailers' => $retailers, 'new_id' => $new_id]);
 	}
@@ -49,15 +68,20 @@ class UsersController extends \BaseController {
 	 * @return Response
 	 */
 	public function store()
-	{
-		$validator = Validator::make($data = Input::all(), User::$rules);
+	{	
+		$input = Input::all();
+		$validator = Validator::make($input, User::$create_rules);
 
-		if ($validator->fails())
-		{
+		if ($validator->fails()) {
 			return Redirect::back()->withErrors($validator)->withInput();
+
+		} else {
+			if (UsersController::hash_value_on_input_field($input, 'password') == false) {
+				return Redirect::back()->withInput()->except('password');
+			}
 		}
 
-		User::create($data);
+		User::create($input);
 
 		return Redirect::route('users.index');
 	}
@@ -98,15 +122,34 @@ class UsersController extends \BaseController {
 	public function update($id)
 	{
 		$user = User::findOrFail($id);
+		$input = Input::all();
 
-		$validator = Validator::make($data = Input::all(), User::$rules);
+		$update_user_validation_rules = [
+			'username' => 'required', 
+			'new_password' => 'min:6|confirmed', 
+			'new_password_confirmation' => 'min:6'
+		];
 
-		if ($validator->fails())
-		{
+		$validator = Validator::make($input, $update_user_validation_rules);
+
+		if ($validator->fails()) {
 			return Redirect::back()->withErrors($validator)->withInput();
+
+		} else {
+			if (isset($input['new_password']) && isset($input['new_password_confirmation'])) {
+				// check both new_password and new_password_confirm
+				$sta1 = UsersController::hash_value_on_input_field($input, 'new_password');
+				$sta2 = UsersController::hash_value_on_input_field($input, 'new_password_confirmation');
+				
+				if ($sta1 == false || $sta2 == false) {
+					return Redirect::back()->withInput()->except('new_password','new_password_confirmation');
+				} else {
+					$input['password'] = Hash::make($input['new_password']);
+				}
+			}
 		}
 
-		$user->update($data);
+		$user->update($input);
 
 		return Redirect::route('users.index');
 	}

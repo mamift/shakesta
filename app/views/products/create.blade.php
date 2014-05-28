@@ -3,9 +3,9 @@
 @section('content')
 
 	<style> @import url('/css/tabulus.css'); </style>
-	<div class="">
-		<a href="{{ URL::route('products.index') }}">Back to products</a>
-	</div>
+	<h2>
+		<a href="{{ URL::route('products.index') }}">&lt; Go to products</a>
+	</h2>
 	<div>
 		{{ Form::open(['route' => 'products.store']) }}
 			<table class="tabulus tabulus-form">

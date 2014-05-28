@@ -30,10 +30,24 @@ class ProductDeal extends \Eloquent {
 	protected $appends = ['begins_date_time','expires_date_time'];
 
 	public function getBeginsDatetimeAttribute() {
-		return date("l jS F Y h:i:s A", strtotime($this->attributes['begins_time']));
+		$empty_datetime = new DateTime('0000-00-00 00:00:00');
+		$datetime = new DateTime($this->attributes['begins_time']);
+		if ($empty_datetime == $datetime) {
+			return "(not set)";
+		} else {
+			//l jS F Y h:i:s A for seconds
+			return date("l jS F Y h:i A", strtotime($this->attributes['begins_time']));
+		}
 	}
 
 	public function getExpiresDatetimeAttribute() {
-		return date("l jS F Y h:i:s A", strtotime($this->attributes['expires_time']));	
+		$empty_datetime = new DateTime('0000-00-00 00:00:00');
+		$datetime = new DateTime($this->attributes['expires_time']);
+		if ($empty_datetime == $datetime) {
+			return "(not set)";
+		} else {
+			//l jS F Y h:i:s A for seconds
+			return date("l jS F Y h:i A", strtotime($this->attributes['expires_time']));
+		}
 	}
 }

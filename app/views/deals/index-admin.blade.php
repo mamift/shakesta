@@ -18,7 +18,7 @@
 				<th>Terms</th>
 				<th>Begins</th>
 				<th>Expires</th>
-				<th>Category</th>
+				<th>Category</a></th>
 				<th>Edit</th>
 				<th>Delete</th>
 			</tr>
@@ -41,8 +41,8 @@
 					</a>
 				</td>
 				<td>{{ $deal->terms }}</td>
-				<td>{{ $deal->begins_datetime }}</td>
-				<td>{{ $deal->expires_datetime }}</td>
+				<td><a href="{{ URL::route('deals.show', $deal->id) }}">{{ $deal->begins_datetime }}</a></td>
+				<td><a href="{{ URL::route('deals.show', $deal->id) }}">{{ $deal->expires_datetime }}</a></td>
 				<td>{{ $deal->category }}</td>
 				<td><a href="{{ URL::route('deals.edit', $deal->id) }}">Edit</a></td>
 				<td>

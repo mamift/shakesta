@@ -2,6 +2,7 @@
 
 class RetailersController extends \BaseController {
 
+
 	/**
 	 * Display a listing of retailers
 	 *
@@ -21,7 +22,11 @@ class RetailersController extends \BaseController {
 	 */
 	public function create()
 	{
-		return View::make('retailers.create');
+		$latest_retailer = DB::table('retailer')->where('retailer_id','>','0')->orderBy('retailer_id','desc')->first();
+
+		$new_id = $latest_retailer->retailer_id + 1;
+
+		return View::make('retailers.create')->with('new_id', $new_id);
 	}
 
 	/**

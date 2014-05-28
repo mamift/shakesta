@@ -4,7 +4,8 @@ class Deal extends Eloquent {
 	
 	// validation rules here
 	public static $rules = [
-		'product_id' => 'required'
+		'product_id' => 'required',
+		'price_discount' => 'required|numeric|min:0.01|max:0.99'
 	];
 
 	// hidden
@@ -29,11 +30,25 @@ class Deal extends Eloquent {
 	}
 
 	public function getBeginsDatetimeAttribute() {
-		return date("l jS F Y h:i:s A", strtotime($this->attributes['begins_time']));
+		$empty_datetime = new DateTime('0000-00-00 00:00:00');
+		$datetime = new DateTime($this->attributes['begins_time']);
+		if ($empty_datetime == $datetime) {
+			return "(not set)";
+		} else {
+			//l jS F Y h:i:s A for seconds
+			return date("l jS F Y h:i A", strtotime($this->attributes['begins_time']));
+		}
 	}
 
 	public function getExpiresDatetimeAttribute() {
-		return date("l jS F Y h:i:s A", strtotime($this->attributes['expires_time']));	
+		$empty_datetime = new DateTime('0000-00-00 00:00:00');
+		$datetime = new DateTime($this->attributes['expires_time']);
+		if ($empty_datetime == $datetime) {
+			return "(not set)";
+		} else {
+			//l jS F Y h:i:s A for seconds
+			return date("l jS F Y h:i A", strtotime($this->attributes['expires_time']));
+		}
 	}
 
 	public function product() {

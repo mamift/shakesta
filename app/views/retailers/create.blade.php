@@ -3,9 +3,9 @@
 @section('content')
 
 	<style> @import url('/css/tabulus.css'); </style>
-	<div class="">
-		<a href="{{ URL::route('retailers.index') }}">Back to retailers</a>
-	</div>
+	<h2 class="">
+		<a href="{{ URL::route('retailers.index') }}">&lt; Go to retailers</a>
+	</h2>
 	<div>
 		{{ Form::open(['route' => 'retailers.store']) }}
 			<table class="tabulus tabulus-form">
@@ -20,7 +20,7 @@
 					<tr>
 						<td>{{ Form::label('retailer_id', 'ID') }}</td>
 						<td>
-							{{ Form::input('text', 'retailer_id', 'AUTO_INCREMENT', ['readonly' => 'readonly']) }}
+							{{ Form::input('text', 'retailer_id', $new_id, ['readonly' => 'readonly']) }}
 						</td>
 					</tr>
 					<tr>
