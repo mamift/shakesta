@@ -18,10 +18,10 @@
 				</thead>
 				<tbody>
 					<tr>
-						<td>{{ Form::label('retailer_id', 'ID') }}</td>
+						<!-- <td>{{ Form::label('retailer_id', 'ID') }}</td>
 						<td>
-							{{ Form::input('text', 'retailer_id', $new_id, ['readonly' => 'readonly']) }}
-						</td>
+							{{-- Form::input('text', 'retailer_id', $new_id, ['readonly' => 'readonly']) --}}
+						</td> -->
 					</tr>
 					<tr>
 						<td>{{ Form::label('title','Title:') }}</td>

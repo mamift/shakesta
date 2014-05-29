@@ -53,13 +53,13 @@ class UsersController extends \BaseController {
 	public function create()
 	{
 		$retailers = UsersController::get_retailers_list();
-		$latest_user = User::orderBy('user_id','DESC')->get()->first();
-		$new_id = $latest_user->user_id + 1;
+		// $latest_user = User::orderBy('user_id','DESC')->get()->first();
+		// $new_id = $latest_user->user_id + 1;
 
 		// use this option to create another admin user; admin users can be used for API interfacing
 		$retailers["NULL"] = "none (create an admin user)";
 
-		return View::make('users.create', ['retailers' => $retailers, 'new_id' => $new_id]);
+		return View::make('users.create', ['retailers' => $retailers]);
 	}
 
 	/**

@@ -80,15 +80,15 @@ class DealsController extends \BaseController {
 	 */
 	public function create()
 	{
-		$latest_deal = DB::table('deal')->orderBy('deal_id','desc')->first();
-		$new_id = $latest_deal->deal_id + 1;
+		// $latest_deal = DB::table('deal')->orderBy('deal_id','desc')->first();
+		// $new_id = $latest_deal->deal_id + 1;
 
 		$all_products = DealsController::get_products_list();
 
 		if (Auth::user()->is_admin) {
-			return View::make('deals.create', ['all_products' => $all_products, 'new_id' => $new_id]);
+			return View::make('deals.create', ['all_products' => $all_products]);
 		} else {
-			return View::make('deals.create', ['retailer_id' => Auth::user()->retailer_id, 'new_id' => $new_id])
+			return View::make('deals.create', ['retailer_id' => Auth::user()->retailer_id])
 												->with('all_products', $all_products);
 		}
 	}

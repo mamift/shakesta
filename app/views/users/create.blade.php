@@ -20,7 +20,7 @@
 					<tr>
 						<!-- <td>{{ Form::label('user_id', 'ID') }}</td>
 						<td>
-							{{ Form::input('text', 'user_id', $new_id, ['readonly' => 'readonly']) }}
+							{{-- Form::input('text', 'user_id', $new_id, ['readonly' => 'readonly']) --}}
 						</td> -->
 					</tr>
 					<tr>
