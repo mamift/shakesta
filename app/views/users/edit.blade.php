@@ -1,7 +1,19 @@
 @extends('layout')
 
 @section('content')
-
+	<script type="text/javascript">
+		$(document).ready(function() {
+			var fired_once = false;
+			if ($("#retailer_id option:selected").val() == 'null') {
+				$(this).change(function() {
+					if (!fired_once) {
+						alert('This will demote this user to a retailer! Only an administrator can change this back!');
+						fired_once = true;
+					}
+				});
+			}
+		});
+	</script>
 	<style> @import url('/css/tabulus.css'); </style>
 	<h2>
 		<a href="{{ URL::route('users.index') }}">&lt; Back to users</a>
@@ -39,10 +51,12 @@
 					<tr>
 						<td>{{ Form::label('retailer_id','Retailer:') }}</td>
 						<td>
-							@if (Auth::user()->is_admin && Auth::user()->user_type == 'admin')
+							@if (Auth::user()->is_admin && Auth::user()->username === 'admin' && $user->username === 'admin')
 							{{ Form::select('retailer_id', $retailers, 'null', ['disabled' => 'disabled']) }}
+							@elseif ($user->is_admin) 
+							{{ Form::select('retailer_id', $retailers, 'null') }}
 							@else
-							{{ Form::select('retailer_id', $retailers) }}
+							{{ Form::select('retailer_id', $retailers, $user->retailer_id) }}
 							@endif
 						</td>
 					</tr>
@@ -60,18 +74,19 @@
 							<span class="error">{{{ $password_message2 = $errors->first('new_password_confirmation') }}}</span>
 						</td>
 					</tr>
+					
 					<tr>
-						<td>{{ Form::label('generate_apikey','Generate new api key?') }}</td>
+						<td>{{ Form::label('generate_or_delete_apikey','Generate new api key?') }}</td>
 						<td>
-							{{ Form::checkbox('generate_apikey', 'generate_apikey', false) }}
+							{{ Form::radio('generate_or_delete_apikey', 'generate_apikey', false) }}
 							@if ($user->apikey) Existing API key is&colon; <span class="error">{{ $user->apikey }} </span> @endif
 						</td>
 					</tr>
 					@if ($user->apikey)
 					<tr>
-						<td>{{ Form::label('delete_apikey','Delete API key?') }}</td>
+						<td>{{ Form::label('generate_or_delete_apikey','Delete API key?') }}</td>
 						<td>
-							{{ Form::checkbox('delete_apikey', 'delete_apikey', false) }}
+							{{ Form::radio('generate_or_delete_apikey', 'delete_apikey', false) }}
 						</td>
 					</tr>
 

@@ -62,6 +62,7 @@
 				@endif
 				
 				<li><a href="/user-logout">Logout</a></li>
+				<li style="font-size: 9pt;">Logged in as {{ Auth::user()->username }}</li>
 
 			@endif
 

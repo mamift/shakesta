@@ -36,13 +36,39 @@ class UsersController extends \BaseController {
 		return $retailers;
 	}
 
+	private static function process_input(&$input) {
+		if (isset($input['retailer_id'])) {
+			if ($input['retailer_id'] === 'NULL' || $input['retailer_id'] === 'null') {
+				$input['retailer_id'] = null;
+			} 
+		}
+
+		if (isset($input['new_password']) && isset($input['new_password_confirmation'])) {
+
+			// check both new_password and new_password_confirm
+			$the_same = $input['new_password'] === $input['new_password_confirmation'];
+			
+			if ($the_same == false) {
+				return Redirect::back()->withInput()->except('new_password','new_password_confirmation');
+			} else {
+				$input['password'] = Hash::make($input['new_password']);
+			}
+		}
+
+		UsersController::generate_or_delete_apikey($input);
+	}
+
 	private static function generate_or_delete_apikey(&$input) {
-		if (isset($input['generate_apikey'])) {
-			$input['apikey'] = uniqid('key', true);
+		if (isset($input['generate_or_delete_apikey'])) {
+			// generate api key if input['generate_apikey'] is set
+			if ($input['generate_or_delete_apikey'] === 'generate_apikey') {
+				$input['apikey'] = uniqid('key', true);
+				
+			} else {
+			// delete api key if input['delete_apikey'] is set
+				$input['apikey'] = null;
 
-		} else if (isset($input['delete_apikey'])) {
-			$input['apikey'] = null;
-
+			}
 		}
 	}
 
@@ -91,7 +117,7 @@ class UsersController extends \BaseController {
 			}
 
 			//generate or delete api key
-			UsersController::generate_or_delete_apikey($input);
+			UsersController::process_input($input);
 		}
 
 		User::create($input);
@@ -123,6 +149,11 @@ class UsersController extends \BaseController {
 		$user = User::find($id);
 		$retailers = UsersController::get_retailers_list();
 
+		// dont allow changing user types
+		if ($user->user_type === 'retailer') {
+			unset($retailers['null']);
+		} 
+
 		return View::make('users.edit', ['user' => $user, 'retailers' => $retailers]);
 	}
 
@@ -151,21 +182,7 @@ class UsersController extends \BaseController {
 			return Redirect::back()->withErrors($validator)->withInput();
 
 		} else {
-			if (isset($input['new_password']) && isset($input['new_password_confirmation'])) {
-
-				// check both new_password and new_password_confirm
-				$the_same = $input['new_password'] === $input['new_password_confirmation'];
-				
-				if ($the_same == false) {
-					return Redirect::back()->withInput()->except('new_password','new_password_confirmation');
-				} else {
-					$input['password'] = Hash::make($input['new_password']);
-				}
-			}
-
-			// generate api key if input['generate_apikey'] is set
-			// delete api key if input['delete_apikey'] is set
-			UsersController::generate_or_delete_apikey($input);
+			UsersController::process_input($input);
 		}
 
 		$user->update($input);

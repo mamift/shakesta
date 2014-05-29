@@ -5,13 +5,14 @@
 	<table>
 		<thead>	
 			<tr>
-				<td colspan="6"><a href="{{ URL::route('users.create') }}">Create a new user</a></td>
+				<td colspan="7"><a href="{{ URL::route('users.create') }}">Create a new user</a></td>
 			</tr>
 			<tr>
 				<th>ID</th>
 				<th>Username</th>
 				<th>E-mail</th>
 				<th>For retailer</th>
+				<th>Has API Key?</th>
 				<th>Edit</th>
 				<th>Delete</th>
 			</tr>
@@ -32,6 +33,7 @@
 					</a>
 					@endif
 				</td>
+				<td>{{ isset($user->apikey) ? 'Yes' : 'No' }}</td>
 				<td><a href="{{ URL::route('users.edit', $user->id) }}">Edit</a></td>
 				<td>
 					{{-- You can't delete the admin user --}}
@@ -46,13 +48,13 @@
     @endforeach
     @else
     	<tr>
-    		<td colspan="6" style="text-align: center;">No users here!</td>
+    		<td colspan="7" style="text-align: center;">No users here!</td>
     	</tr>
     @endif
 		</tbody>
 		<tfoot>
 			<tr>
-				<td colspan="6"><a href="{{ URL::route('users.create') }}">Create a new user</a></td>
+				<td colspan="7"><a href="{{ URL::route('users.create') }}">Create a new user</a></td>
 			</tr>
 		</tfoot>
 	</table>

@@ -50,8 +50,8 @@
 						</td>
 					</tr>
 					<tr>
-						<td>{{ Form::label('generate_apikey','Generate API Key?') }}</td>
-						<td>{{ Form::checkbox('generate_apikey', "generate_apikey", true) }}</td>
+						<td>{{ Form::label('generate_or_delete_apikey','Generate API Key?') }}</td>
+						<td>{{ Form::checkbox('generate_or_delete_apikey', "generate_apikey", true) }}</td>
 					</tr>
 					<!-- <tr>
 						<td>Created </td>
