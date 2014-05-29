@@ -49,6 +49,10 @@
 							<span class="error">{{{ $password_message = $errors->first('password') }}}</span>
 						</td>
 					</tr>
+					<tr>
+						<td>{{ Form::label('generate_apikey','Generate API Key?') }}</td>
+						<td>{{ Form::checkbox('generate_apikey', "generate_apikey", true) }}</td>
+					</tr>
 					<!-- <tr>
 						<td>Created </td>
 						<td>{{ Form::input('time', 'created_at', null, ['readonly' => 'readonly']) }}</td>

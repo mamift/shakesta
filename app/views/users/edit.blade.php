@@ -56,6 +56,13 @@
 							<span class="error">{{{ $password_message2 = $errors->first('new_password_confirmation') }}}</span>
 						</td>
 					</tr>
+					<tr>
+						<td>{{ Form::label('generate_apikey','Generate new api key?') }}</td>
+						<td>
+							{{ Form::checkbox('generate_apikey', 'generate_apikey', false) }} <br />
+							@if ($user->apikey) Existing API key is&colon; <span class="error">{{ $user->apikey }} </span> @endif
+						</td>
+					</tr>
 					<!-- <tr>
 						<td>Created </td>
 						<td>{{ Form::input('time', 'created_at', null, ['readonly' => 'readonly']) }}</td>

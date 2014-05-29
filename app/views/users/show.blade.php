@@ -35,6 +35,15 @@
 							{{ $user->email }}
 						</td>
 					</tr>
+					@if ($user->apikey)
+					<tr>
+						<td>{{ Form::label('apikey','API Key:') }}</td>
+						<td>
+							{{ $user->apikey }} <br />
+							<span class="error">API Url: www.shakesta.com/api/v1.1/</span>
+						</td>
+					</tr>
+					@endif
 				</tbody>
 				<tfoot>
 					<tr class="">

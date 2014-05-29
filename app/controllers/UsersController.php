@@ -33,6 +33,12 @@ class UsersController extends \BaseController {
 		return $retailers;
 	}
 
+	private static function generate_apikey(&$input) {
+		if (isset($input['generate_apikey'])) {
+			$input['apikey'] = uniqid('key', true);
+		}
+	}
+
 	/**
 	 * Display a listing of users
 	 *
@@ -79,6 +85,14 @@ class UsersController extends \BaseController {
 			if (UsersController::hash_value_on_input_field($input, 'password') == false) {
 				return Redirect::back()->withInput()->except('password');
 			}
+
+			//generate api key
+			UsersController::generate_apikey($input);
+		}
+
+		// mysql won't accept 'NULL' into retailer_id if it's blank
+		if (isset($input['retailer_id']) && $input['retailer_id'] == 'NULL') {
+			unset($input['retailer_id']);
 		}
 
 		User::create($input);
@@ -147,6 +161,13 @@ class UsersController extends \BaseController {
 					$input['password'] = Hash::make($input['new_password']);
 				}
 			}
+
+			//generate api key
+			UsersController::generate_apikey($input);
+		}
+
+		if (isset($input['retailer_id']) && $input['retailer_id'] == 'NULL') {
+			unset($input['retailer_id']);
 		}
 
 		$user->update($input);
