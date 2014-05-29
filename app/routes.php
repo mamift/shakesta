@@ -32,7 +32,7 @@ Route::get('/httpauth_logout', function()
 	/api/v1.1/productdeals
 	/api/v1.1/dealsonly
 */
-Route::group(array('prefix' => 'api/v1.1', 'before' => 'httpauth'), function()
+Route::group(array('prefix' => 'api/v1.1', 'before' => 'apiauth'), function()
 {
 	Route::get('current_deals', 'APIController@index_unexpired_deals');
 	Route::get('todays_deals', 'APIController@index_todays_deals');

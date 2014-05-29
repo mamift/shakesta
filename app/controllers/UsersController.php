@@ -149,8 +149,8 @@ class UsersController extends \BaseController {
 		$user = User::find($id);
 		$retailers = UsersController::get_retailers_list();
 
-		// dont allow changing user types
-		if ($user->user_type === 'retailer') {
+		// dont allow changing user types from retailer to admin unless current logged in user is admin
+		if ($user->user_type === 'retailer' && Auth::user()->username !== 'admin') {
 			unset($retailers['null']);
 		} 
 

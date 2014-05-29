@@ -5,7 +5,7 @@
 		$(document).ready(function() {
 			var fired_once = false;
 			if ($("#retailer_id option:selected").val() == 'null') {
-				$(this).change(function() {
+				$("#retailer_id").change(function() {
 					if (!fired_once) {
 						alert('This will demote this user to a retailer! Only an administrator can change this back!');
 						fired_once = true;
@@ -51,10 +51,9 @@
 					<tr>
 						<td>{{ Form::label('retailer_id','Retailer:') }}</td>
 						<td>
-							@if (Auth::user()->is_admin && Auth::user()->username === 'admin' && $user->username === 'admin')
+							{{-- The admin user cannot demote himself (neither can any other admin user) --}}
+							@if (Auth::user()->is_admin && $user->is_admin)
 							{{ Form::select('retailer_id', $retailers, 'null', ['disabled' => 'disabled']) }}
-							@elseif ($user->is_admin) 
-							{{ Form::select('retailer_id', $retailers, 'null') }}
 							@else
 							{{ Form::select('retailer_id', $retailers, $user->retailer_id) }}
 							@endif
