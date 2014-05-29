@@ -27,7 +27,21 @@ class Deal extends Eloquent {
 	// these fields aren't
 	protected $guarded = ['deal_id'];
 
-	protected $appends = ['id','begins_datetime','expires_datetime','expiry_time','is_expired'];
+	protected $appends = ['id','begins_datetime','expires_datetime','expiry_time','is_expired','discount_price'];
+
+	/** overriding default accesors & mutators **/
+
+	// price_discount
+	public function getPriceDiscountAttribute() {
+		return (float) $this->attributes['price_discount'];
+	}
+
+	// original_price
+	public function getOriginalPriceAttribute() {
+		return (float) $this->attributes['original_price'];
+	}
+
+	/** custom attributes **/
 
 	public function getIdAttribute() {
 		return $this->attributes['deal_id'];
@@ -69,6 +83,13 @@ class Deal extends Eloquent {
 		$is_expired = $now_datetime->diff($datetime)->format('%R%s') < 0 ? true : false;
 
 		return $is_expired;
+	}
+
+	public function getDiscountPriceAttribute() {
+		$original_price = $this->attributes['original_price'];
+		$price_discount = $this->attributes['price_discount'];
+
+		return $original_price - ($original_price * $price_discount);
 	}
 
 	public function product() {
