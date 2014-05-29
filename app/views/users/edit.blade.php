@@ -39,7 +39,11 @@
 					<tr>
 						<td>{{ Form::label('retailer_id','Retailer:') }}</td>
 						<td>
+							@if (Auth::user()->is_admin && Auth::user()->user_type == 'admin')
+							{{ Form::select('retailer_id', $retailers, 'null', ['disabled' => 'disabled']) }}
+							@else
 							{{ Form::select('retailer_id', $retailers) }}
+							@endif
 						</td>
 					</tr>
 					<tr>
@@ -59,10 +63,19 @@
 					<tr>
 						<td>{{ Form::label('generate_apikey','Generate new api key?') }}</td>
 						<td>
-							{{ Form::checkbox('generate_apikey', 'generate_apikey', false) }} <br />
+							{{ Form::checkbox('generate_apikey', 'generate_apikey', false) }}
 							@if ($user->apikey) Existing API key is&colon; <span class="error">{{ $user->apikey }} </span> @endif
 						</td>
 					</tr>
+					@if ($user->apikey)
+					<tr>
+						<td>{{ Form::label('delete_apikey','Delete API key?') }}</td>
+						<td>
+							{{ Form::checkbox('delete_apikey', 'delete_apikey', false) }}
+						</td>
+					</tr>
+
+					@endif
 					<!-- <tr>
 						<td>Created </td>
 						<td>{{ Form::input('time', 'created_at', null, ['readonly' => 'readonly']) }}</td>

@@ -57,12 +57,12 @@ Route::filter('httpauth', function()
 {
 	// leave out arguments to use e-mail field by default i.e. Auth::basic(); 
 	// this will use the username field
-	return Auth::basic("username");
+	return Auth::basic('username');
 });
 
 Route::filter('apiauth', function()
 {
-	return Auth::onceBasic(''); // use another column on the user table
+	return Auth::onceBasic('apikey'); // use another column on the user table
 });
 
 

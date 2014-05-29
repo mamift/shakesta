@@ -30,12 +30,19 @@ class UsersController extends \BaseController {
 			$retailers[$key] = "" . $key . ": " . $val;
 		}
 
+		// use this option to create another admin user; admin users can manage other users
+		$retailers['null'] = "none (an admin user)";
+
 		return $retailers;
 	}
 
-	private static function generate_apikey(&$input) {
+	private static function generate_or_delete_apikey(&$input) {
 		if (isset($input['generate_apikey'])) {
 			$input['apikey'] = uniqid('key', true);
+
+		} else if (isset($input['delete_apikey'])) {
+			$input['apikey'] = null;
+
 		}
 	}
 
@@ -62,9 +69,6 @@ class UsersController extends \BaseController {
 		// $latest_user = User::orderBy('user_id','DESC')->get()->first();
 		// $new_id = $latest_user->user_id + 1;
 
-		// use this option to create another admin user; admin users can be used for API interfacing
-		$retailers["NULL"] = "none (create an admin user)";
-
 		return View::make('users.create', ['retailers' => $retailers]);
 	}
 
@@ -86,13 +90,8 @@ class UsersController extends \BaseController {
 				return Redirect::back()->withInput()->except('password');
 			}
 
-			//generate api key
-			UsersController::generate_apikey($input);
-		}
-
-		// mysql won't accept 'NULL' into retailer_id if it's blank
-		if (isset($input['retailer_id']) && $input['retailer_id'] == 'NULL') {
-			unset($input['retailer_id']);
+			//generate or delete api key
+			UsersController::generate_or_delete_apikey($input);
 		}
 
 		User::create($input);
@@ -138,6 +137,8 @@ class UsersController extends \BaseController {
 		$user = User::findOrFail($id);
 		$input = Input::all();
 
+		// var_dump($input); exit();
+
 		$update_user_validation_rules = [
 			'username' => 'required', 
 			'new_password' => 'min:6|confirmed', 
@@ -151,23 +152,20 @@ class UsersController extends \BaseController {
 
 		} else {
 			if (isset($input['new_password']) && isset($input['new_password_confirmation'])) {
+
 				// check both new_password and new_password_confirm
-				$sta1 = UsersController::hash_value_on_input_field($input, 'new_password');
-				$sta2 = UsersController::hash_value_on_input_field($input, 'new_password_confirmation');
+				$the_same = $input['new_password'] === $input['new_password_confirmation'];
 				
-				if ($sta1 == false || $sta2 == false) {
+				if ($the_same == false) {
 					return Redirect::back()->withInput()->except('new_password','new_password_confirmation');
 				} else {
 					$input['password'] = Hash::make($input['new_password']);
 				}
 			}
 
-			//generate api key
-			UsersController::generate_apikey($input);
-		}
-
-		if (isset($input['retailer_id']) && $input['retailer_id'] == 'NULL') {
-			unset($input['retailer_id']);
+			// generate api key if input['generate_apikey'] is set
+			// delete api key if input['delete_apikey'] is set
+			UsersController::generate_or_delete_apikey($input);
 		}
 
 		$user->update($input);
