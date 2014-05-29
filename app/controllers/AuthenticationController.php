@@ -44,7 +44,7 @@ class AuthenticationController extends \BaseController {
 			}
 
 			if ($authenticated) {
-				return Redirect::to('/');
+				return Redirect::to('/user-login');
 			} else {
 				return Redirect::to('user-login')
 					->with('flash_error', 'Authentication failed! Try again.')
