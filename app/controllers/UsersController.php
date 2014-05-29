@@ -19,11 +19,14 @@ class UsersController extends \BaseController {
 
 	private static function process_input(&$input) {
 		// storing/updating retailer_id
-		if (isset($retailer_id)) {
+		if (isset($input['retailer_id'])) {
 			$retailer_id = $input['retailer_id'];
 			// mysql whines if you provide 'null' in quotes 
-			if ($retailer_id === 'NULL' || $retailer_id === 'null') {
+			if ($retailer_id == 'NULL' || $retailer_id == 'null') {
 				$input['retailer_id'] = null;
+				// unset($input['retailer_id']);
+
+				// var_dump($input); exit();
 			}
 		}
 
@@ -32,7 +35,7 @@ class UsersController extends \BaseController {
 
 	private static function store_new_password(&$input) {
 		// storing a password for a new user
-		if (isset($password)) {
+		if (isset($input['password'])) {
 			$password = $input['password'];
 
 			$field_to_hash = $password;

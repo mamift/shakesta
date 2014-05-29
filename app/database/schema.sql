@@ -92,6 +92,7 @@ ALTER TABLE `shakesta`.`deal` DROP INDEX `product_id`, ADD INDEX `product_id` (`
 
 /* http://laravel.com/docs/security#configuration */
 ALTER TABLE `user` ADD `remember_token` VARCHAR(100) NULL AFTER `retailer_id`;
+
 ALTER TABLE `user` ADD `apikey` VARCHAR(34) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL AFTER `remember_token`, ADD UNIQUE (`apikey`) ;
 ALTER TABLE `user` ADD INDEX(`apikey`);
 

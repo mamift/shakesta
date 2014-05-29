@@ -52,8 +52,11 @@
 						<td>{{ Form::label('retailer_id','Retailer:') }}</td>
 						<td>
 							{{-- The admin user cannot demote himself (neither can any other admin user) --}}
-							@if (Auth::user()->is_admin && $user->is_admin)
+							@if (Auth::user()->is_admin && $user->username == 'admin')
 							{{ Form::select('retailer_id', $retailers, 'null', ['disabled' => 'disabled']) }}
+							{{-- The admin user can turn admin users into retail users --}}
+							@elseif (Auth::user()->is_admin && $user->is_admin && $user->username != 'admin') 
+							{{ Form::select('retailer_id', $retailers, 'null') }}
 							@else
 							{{ Form::select('retailer_id', $retailers, $user->retailer_id) }}
 							@endif
