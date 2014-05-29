@@ -42,11 +42,13 @@ Route::get('/httpauth_logout', function()
 	/api/v1.1/productdeals
 	/api/v1.1/dealsonly
 */
-Route::group(array('prefix' => 'api/v1.1', 'before' => 'apiauth'), function()
+// Route::group(array('prefix' => 'api/v1.1', 'before' => 'apiauth'), function()
+Route::group(['prefix' => 'api/v1.1'], function()
 {
-	Route::get('current_deals', 'APIController@index_unexpired_deals');
-	Route::get('todays_deals', 'APIController@index_todays_deals');
-	Route::get('weekly_deals', 'APIController@index_thisweeks_deals');
+	Route::post('alldeals', 'APIController@index_all_deals');
+	// Route::get('current_deals', 'APIController@index_unexpired_deals');
+	// Route::get('todays_deals', 'APIController@index_todays_deals');
+	// Route::get('weekly_deals', 'APIController@index_thisweeks_deals');
     Route::resource('deals', 'APIController');
 });
 /** end real API */

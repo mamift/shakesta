@@ -59,9 +59,9 @@ class APIController extends \BaseController {
 	 * 
 	 * @return JSON Response
 	 */
-	public function index_deals_only()
+	public function index_all_deals()
 	{
-		$deals = Deal::all();
+		$deals = ProductDealsRetailers::where('begins_time','>','0000-00-00 00:00:00')->paginate(10);
 
 		return Response::json($deals->toArray(), 200);
 	}
