@@ -10,10 +10,10 @@
 	<table>
 		<thead>	
 			<tr>
-				<td colspan="12"><a href="{{ URL::route('deals.create') }}">Create a new deal</a></td>
+				<td colspan="11"><a href="{{ URL::route('deals.create') }}">Create a new deal</a></td>
 			</tr>
 			<tr>
-				<th>ID</th>
+				<!-- <th>ID</th> -->
 				<th>Product</th>
 				<th>Discount</th>
 				<th>Original Price</th>
@@ -31,7 +31,7 @@
 	@if (count($deals) > 0)
     @foreach($deals as $deal)
 			<tr>
-				<td><a href="{{ URL::route('deals.show', $deal->id) }}">{{ $deal->id }}</a></td>
+				<!-- <td><a href="{{ URL::route('deals.show', $deal->id) }}">{{ $deal->id }}</a></td> -->
 				<td>
 					<a href="{{ URL::route('products.show', $deal->product_id) }}">
 						{{ $deal->product_id . ": " . $deal->product_title }}
@@ -60,13 +60,13 @@
     @endforeach
     @else
     	<tr>
-    		<td colspan="12" style="text-align: center;">No deals here!</td>
+    		<td colspan="11" style="text-align: center;">No deals here!</td>
     	</tr>
     @endif
 		</tbody>
 		<tfoot>
 			<tr>
-				<td colspan="12"><a href="{{ URL::route('deals.create') }}">Create a new deal</a></td>
+				<td colspan="11"><a href="{{ URL::route('deals.create') }}">Create a new deal</a></td>
 			</tr>
 		</tfoot>
 	</table>

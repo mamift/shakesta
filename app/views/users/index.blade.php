@@ -5,10 +5,10 @@
 	<table>
 		<thead>	
 			<tr>
-				<td colspan="7"><a href="{{ URL::route('users.create') }}">Create a new user</a></td>
+				<td colspan="6"><a href="{{ URL::route('users.create') }}">Create a new user</a></td>
 			</tr>
 			<tr>
-				<th>ID</th>
+				<!-- <th>ID</th> -->
 				<th>Username</th>
 				<th>E-mail</th>
 				<th>For retailer</th>
@@ -21,7 +21,7 @@
 	@if (count($users) > 0)
     @foreach($users as $user)
 			<tr>
-				<td>{{ $user->id }}</td>
+				<!-- <td>{{ $user->id }}</td> -->
 				<td><a href="{{ URL::route('users.show', $user->id) }}">{{ $user->username }}</a></td>
 				<td>{{ $user->email }} </td>
 				<td>
@@ -48,13 +48,13 @@
     @endforeach
     @else
     	<tr>
-    		<td colspan="7" style="text-align: center;">No users here!</td>
+    		<td colspan="6" style="text-align: center;">No users here!</td>
     	</tr>
     @endif
 		</tbody>
 		<tfoot>
 			<tr>
-				<td colspan="7"><a href="{{ URL::route('users.create') }}">Create a new user</a></td>
+				<td colspan="6"><a href="{{ URL::route('users.create') }}">Create a new user</a></td>
 			</tr>
 		</tfoot>
 	</table>

@@ -2,25 +2,6 @@
 
 class UsersController extends \BaseController {
 
-	private static function hash_value_on_input_field(&$input, $field) {
-		if (!isset($input[$field])) {
-			throw new Exception("Field '" . $field . "' is not set on input variable!");
-
-		} else {
-			$field_to_hash = $input[$field];
-			$hashed_value = Hash::make($input[$field]);
-
-			//quick check
-			if (!Hash::check($field_to_hash, $hashed_value)) {
-				return false; // return false on failure
-
-			} else {
-				$input[$field] = $hashed_value;
-				return true;
-			}
-		}
-	}
-
 	private static function get_retailers_list() {
 		$all_retailers = DB::table('retailer')->lists('title','retailer_id');
 
@@ -37,25 +18,45 @@ class UsersController extends \BaseController {
 	}
 
 	private static function process_input(&$input) {
-		if (isset($input['retailer_id'])) {
-			if ($input['retailer_id'] === 'NULL' || $input['retailer_id'] === 'null') {
+		// storing/updating retailer_id
+		if (isset($retailer_id)) {
+			$retailer_id = $input['retailer_id'];
+			// mysql whines if you provide 'null' in quotes 
+			if ($retailer_id === 'NULL' || $retailer_id === 'null') {
 				$input['retailer_id'] = null;
-			} 
-		}
-
-		if (isset($input['new_password']) && isset($input['new_password_confirmation'])) {
-
-			// check both new_password and new_password_confirm
-			$the_same = $input['new_password'] === $input['new_password_confirmation'];
-			
-			if ($the_same == false) {
-				return Redirect::back()->withInput()->except('new_password','new_password_confirmation');
-			} else {
-				$input['password'] = Hash::make($input['new_password']);
 			}
 		}
 
 		UsersController::generate_or_delete_apikey($input);
+	}
+
+	private static function store_new_password(&$input) {
+		// storing a password for a new user
+		if (isset($password)) {
+			$password = $input['password'];
+
+			$field_to_hash = $password;
+			$hashed_password = Hash::make($password);
+
+			$input['password'] = $hashed_password;
+		}
+	}
+
+	private static function reset_password(&$input) {
+		// password reset
+		if (isset($input['new_password']) && isset($input['new_password_confirmation'])) {
+			$new_password = $input['new_password'];
+			$new_password_confirmation = $input['new_password_confirmation'];
+
+			// check both new_password and new_password_confirm
+			$the_same = ($new_password === $new_password_confirmation);
+			
+			if ($the_same == false) {
+				return Redirect::back()->withInput()->except('new_password','new_password_confirmation');
+			} else {
+				$input['password'] = Hash::make($new_password);
+			}
+		} 
 	}
 
 	private static function generate_or_delete_apikey(&$input) {
@@ -67,7 +68,6 @@ class UsersController extends \BaseController {
 			} else {
 			// delete api key if input['delete_apikey'] is set
 				$input['apikey'] = null;
-
 			}
 		}
 	}
@@ -112,12 +112,8 @@ class UsersController extends \BaseController {
 			return Redirect::back()->withErrors($validator)->withInput();
 
 		} else {
-			if (UsersController::hash_value_on_input_field($input, 'password') == false) {
-				return Redirect::back()->withInput()->except('password');
-			}
-
-			//generate or delete api key
 			UsersController::process_input($input);
+			UsersController::store_new_password($input);
 		}
 
 		User::create($input);
@@ -183,6 +179,7 @@ class UsersController extends \BaseController {
 
 		} else {
 			UsersController::process_input($input);
+			UsersController::reset_password($input);
 		}
 
 		$user->update($input);

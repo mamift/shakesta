@@ -49,7 +49,7 @@
 							<span class="error">{{{ $password_message = $errors->first('password') }}}</span>
 						</td>
 					</tr>
-					<tr>
+					<tr style="display:none; visibility: hidden;">
 						<td>{{ Form::label('generate_or_delete_apikey','Generate API Key?') }}</td>
 						<td>{{ Form::checkbox('generate_or_delete_apikey', "generate_apikey", true) }}</td>
 					</tr>

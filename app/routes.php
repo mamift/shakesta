@@ -11,8 +11,18 @@
 |
 */
 
+// Route::enableFilters();
+Route::group(['before' => 'apiauth'], function() 
+{
+	Route::get('/apiauth_test', function() 
+	{
+		return array('user' => Auth::user()->username, 'data' => Deal::all());
+	});
+});
+
 // authentication test using basic HTTP auth
-Route::get('/httpauth_login', [
+Route::get('/httpauth_login', 
+	[
 		'before' => 'httpauth', 
 		function() {
 		    return "{ Hello! You successfully authenticated! goto /httpauth_logout to logout}";

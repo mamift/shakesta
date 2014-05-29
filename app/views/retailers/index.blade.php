@@ -10,10 +10,10 @@
 	<table>
 		<thead>	
 			<tr>
-				<td colspan="5"><a href="{{ URL::route('retailers.create') }}">Create a new retailer</a></td>
+				<td colspan="4"><a href="{{ URL::route('retailers.create') }}">Create a new retailer</a></td>
 			</tr>
 			<tr>
-				<th>ID</th>
+				<!-- <th>ID</th> -->
 				<th>Title</th>
 				<th>Description</th>
 				<th>Edit</th>
@@ -24,7 +24,7 @@
 	@if (count($retailers) > 0)
     @foreach($retailers as $retailer)
 			<tr>
-				<td>{{ $retailer->id }}</td>
+				<!-- <td>{{ $retailer->id }}</td> -->
 				<td><a href="{{ URL::route('retailers.show', $retailer->id) }}">{{ $retailer->title }}</a></td>
 				<td>{{ $retailer->description }} </td>
 				<td><a href="{{ URL::route('retailers.edit', $retailer->id) }}">Edit</a></td>
@@ -38,13 +38,13 @@
     @endforeach
     @else
     	<tr>
-    		<td colspan="5" style="text-align: center;">No retailers here!</td>
+    		<td colspan="4" style="text-align: center;">No retailers here!</td>
     	</tr>
     @endif
 		</tbody>
 		<tfoot>
 			<tr>
-				<td colspan="5"><a href="{{ URL::route('retailers.create') }}">Create a new retailer</a></td>
+				<td colspan="4"><a href="{{ URL::route('retailers.create') }}">Create a new retailer</a></td>
 			</tr>
 		</tfoot>
 	</table>
