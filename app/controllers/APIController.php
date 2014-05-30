@@ -108,26 +108,30 @@ class APIController extends \BaseController {
 	 */
 	public function search($text) 
 	{
-		return $text;
-	}
-
-	/**
-	 * Unneeded method.
-	 *
-	 * @return Response
-	 */
-	public function create()
-	{
-		//not needed
-	}
-
-	/**
-	 * unused
-	 * 
-	 */
-	public function store() 
-	{
 		// unused
+	}
+
+	/**
+	 * Display JSON representation of a deal from the product_deals database view.
+	 *
+	 * @param  int  $id
+	 * @return JSON Response of a deal
+	 */
+	public function show($id)
+	{
+		$deal = ProductDealsRetailers::find($id);
+
+		$status = !isset($deal);
+		$response = ['status' => $status, 'message' => null, 'deal' => null];
+
+		if ($status) {
+			$response['message'] = 'cannot find record';
+		} else {
+			$response['message'] = 'record was found';
+			$response['deal'] = $deal->toArray();
+		}
+
+		return Response::json($response, 200);
 	}
 
 	/**
@@ -139,7 +143,7 @@ class APIController extends \BaseController {
 	 * (success test) curl -i --user admin:gizmoe99 -d 'price_discount=0.5&terms=blah blah&expires_time=2014-05-31 05:12:00&begins_time=2014-05-01 00:00:01&category=Home goods&product_id=5' localhost:8000/api/v1.1/productdeals
 	 * @return JSON Response indicating if the record was successfully created.
 	 */
-	public function store_new_deal()
+	private static function store_new_deal()
 	{
 		$deal = new ProductDeal;
 
@@ -209,40 +213,6 @@ class APIController extends \BaseController {
 	}
 
 	/**
-	 * Display JSON representation of a deal from the product_deals database view.
-	 *
-	 * @param  int  $id
-	 * @return JSON Response of a deal
-	 */
-	public function show($id)
-	{
-		$deal = ProductDealsRetailers::find($id);
-
-		$status = !isset($deal);
-		$response = ['status' => $status, 'message' => null, 'deal' => null];
-
-		if ($status) {
-			$response['message'] = 'cannot find record';
-		} else {
-			$response['message'] = 'record was found';
-			$response['deal'] = $deal->toArray();
-		}
-
-		return Response::json($response, 200);
-	}
-
-	/**
-	 * Unneeded method.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function edit($id)
-	{
-		//not needed
-	}
-
-	/**
 	 * Update a record by deal ID in the 'products_deal' database view. Can only be used to update deal information and not products information. Use the web interface for that.
 	 * test cases:
 	 * (success) curl -i -X PUT --user admin:gizmoe99 -d 'expires_time=2014-05-31 05:12:00&begins_time=2014-05-01 00:00:01' localhost:8000/api/v1.1/deals/5
@@ -251,7 +221,7 @@ class APIController extends \BaseController {
 	 * @param  int  $id
 	 * @return JSON Response indicating whether the specified record was updated or not.
 	 */
-	public function update($id)
+	private static function update($id)
 	{
 		$deal = ProductDeal::find($id);
 		$input = Input::all();
@@ -292,7 +262,7 @@ class APIController extends \BaseController {
 	 * @param  int  $id
 	 * @return JSON Response containing a message indicating if the record was successfully deleted or not.
 	 */
-	public function destroy($id)
+	private static function destroy($id)
 	{
 		$deal = ProductDeal::find($id);
 

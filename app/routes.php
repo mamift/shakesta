@@ -50,8 +50,8 @@ Route::group(array('prefix' => 'api/v1.1', 'before' => 'apiauth'), function()
 	Route::post('deals/all/unexpired', 			'APIController@index_unexpired_deals');
 	Route::post('deals/today',	 				'APIController@index_todays_deals');
 	Route::post('deals/week',	 				'APIController@index_thisweeks_deals');
-	Route::post('deals/search/{text}',			'APIController@search');
 	Route::post('deals/show/{id}',				'APIController@show');
+	// Route::post('deals/search/{text}',			'APIController@search');
     // Route::resource('deals', 'APIController');
 });
 /** end real API */
