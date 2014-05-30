@@ -50,6 +50,10 @@ Route::group(['prefix' => 'api/v1.1'], function()
 	});
 
 	Route::group(['before' => 'apiauth'], function() {
+		Route::get('deal/apikey={apikey}','APIController@index');
+	});
+
+	Route::group(['before' => 'apiauth'], function() {
 		Route::post('deals', 						'APIController@index');
 		Route::post('deals/all', 					'APIController@index_all_deals');
 		Route::post('deals/all/current', 			'APIController@index_current_deals');
