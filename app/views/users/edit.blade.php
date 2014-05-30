@@ -76,22 +76,25 @@
 							<span class="error">{{{ $password_message2 = $errors->first('new_password_confirmation') }}}</span>
 						</td>
 					</tr>
-					
 					<tr>
 						<td>{{ Form::label('generate_or_delete_apikey','Generate new api key?') }}</td>
 						<td>
-							{{ Form::radio('generate_or_delete_apikey', 'generate_apikey', false) }}
-							@if ($user->apikey) Existing API key is&colon; <span class="error">{{ $user->apikey }} </span> @endif
+							{{ Form::checkbox('generate_or_delete_apikey', 'generate_apikey', false) }}
+							
 						</td>
 					</tr>
 					@if ($user->apikey)
 					<tr>
+						<td colspan="2" style="text-align: center;">
+						Existing API key is&colon; <span class="error">{{ $user->apikey }} </span>
+						</td>
+					</tr>
+					<!-- <tr>
 						<td>{{ Form::label('generate_or_delete_apikey','Delete API key?') }}</td>
 						<td>
 							{{ Form::radio('generate_or_delete_apikey', 'delete_apikey', false) }}
 						</td>
-					</tr>
-
+					</tr> -->
 					@endif
 					<!-- <tr>
 						<td>Created </td>

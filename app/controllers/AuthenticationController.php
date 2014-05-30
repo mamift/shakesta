@@ -54,14 +54,13 @@ class AuthenticationController extends \BaseController {
 	}
 
 	/**
-	 * Show the user profile page for the current user.
+	 * Show the registration form for a new user
 	 *
-	 * @param  int  $id
 	 * @return Response
 	 */
-	public function show_user($user)
+	public function register()
 	{
-		//
+		
 	}
 
 	/**

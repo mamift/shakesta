@@ -67,7 +67,7 @@ Route::filter('apiauth', function($route, $request)
 	$apikeys = DB::table('user')->lists('apikey','user_id');
 
 	if (isset($apikey)) {
-		if (!in_array($apikey, $apikeys)) { // an OK api key
+		if (!in_array($apikey, $apikeys)) { // a bad api key
 			// return Redirect::to();
 			// return $invalid_response;
 			// return new Response('Blah', 200, null);

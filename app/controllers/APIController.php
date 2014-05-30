@@ -48,13 +48,25 @@ class APIController extends \BaseController {
 	}
 
 	/**
-	 * Returns only records from the 'product_deals' database view where deals have not expired (i.e. expired_datetime is before current date/time)
+	 * Returns deals that have not expired (i.e. expired_datetime is before current date/time)
 	 *
 	 * @return JSON Response
 	 */
 	public function index_unexpired_deals()
 	{	
 		$deals = APIController::get_current_deals();
+
+		return Response::json($deals->toArray(), 200);
+	}
+
+	/**
+	 * Returns deals that have expired (i.e. expired_datetime is after current date/time)
+	 *
+	 * @return JSON Response
+	 */
+	public function index_expired_deals()
+	{
+		$deals = APIController::get_expired_deals();
 
 		return Response::json($deals->toArray(), 200);
 	}
