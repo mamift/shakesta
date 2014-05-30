@@ -80,7 +80,7 @@ class Deal extends Eloquent {
 		$now_datetime = new DateTime('now');
 		$datetime = new DateTime($this->attributes['expires_time']);
 
-		$is_expired = $now_datetime->diff($datetime)->format('%R%s') < 0 ? true : false;
+		$is_expired = $now_datetime->diff($datetime)->format('%R%s') <= 0 ? true : false;
 
 		return $is_expired;
 	}

@@ -60,9 +60,24 @@ Route::filter('httpauth', function()
 	return Auth::basic('username');
 });
 
-Route::filter('apiauth', function()
+Route::filter('apiauth', function($route, $request)
 {
-	return Auth::onceBasic('apikey'); // use another column on the user table
+	$invalid_response = ['route' => $route, 'request' => $request];
+	$apikey = Input::get('apikey');
+	$apikeys = DB::table('user')->lists('apikey','user_id');
+
+	if (isset($apikey)) {
+		if (!in_array($apikey, $apikeys)) { // an OK api key
+			// return Redirect::to();
+			// return $invalid_response;
+			// return new Response('Blah', 200, null);
+			return "Invalid api key!";
+		}
+	} else {
+		return "Need API key!";
+	}
+	// var_dump($apikeys); exit();
+	// return Auth::onceBasic('apikey'); // use another column on the user table
 });
 
 

@@ -6,3 +6,12 @@ Default API User account:s
 
 API routes:
 
+
+
+User guide to the web app 
+==== ADMIN USERS ====
+
+
+
+
+==== RETAIL USERS ====

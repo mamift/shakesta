@@ -1,6 +1,27 @@
 <?php
 
 class APIController extends \BaseController {
+	private static function get_current_deals() 
+	{
+		$unexpired_filter = function($deal) {
+			return !$deal->is_expired;
+		};
+
+		$deals = ProductDealsRetailers::all()->filter($unexpired_filter);
+
+		return $deals;
+	}
+
+	private static function get_expired_deals() 
+	{
+		$expired_filter = function($deal) {
+			return $deal->is_expired;
+		};
+
+		$deals = ProductDealsRetailers::all()->filter($expired_filter);
+
+		return $deals;
+	}
 
 	/**
 	 * Returns all records from the 'product_deals' database view.
@@ -9,10 +30,19 @@ class APIController extends \BaseController {
 	 */
 	public function index()
 	{
-		// $deals = ProductDeal::all();
-		$deals = ProductDealsRetailers::where('begins_time','>','0000-00-00 00:00:00')->paginate(10);
-
+		$deals = APIController::get_current_deals();
 		// to get page 2, shakesta.com/api/v1.1/deals/?page=2
+		return Response::json($deals->toArray(), 200);
+	}
+
+	/**
+	 * Returns only data from the 'deal' table; (so no product information provided)
+	 * 
+	 * @return JSON Response
+	 */
+	public function index_all_deals()
+	{
+		$deals = ProductDealsRetailers::all();
 
 		return Response::json($deals->toArray(), 200);
 	}
@@ -23,8 +53,8 @@ class APIController extends \BaseController {
 	 * @return JSON Response
 	 */
 	public function index_unexpired_deals()
-	{
-		$deals = ProductDeal::all();
+	{	
+		$deals = APIController::get_current_deals();
 
 		return Response::json($deals->toArray(), 200);
 	}
@@ -35,8 +65,18 @@ class APIController extends \BaseController {
 	 * @return JSON Response
 	 */
 	public function index_todays_deals()
-	{
-		$deals = ProductDeal::all();
+	{	
+		$today_filter = function($deal) {
+			$todays_time = new DateTime("today");
+			$tomorrows_time = new DateTime("tomorrow");
+			$begins_time = new DateTime($deal->begins_time);
+
+			// var_dump($begins_time); exit();
+
+			return ($begins_time > $todays_time) && ($begins_time < $tomorrows_time);
+		};
+
+		$deals = ProductDealsRetailers::all()->filter($today_filter);
 
 		return Response::json($deals->toArray(), 200);
 	}
@@ -48,22 +88,27 @@ class APIController extends \BaseController {
 	 */
 	public function index_thisweeks_deals()
 	{
-		$deals = ProductDeal::all();
+		$week_filter = function($deal) {
+			$week_time = new DateTime("this week");
+			$begins_time = new DateTime($deal->begins_time);
+
+			// var_dump($begins_time); exit();
+
+			return ($begins_time > $week_time) && !($deal->is_expired);
+		};
+
+		$deals = ProductDealsRetailers::all()->filter($week_filter);
 
 		return Response::json($deals->toArray(), 200);
 	}
 
-
 	/**
-	 * Returns only data from the 'deal' table; (so no product information provided)
+	 * unused
 	 * 
-	 * @return JSON Response
 	 */
-	public function index_all_deals()
+	public function search($text) 
 	{
-		$deals = ProductDealsRetailers::where('begins_time','>','0000-00-00 00:00:00')->paginate(10);
-
-		return Response::json($deals->toArray(), 200);
+		return $text;
 	}
 
 	/**
@@ -77,6 +122,15 @@ class APIController extends \BaseController {
 	}
 
 	/**
+	 * unused
+	 * 
+	 */
+	public function store() 
+	{
+		// unused
+	}
+
+	/**
 	 * Used to create a new record in the 'product_deals' database view. Cannot be used to create a new product, only deals. Must specify all fields in the deals table, including product_id so a product must already exist. 
 	 * $fillable = ['price_discount','terms','expires_time','begins_time','category','product_id'];
 	 * test with: 
@@ -85,7 +139,7 @@ class APIController extends \BaseController {
 	 * (success test) curl -i --user admin:gizmoe99 -d 'price_discount=0.5&terms=blah blah&expires_time=2014-05-31 05:12:00&begins_time=2014-05-01 00:00:01&category=Home goods&product_id=5' localhost:8000/api/v1.1/productdeals
 	 * @return JSON Response indicating if the record was successfully created.
 	 */
-	public function store()
+	public function store_new_deal()
 	{
 		$deal = new ProductDeal;
 
@@ -94,7 +148,7 @@ class APIController extends \BaseController {
 		$product_validated = true;
 		$status = false; // false means OK! that we don't have a situation
 
-		$validator = Validator::make($input, ProductDeal::$rules);
+		$validator = Validator::make($input, Deal::$create_rules);
 		$validated = $validator->passes();
 
 		foreach($input as $key => $val) 
@@ -162,7 +216,7 @@ class APIController extends \BaseController {
 	 */
 	public function show($id)
 	{
-		$deal = ProductDeal::find($id);
+		$deal = ProductDealsRetailers::find($id);
 
 		$status = !isset($deal);
 		$response = ['status' => $status, 'message' => null, 'deal' => null];
