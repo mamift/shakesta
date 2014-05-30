@@ -45,15 +45,21 @@ Route::get('/httpauth_logout', function()
 // Route::group(array('prefix' => 'api/v1.1', 'before' => 'apiauth'), function()
 Route::group(['prefix' => 'api/v1.1'], function()
 {
-	Route::post('deals', 						'APIController@index');
-	Route::post('deals/all', 					'APIController@index_all_deals');
-	Route::post('deals/all/unexpired', 			'APIController@index_unexpired_deals');
-	Route::post('deals/all/expired', 			'APIController@index_expired_deals');
-	Route::post('deals/today',	 				'APIController@index_todays_deals');
-	Route::post('deals/week',	 				'APIController@index_thisweeks_deals');
-	Route::post('deals/show/{id}',				'APIController@show');
-	// Route::post('deals/search/{text}',			'APIController@search');
-    // Route::resource('deals', 'APIController');
+	Route::get('/', function() {
+		return ['commands' => ['deals','deals/all','deals/all/unexpired','deals/all/expired','deals/today','deals/week','deals/show/{id}']];
+	});
+
+	Route::group(['before' => 'apiauth'], function() {
+		Route::post('deals', 						'APIController@index');
+		Route::post('deals/all', 					'APIController@index_all_deals');
+		Route::post('deals/all/current', 			'APIController@index_current_deals');
+		Route::post('deals/all/expired', 			'APIController@index_expired_deals');
+		Route::post('deals/today',	 				'APIController@index_todays_deals');
+		Route::post('deals/week',	 				'APIController@index_thisweeks_deals');
+		Route::post('deals/show/{id}',				'APIController@show');
+		// Route::post('deals/search/{text}',		'APIController@search');
+	    // Route::resource('deals', 'APIController');
+	});
 });
 /** end real API */
 

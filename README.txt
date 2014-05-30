@@ -34,15 +34,43 @@ Can only view their own deals
 Can only view their own products
 
 ==== API ====
-The API can be interfaced with using this URL:
-www.shakesta.com/api/v1/
+The API can be interfaced with using this base URL:
+	www.shakesta.com/api/v1.1/
 
-The API has
+Making a simple get request to www.shakesta.com/api/v1.1 will return a list of commands like so:
+"commands": [
+	"deals",
+	"deals/all",
+	"deals/all/unexpired",
+	"deals/all/expired",
+	"deals/today",
+	"deals/week",
+	"deals/show/{id}"
+]
 
-www.shakesta.com/api/v1.1/deals
-www.shakesta.com/api/v1.1/deals/all
-www.shakesta.com/api/v1.1/deals/all/unexpired
-www.shakesta.com/api/v1.1/deals/all/expired
-www.shakesta.com/api/v1.1/deals/today
-www.shakesta.com/api/v1.1/deals/week
-www.shakesta.com/api/v1.1/deals/show/{id}
+Every single command is a POST route, that returns JSON data; the only piece of data that must be POST'ed is the API key. Every request must have a valid API key, using the 'apikey=' prefix. Using GET requests will not work and return an error.
+For example, using the 'curl' command on linux: 
+
+	curl -d 'apikey=key5386ea461f9568.70167308' shakesta.com/api/v1.1/deals/all/expired
+
+API keys are bound to user accounts. An API key is made everytime a new user is made. Go to the user page to see your API key.
+
+The API can be interfaced using the following URL endpoints:
+
+1. www.shakesta.com/api/v1.1/deals	
+2. www.shakesta.com/api/v1.1/deals/all
+	- also /expired and /unexpired, i.e.
+	- www.shakesta.com/api/v1.1/deals/all/expired
+	- www.shakesta.com/api/v1.1/deals/all/unexpired
+3. www.shakesta.com/api/v1.1/deals/today
+4. www.shakesta.com/api/v1.1/deals/week
+5. www.shakesta.com/api/v1.1/deals/show/{id}
+
+The URL's explained:
+
+1. grabs all current (unexpired) deals, in paginated form, ten at a time (add /?page=n to grab more deals, i.e. (www.shakesta.com/api/v1.1/deals/?page=2 for more data) 
+2. grabs all unexpired and expired deals (not paginated)
+3. grabs all deals that began today (not paginated)
+4. grabs all deals that began at the beginning of this week (a week defined as being Sun to Sat, not paginated)
+5. show only one particular deal, by id number (provide the id number after /show/) i.e.
+	- www.shakesta.com/api/v1.1/deals/show/29

@@ -1,24 +1,24 @@
 <?php
 
 class APIController extends \BaseController {
-	private static function get_current_deals() 
+	private static function current_deals() 
 	{
 		$unexpired_filter = function($deal) {
 			return !$deal->is_expired;
 		};
 
-		$deals = ProductDealsRetailers::all()->filter($unexpired_filter);
+		$deals = ProductDealsRetailers::where('expires_time','>', (new DateTime())); 
 
 		return $deals;
 	}
 
-	private static function get_expired_deals() 
+	private static function expired_deals() 
 	{
 		$expired_filter = function($deal) {
 			return $deal->is_expired;
 		};
 
-		$deals = ProductDealsRetailers::all()->filter($expired_filter);
+		$deals = ProductDealsRetailers::where('expires_time','<', (new DateTime()));
 
 		return $deals;
 	}
@@ -30,7 +30,7 @@ class APIController extends \BaseController {
 	 */
 	public function index()
 	{
-		$deals = APIController::get_current_deals();
+		$deals = APIController::current_deals()->paginate(10);
 		// to get page 2, shakesta.com/api/v1.1/deals/?page=2
 		return Response::json($deals->toArray(), 200);
 	}
@@ -52,9 +52,9 @@ class APIController extends \BaseController {
 	 *
 	 * @return JSON Response
 	 */
-	public function index_unexpired_deals()
+	public function index_current_deals()
 	{	
-		$deals = APIController::get_current_deals();
+		$deals = APIController::current_deals()->get();
 
 		return Response::json($deals->toArray(), 200);
 	}
@@ -66,7 +66,7 @@ class APIController extends \BaseController {
 	 */
 	public function index_expired_deals()
 	{
-		$deals = APIController::get_expired_deals();
+		$deals = APIController::expired_deals()->get();
 
 		return Response::json($deals->toArray(), 200);
 	}
