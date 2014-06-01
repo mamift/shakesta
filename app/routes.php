@@ -46,11 +46,17 @@ Route::get('/httpauth_logout', function()
 Route::group(['prefix' => 'api/v1.1'], function()
 {
 	Route::get('/', function() {
-		return ['commands' => ['deals','deals/all','deals/all/unexpired','deals/all/expired','deals/today','deals/week','deals/show/{id}']];
-	});
-
-	Route::group(['before' => 'apiauth'], function() {
-		Route::get('deal/apikey={apikey}','APIController@index');
+		return ['commands' => [
+			'deals',
+			'deals/all',
+			'deals/all/curent',
+			'deals/all/expired',
+			'deals/today',
+			'deals/week',
+			'deals/show/{id}',
+			'deals/categories',
+			'deals/bycategory']
+		];
 	});
 
 	Route::group(['before' => 'apiauth'], function() {
@@ -61,8 +67,38 @@ Route::group(['prefix' => 'api/v1.1'], function()
 		Route::post('deals/today',	 				'APIController@index_todays_deals');
 		Route::post('deals/week',	 				'APIController@index_thisweeks_deals');
 		Route::post('deals/show/{id}',				'APIController@show');
+		Route::post('deals/categories',				'APIController@index_deal_categories');
+		Route::post('deals/bycategory/{category}',	'APIController@deals_by_category');
 		// Route::post('deals/search/{text}',		'APIController@search');
 	    // Route::resource('deals', 'APIController');
+	});
+});
+
+Route::group(['prefix' => 'api/v1.2'], function() {
+	Route::get('/', function() {
+		return ['commands' => [
+			'deals/apikey={}',
+			'deals/apikey={}/all',
+			'deals/apikey={}/all/current',
+			'deals/apikey={}/all/expired',
+			'deals/apikey={}/today',
+			'deals/apikey={}/week',
+			'deals/apikey={}/show/{id}',
+			'deals/apikey={}/categories',
+			'deals/apikey={}/bycategory']
+		];
+	});
+
+	Route::group(['before' => 'apiauth'], function() {
+		Route::get('deals/apikey={apikey}',							'APIController@index');
+		Route::get('deals/apikey={apikey}/all', 					'APIController@index_all_deals');
+		Route::get('deals/apikey={apikey}/all/current', 			'APIController@index_current_deals');
+		Route::get('deals/apikey={apikey}/all/expired', 			'APIController@index_expired_deals');
+		Route::get('deals/apikey={apikey}/today',	 				'APIController@index_todays_deals');
+		Route::get('deals/apikey={apikey}/week',	 				'APIController@index_thisweeks_deals');
+		Route::get('deals/apikey={apikey}/show/{id}',				'APIController@show');
+		Route::get('deals/apikey={apikey}/categories',				'APIController@index_deal_categories');
+		Route::get('deals/apikey={apikey}/bycategory/{category}',	'APIController@deals_by_category');
 	});
 });
 /** end real API */

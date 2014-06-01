@@ -129,8 +129,15 @@ class APIController extends \BaseController {
 	 * @param  int  $id
 	 * @return JSON Response of a deal
 	 */
-	public function show($id)
+	public function show()
 	{
+		if (func_num_args() > 1) { // received via GET
+			$id = func_get_arg(1); // id should be second one
+
+		} else if (func_num_args() == 1) { //received via POST
+			$id = func_get_arg(0); // id should be the first
+		}
+
 		$deal = ProductDealsRetailers::find($id);
 
 		$status = !isset($deal);
@@ -144,6 +151,38 @@ class APIController extends \BaseController {
 		}
 
 		return Response::json($response, 200);
+	}
+
+	/**
+	 * Show a list of deal categories (distinct).
+	 * 
+	 */
+	public function index_deal_categories() 
+	{
+		$deal_categories = DB::table('deal')->distinct()->lists('category');
+		$response = ['total' => count($deal_categories), 'data' => $deal_categories];
+		return Response::json($response, 200);
+	}
+
+	/**
+	 * Show deals by a category
+	 * 
+	 */
+	public function deals_by_category()
+	{
+		if (func_num_args() > 1) { // received via GET
+			$category = func_get_arg(1); // category should be the second one, api key is the first
+
+		} else if (func_num_args() == 1) { //received via POST
+			$category = func_get_arg(0);
+		}
+
+		$deals = ProductDealsRetailers::where('category','=', $category)->paginate(10);
+		$count = $deals->count();
+		$response = ['total' => $count, 'data' => $deals->toArray()];
+
+		// return Response::json($response, 200);
+		return Response::json($deals, 200);
 	}
 
 	/**

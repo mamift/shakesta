@@ -57,14 +57,15 @@ API keys are bound to user accounts. An API key is made everytime a new user is 
 
 The API can be interfaced using the following URL endpoints:
 
-1. www.shakesta.com/api/v1.1/deals	
-2. www.shakesta.com/api/v1.1/deals/all
-	- also /expired and /unexpired, i.e.
-	- www.shakesta.com/api/v1.1/deals/all/expired
-	- www.shakesta.com/api/v1.1/deals/all/unexpired
-3. www.shakesta.com/api/v1.1/deals/today
-4. www.shakesta.com/api/v1.1/deals/week
-5. www.shakesta.com/api/v1.1/deals/show/{id}
+1. www.shakesta.com/api/v1.2/deals/apikey={apikey}						
+2. www.shakesta.com/api/v1.2/deals/apikey={apikey}/all 				
+	- www.shakesta.com/api/v1.2/deals/apikey={apikey}/all/current 		
+	- www.shakesta.com/api/v1.2/deals/apikey={apikey}/all/expired 		
+3. www.shakesta.com/api/v1.2/deals/apikey={apikey}/today	 			
+4. www.shakesta.com/api/v1.2/deals/apikey={apikey}/week	 			
+5. www.shakesta.com/api/v1.2/deals/apikey={apikey}/show/{id}			
+6. www.shakesta.com/api/v1.2/deals/apikey={apikey}/categories			
+7. www.shakesta.com/api/v1.2/deals/apikey={apikey}/bycategory/{category}
 
 The URL's explained:
 
@@ -74,3 +75,5 @@ The URL's explained:
 4. grabs all deals that began at the beginning of this week (a week defined as being Sun to Sat, not paginated)
 5. show only one particular deal, by id number (provide the id number after /show/) i.e.
 	- www.shakesta.com/api/v1.1/deals/show/29
+6. show all deal categories
+7. show deals for a single category (paginated, add ?page=2 for more data)

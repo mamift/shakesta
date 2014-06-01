@@ -63,8 +63,15 @@ Route::filter('httpauth', function()
 Route::filter('apiauth', function($route, $request)
 {
 	$invalid_response = ['route' => $route, 'request' => $request];
-	// $apikey = Input::get('apikey');
-	$apikey = $route->getParameter('apikey');
+
+	// var_dump($invalid_response); exit();
+
+	$post_apikey = Input::get('apikey');
+	if (isset($post_apikey)) 
+		$apikey = Input::get('apikey');
+	else
+		$apikey = $route->getParameter('apikey');
+
 	$apikeys = DB::table('user')->lists('apikey','user_id');
 
 	if (isset($apikey)) {
