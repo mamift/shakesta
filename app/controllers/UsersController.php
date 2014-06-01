@@ -2,7 +2,7 @@
 
 class UsersController extends \BaseController {
 
-	private static function get_retailers_list() {
+	public static function get_retailers_list() {
 		$all_retailers = DB::table('retailer')->lists('title','retailer_id');
 
 		$retailers = array();
@@ -17,7 +17,8 @@ class UsersController extends \BaseController {
 		return $retailers;
 	}
 
-	private static function process_input(&$input) {
+	public static function process_input(&$input) {
+
 		// storing/updating retailer_id
 		if (isset($input['retailer_id'])) {
 			$retailer_id = $input['retailer_id'];
@@ -30,36 +31,52 @@ class UsersController extends \BaseController {
 			}
 		}
 
+		// sent by the users.create form; hidden form element
+		if (isset($input['enabled'])) {
+			$enabled = $input['enabled'];
+
+			if ($enabled == true || $enabled == 'true') {
+				$input['status'] = 'enabled';
+			} else {
+				$input['status'] = 'disabled';
+			}
+		}
+
 		UsersController::generate_or_delete_apikey($input);
 	}
 
-	private static function store_new_password(&$input) {
+	public static function store_new_password(&$input) {
 		// storing a password for a new user
-		if (isset($input['password'])) {
-			$password = $input['password'];
+		
+		$password = $input['password'];
 
-			$field_to_hash = $password;
-			$hashed_password = Hash::make($password);
+		if (strlen($password) < 6) return;
 
-			$input['password'] = $hashed_password;
-		}
+		$input['password'] = Hash::make($password);
+
+		// var_dump($input['password']); exit();
 	}
 
-	private static function reset_password(&$input) {
+	public static function reset_password(&$input) {
+		$np_set = strlen(isset($input['new_password']));
 		// password reset
-		if (isset($input['new_password']) && isset($input['new_password_confirmation'])) {
-			$new_password = $input['new_password'];
-			$new_password_confirmation = $input['new_password_confirmation'];
+		$new_password = $input['new_password'];
+		$new_password_confirmation = $input['new_password_confirmation'];
+		
+		// var_dump($np_set); exit();
 
-			// check both new_password and new_password_confirm
-			$the_same = ($new_password === $new_password_confirmation);
-			
-			if ($the_same == false) {
-				return Redirect::back()->withInput()->except('new_password','new_password_confirmation');
-			} else {
-				$input['password'] = Hash::make($new_password);
-			}
-		} 
+		if (strlen($new_password) < 6) return;
+		if (strlen($new_password_confirmation) < 6) return;
+		
+
+		// check both new_password and new_password_confirm
+		$the_same = ($new_password === $new_password_confirmation);
+		
+		if ($the_same == false) {
+			return Redirect::back()->withInput()->except('new_password','new_password_confirmation');
+		} else {
+			$input['password'] = Hash::make($new_password);
+		}
 	}
 
 	private static function generate_or_delete_apikey(&$input) {
@@ -82,9 +99,10 @@ class UsersController extends \BaseController {
 	 */
 	public function index()
 	{
-		$users = User::all();
+		$users = User::where('status','=','enabled')->get();
+		$disabled_users = User::where('status','=','disabled')->get();
 
-		return View::make('users.index', ['users' => $users]);
+		return View::make('users.index', ['users' => $users, 'disabled_users' => $disabled_users]);
 	}
 
 	/**
@@ -111,6 +129,18 @@ class UsersController extends \BaseController {
 		$input = Input::all();
 		$validator = Validator::make($input, User::$create_rules);
 
+		$username = Input::get('username');
+		$email = Input::get('email');
+
+		// check for pre-existing username and e-mail
+		if (AuthenticationController::check_username($username)) {
+			return Redirect::back()->with('username_message', "Username already taken!")->withInput();
+		} 
+
+		if (AuthenticationController::check_email($email)) {
+			return Redirect::back()->with('email_message', "Email already taken!")->withInput();
+		}
+
 		if ($validator->fails()) {
 			return Redirect::back()->withErrors($validator)->withInput();
 
@@ -121,7 +151,12 @@ class UsersController extends \BaseController {
 
 		User::create($input);
 
-		return Redirect::route('users.index');
+		if (Auth::check()) {
+			return Redirect::route('users.index');
+
+		} else {
+			return View::make('users.confirmation');
+		}
 	}
 
 	/**

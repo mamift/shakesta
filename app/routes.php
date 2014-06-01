@@ -115,11 +115,6 @@ Route::group(['before' => 'auth'], function() {
 	});
 });
 
-Route::get('/', function()
-{
-	return View::make('index');
-});
-
 // User authentication
 Route::get('user-login', ['uses' => 'AuthenticationController@index']);
 Route::get('user-logout', ['uses' => 'AuthenticationController@destroy']);
@@ -127,6 +122,12 @@ Route::post('user-login', ['uses' => 'AuthenticationController@authenticate']);
 
 // User registration
 Route::get('user-signup', ['uses' => 'AuthenticationController@register']);
+Route::post('user-signup', ['uses' => 'AuthenticationController@self_signup_store']);
+
+Route::get('/', function()
+{
+	return View::make('index');
+});
 
 Route::get('contact-us', function()
 {

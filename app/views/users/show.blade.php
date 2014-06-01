@@ -32,8 +32,16 @@
 					<tr>
 						<td>{{ Form::label('email','E-mail:') }}</td>
 						<td>
-							{{ $user->email }}
+							{{ $user->email or "no e-mail address provided" }}
 						</td>
+					</tr>
+					<tr>
+						<td>{{ Form::label('enabled','Status') }}</td>
+						@if ($user->is_enabled)
+						<td>{{ $user->status }}</td>
+						@else 
+						<td><span class="error">{{ $user->status }}</span></td>
+						@endif
 					</tr>
 					@if ($user->apikey)
 					<tr>

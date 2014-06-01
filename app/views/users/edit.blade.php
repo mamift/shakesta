@@ -45,7 +45,7 @@
 					<tr>
 						<td>{{ Form::label('email','E-mail:') }}</td>
 						<td>
-							{{ Form::textarea('email') }}
+							{{ Form::text('email') }}
 						</td>
 					</tr>
 					<tr>
@@ -82,6 +82,15 @@
 							{{ Form::checkbox('generate_or_delete_apikey', 'generate_apikey', false) }}
 							
 						</td>
+					</tr>
+					<tr>
+						<td>{{ Form::label('status','Enable user?') }}</td>
+						{{-- Can't disable the admin user--}}
+						@if (Auth::user()->is_admin && $user->username === 'admin')
+						<td>{{ Form::select('status', ['enabled' => 'enabled','disabled' => 'disabled'], $user->status, ['disabled' => 'disabled']) }}</td>	
+						@else
+						<td>{{ Form::select('status', ['enabled' => 'enabled','disabled' => 'disabled'], $user->status) }}</td>
+						@endif
 					</tr>
 					@if ($user->apikey)
 					<tr>

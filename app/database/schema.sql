@@ -96,4 +96,6 @@ ALTER TABLE `user` ADD `remember_token` VARCHAR(100) NULL AFTER `retailer_id`;
 ALTER TABLE `user` ADD `apikey` VARCHAR(34) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL AFTER `remember_token`, ADD UNIQUE (`apikey`) ;
 ALTER TABLE `user` ADD INDEX(`apikey`);
 
-
+/* either enabled or disabled */
+ALTER TABLE `user` ADD `status` VARCHAR(10) NULL DEFAULT NULL AFTER `apikey`;
+ALTER TABLE `user` CHANGE `status` `status` ENUM('enabled','disabled') CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT 'disabled';

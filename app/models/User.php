@@ -86,7 +86,7 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 	];
 
 	// fields that are mass assignable
-	protected $fillable = ['username','password','email','retailer_id','apikey'];
+	protected $fillable = ['username','password','email','retailer_id','apikey','status'];
 
 	protected $primaryKey = 'user_id';
 
@@ -96,7 +96,7 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 	// these fields aren't
 	protected $guarded = ['user_id','user_type','is_admin'];
 
-	protected $appends = ['created_at_datetime','updated_at_datetime','id','user_type','is_admin'];
+	protected $appends = ['created_at_datetime','updated_at_datetime','id','user_type','is_admin','is_enabled'];
 
 	public function getCreatedAtDatetimeAttribute() {
 		return date("l jS F Y h:i:s A", strtotime($this->attributes['created_at']));
@@ -120,6 +120,10 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 	public function getIsAdminAttribute() {
 		$retailer_id_set = (isset($this->attributes['retailer_id']) || $this->attributes['retailer_id'] > 0);
 		return ($retailer_id_set ? false : true);
+	}
+
+	public function getIsEnabledAttribute() {
+		return ($this->attributes['status'] === 'enabled' ? true : false);
 	}
 
 	// user has one retailer

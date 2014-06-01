@@ -34,6 +34,13 @@
 					@endif
 					</a>
 				</li>
+				@if (!Auth::check())
+				<li>
+					<a href="/user-signup">
+						Register new account
+					</a>
+				</li>
+				@endif
 
 			@if (Auth::check())
 
