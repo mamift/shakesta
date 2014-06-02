@@ -2,13 +2,12 @@
 
 @section('content')
 
-	<style> @import url('/css/tabulus.css'); </style>
 	<h2>
 		<a href="{{ URL::route('deals.index') }}">&lt; Go to deals</a>
 	</h2>
 	<div>
 		{{ Form::model($deal, ['method' => 'PATCH', 'route' => ['deals.update', $deal->deal_id]] ) }}
-			<table class="tabulus tabulus-form">
+			<table class="table table-bordered table-hover table-striped table-condensed">
 				<thead>
 					<tr>
 						<th colspan="2">
@@ -80,14 +79,14 @@
 							@endif
 						</td>
 					</tr>
-					<tr>
+					<!-- <tr>
 						<td>Created </td>
 						<td>{{ Form::input('time', 'created_at', null, ['readonly' => 'readonly']) }}</td>
 					</tr>
 					<tr>
 						<td>Last updated</td>
 						<td>{{ Form::input('time', 'updated_at', null, ['readonly' => 'readonly']) }}</td>
-					</tr>
+					</tr> -->
 				</tbody>
 				<tfoot>
 					<tr class="">

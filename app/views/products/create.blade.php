@@ -2,13 +2,12 @@
 
 @section('content')
 
-	<style> @import url('/css/tabulus.css'); </style>
 	<h2>
 		<a href="{{ URL::route('products.index') }}">&lt; Go to products</a>
 	</h2>
 	<div>
 		{{ Form::open(['route' => 'products.store', 'files' => 'true']) }}
-			<table class="tabulus tabulus-form">
+			<table class="table table-bordered table-hover table-striped table-condensed">
 				<thead>
 					<tr>
 						<th colspan="2">

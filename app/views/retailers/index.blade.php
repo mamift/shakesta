@@ -7,7 +7,7 @@
 		}
 	</script>
 	<h1>All Retailers</h1>
-	<table>
+	<table class="table table-bordered table-hover table-striped table-condensed">
 		<thead>	
 			<tr>
 				<td colspan="4"><a href="{{ URL::route('retailers.create') }}">Create a new retailer</a></td>
@@ -48,4 +48,10 @@
 			</tr>
 		</tfoot>
 	</table>
+	@if (Session::get('delete_error'))
+		<p class="error">
+			{{ Session::get('delete_error') }} <br/>
+			Delete all associated users, then try deleting this retailer.
+		</p>
+	@endif
 @stop

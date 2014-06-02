@@ -1,7 +1,7 @@
 @extends('layout')
 
 @section('content')
-	<table>
+	<table class="table table-bordered table-hover table-striped table-condensed">
 		<thead>	
 			<tr>
 				<th>User ID</th>

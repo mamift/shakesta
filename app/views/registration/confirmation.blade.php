@@ -2,7 +2,6 @@
 
 @section('content')
 
-	<style> @import url('/css/tabulus.css'); </style>
 	<h2 class="">
 		<a href="/">&lt; Back to home page</a>
 	</h2>

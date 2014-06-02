@@ -61,6 +61,14 @@ App::error(function(Symfony\Component\HttpFoundation\File\Exception\FileExceptio
     return Redirect::back()->with('file_exception_message', "File size too big! Must be equal to or less than 2MB (" . $file_max / 1024 . " KB )")->withInput();
 });
 
+App::error(function(Illuminate\Database\QueryException $e, $code)
+{
+	Log::error($e);
+
+	return Redirect::back()->with('delete_error', 'Current record has associated records.');
+
+});
+
 
 /*
 |--------------------------------------------------------------------------

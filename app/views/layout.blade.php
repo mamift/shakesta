@@ -3,14 +3,19 @@
 <head> 
 	<link rel="stylesheet" href="/style.css" />
 	<link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Lato">
-	<link rel="stylesheet" href="/css/5grid/core-desktop.css" />
-	<link rel="stylesheet" href="/css/5grid/core-1200px.css" />
-	<link rel="stylesheet" href="/css/5grid/core-noscript.css" />
+	<!-- <link rel="stylesheet" href="/css/5grid/core-desktop.css" /> -->
+	<!-- <link rel="stylesheet" href="/css/5grid/core-1200px.css" /> -->
+	<!-- <link rel="stylesheet" href="/css/5grid/core-noscript.css" /> -->
 	<link rel="stylesheet" href="/css/style.css" />
-	<link rel="stylesheet" href="/css/style-desktop.css" />
+	<!-- <link rel="stylesheet" href="/css/style-desktop.css" /> -->
 	<link rel="stylesheet" type="text/css" href="/jquery.datetimepicker.css"/ >
 
+	<link rel="stylesheet" href="/bootstrap/css/bootstrap.css" />
+
+	<script type="text/javascript" src="/bootstrap/css/bootstrap.min.js"></script>
 	<script type="text/javascript" src="/jquery-2.1.0.min.js"></script>
+
+	<!-- /*<style> @import url('/css/tabulus.css'); </style>*/ -->
 	
 </head>
 

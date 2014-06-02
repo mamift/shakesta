@@ -1,14 +1,12 @@
 @extends('layout')
 
 @section('content')
-
-	<style> @import url('/css/tabulus.css'); </style>
 	<h2 class="">
 		<a href="{{ URL::route('users.index') }}">&lt; Back to users</a>
 	</h2>
 	<div>
 		{{ Form::open(['route' => 'users.store']) }}
-			<table class="tabulus tabulus-form">
+			<table class="table table-bordered table-hover table-striped table-condensed">
 				<thead>
 					<tr>
 						<th colspan="2">
@@ -33,7 +31,7 @@
 					<tr>
 						<td>{{ Form::label('email','E-mail:') }}</td>
 						<td>
-							{{ Form::text('email') }}
+							{{ Form::text('email', null, ['size' => '30']) }}
 						</td>
 					</tr>
 					<tr>

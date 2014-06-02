@@ -104,7 +104,7 @@ a:active {color:black;}  /* selected link */
 	filter: alpha(opacity=0);
 }
 
-/** Added by Muhammad **/
+/** Added by Muhammad *
 
 table {
 	border: 1px solid #000;
@@ -133,4 +133,23 @@ tr:nth-child(even) {
 
 tr:last-child {
 	border-bottom: 1px solid rgb(0,0,0);
+}
+*/
+
+#index-of-deals-table {
+	font-size: 9pt;
+}
+
+
+.image-td-span-bordered {
+	text-align: center;
+}
+
+.image-td-span-bordered img {
+	
+	max-width: 300px;
+	max-height: 300px;
+
+	border: 2px solid black;
+	margin: 0 auto;
 }

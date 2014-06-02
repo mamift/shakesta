@@ -2,13 +2,12 @@
 
 @section('content')
 
-	<style> @import url('/css/tabulus.css'); </style>
 	<h2>
 		<a href="{{ URL::route('products.index') }}">&lt; Go to products</a>
 	</h2>
 	<div id="edit-form">
 		{{ Form::model($product, ['method' => 'PATCH', 'route' => ['products.update', $product->product_id], 'files' => 'true']) }}
-			<table class="tabulus tabulus-form">
+			<table class="table table-bordered table-hover table-striped table-condensed">
 				<thead>
 					<tr>
 						<th colspan="2">
@@ -97,7 +96,7 @@
 		<h2>
 			Deals current for this product
 		</h2>	
-		<table>
+		<table class="table table-bordered table-hover table-striped table-condensed">
 		<thead>	
 			<tr>
 				<td colspan="8"><a href="{{ URL::route('deals.create') }}">Create a new deal</a></td>

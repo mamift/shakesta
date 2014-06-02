@@ -14,13 +14,12 @@
 			}
 		});
 	</script>
-	<style> @import url('/css/tabulus.css'); </style>
 	<h2>
 		<a href="{{ URL::route('users.index') }}">&lt; Back to users</a>
 	</h2>
 	<div>
 		{{ Form::model($user, ['method' => 'PATCH', 'route' => ['users.update', $user->id]]) }}
-			<table class="tabulus tabulus-form">
+			<table class="table table-bordered table-hover table-striped table-condensed">
 				<thead>
 					<tr>
 						<th colspan="2">

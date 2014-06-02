@@ -7,7 +7,7 @@
 		}
 	</script>
 	<h1>All Deals</h1>
-	<table>
+	<table class="table table-bordered table-hover table-striped table-condensed" id="index-of-deals-table">
 		<thead>	
 			<tr>
 				<td colspan="11"><a href="{{ URL::route('deals.create') }}">Create a new deal</a></td>

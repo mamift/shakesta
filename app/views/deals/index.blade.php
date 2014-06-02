@@ -7,7 +7,7 @@
 		}
 	</script>
 	<h1>Current Deals listed for {{ $retailer = User::find(Auth::user()->user_id)->retailer->title; }}</h1>
-	<table>
+	<table class="table table-bordered table-hover table-striped table-condensed">
 		<thead>	
 			<tr>
 				<td colspan="9"><a href="{{ URL::route('deals.create') }}">Create a new deal</a></td>

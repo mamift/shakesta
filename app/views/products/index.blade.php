@@ -11,7 +11,7 @@
 	@else
 	<h1>All Products</h1>
 	@endif
-	<table>
+	<table class="table table-bordered table-hover table-striped table-condensed">
 		<thead>	
 			<tr>
 				<td colspan="7"><a href="{{ URL::route('products.create') }}">Create a new product</a></td>
@@ -36,7 +36,8 @@
 				<td>{{ $product->description }} </td>
 				<td>{{ $product->retailer->title }}</td>
 				<td>&dollar;{{ $product->retail_price }}</td>
-				<td>{{{ $product->image or 'None' }}}</td>
+				<td>
+					@if ($product->image_url) Yes @else None set  @endif</td>
 				<td><a href="{{ URL::route('products.edit', $product->product_id) }}">Edit</a></td>
 				<td>
 					{{ Form::open(['route' => ['products.destroy', $product->product_id], 'onSubmit' => 'return confirm_delete();']) }}
@@ -58,4 +59,10 @@
 			</tr>
 		</tfoot>
 	</table>
+	@if (Session::get('delete_error'))
+		<p class="error">
+			{{ Session::get('delete_error') }} <br/>
+			Delete all associated deals, then try deleting this product.
+		</p>
+	@endif
 @stop

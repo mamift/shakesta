@@ -1,14 +1,12 @@
 @extends('layout')
 
 @section('content')
-
-	<style> @import url('/css/tabulus.css'); </style>
 	<h2 class="">
 		<a href="{{ URL::route('users.index') }}">&lt; Back to users</a>
 	</h2>
 	<div>
 		{{ Form::model($user, ['method' => 'GET', 'route' => ['users.index', $user->id]]) }}
-			<table class="tabulus tabulus-form">
+			<table class="table table-bordered table-hover table-striped table-condensed">
 				<thead>
 					<tr>
 						<th colspan="2">
