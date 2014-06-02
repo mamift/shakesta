@@ -99,6 +99,10 @@ Route::group(['prefix' => 'api/v1.2'], function() {
 		Route::get('deals/apikey={apikey}/show/{id}',				'APIController@show');
 		Route::get('deals/apikey={apikey}/categories',				'APIController@index_deal_categories');
 		Route::get('deals/apikey={apikey}/bycategory/{category}',	'APIController@deals_by_category');
+
+		Route::post('categories/apikey={apikey}/create', 'DealsController@store_category');
+		Route::post('categories/apikey={apikey}/update', 'DealsController@update_category');
+		Route::post('categories/apikey={apikey}/destroy','DealsController@destroy_category');
 	});
 });
 /** end real API */

@@ -24,7 +24,7 @@
 				<td>
 					{{ Form::open(['route' => ['users.destroy', $user->id]]) }}
 						{{ Form::hidden('_method', 'DELETE') }}
-						{{ Form::submit('Delete') }}
+						{{ Form::submit('Delete', ['class' => 'btn btn-danger btn-xs']) }}
 					{{ Form::close() }}
 				</td>
 			</tr>

@@ -37,7 +37,7 @@
 				<td>
 					{{ Form::open(['route' => ['retailers.destroy', $retailer->id], 'onSubmit' => 'return confirm_delete();']) }}
 						{{ Form::hidden('_method', 'DELETE') }}
-						{{ Form::submit('Delete') }}
+						{{ Form::submit('Delete', ['class' => 'btn btn-danger btn-xs']) }}
 					{{ Form::close() }}
 				</td>
 			</tr>

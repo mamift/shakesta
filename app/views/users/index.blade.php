@@ -43,7 +43,7 @@
 					@if (Auth::user()->user_type === 'admin' and $user->username !== 'admin')
 					{{ Form::open(['route' => ['users.destroy', $user->id], 'onSubmit' => 'return confirm_delete();']) }}
 						{{ Form::hidden('_method', 'DELETE') }}
-						{{ Form::submit('Delete') }}
+						{{ Form::submit('Delete', ['class' => 'btn btn-danger btn-xs']) }}
 					{{ Form::close() }}
 					@endif
 				</td>
@@ -102,7 +102,7 @@
 					@if (Auth::user()->user_type === 'admin' and $duser->username !== 'admin')
 					{{ Form::open(['route' => ['users.destroy', $duser->id], 'onSubmit' => 'return confirm_delete();']) }}
 						{{ Form::hidden('_method', 'DELETE') }}
-						{{ Form::submit('Delete') }}
+						{{ Form::submit('Delete', ['class' => 'btn btn-danger btn-xs']) }}
 					{{ Form::close() }}
 					@endif
 				</td>

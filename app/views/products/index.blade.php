@@ -50,7 +50,7 @@
 				<td>
 					{{ Form::open(['route' => ['products.destroy', $product->product_id], 'onSubmit' => 'return confirm_delete();']) }}
 						{{ Form::hidden('_method', 'DELETE') }}
-						{{ Form::submit('Delete') }}
+						{{ Form::submit('Delete', ['class' => 'btn btn-danger btn-xs']) }}
 					{{ Form::close() }}
 				</td>
 			</tr>

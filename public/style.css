@@ -29,7 +29,8 @@ a
 }
 
 
-a:visited {color:#6d3444;} /* visited link */
+a:visited {color:#6d3444;} /* visited link  */
+a.btn:visited {color:#fff;}
 a:hover {color:#ee3668;}   /* mouse over link */
 a:active {color:black;}  /* selected link */
 

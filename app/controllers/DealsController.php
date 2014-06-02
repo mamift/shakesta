@@ -107,8 +107,9 @@ class DealsController extends \BaseController {
 	public function index()
 	{	
 		$deals = DealsController::get_deals_list();
-		$categories = DB::table('category')->lists('name');
+		$categories = DealsController::get_categories();
 
+		unset($categories['(other: enter your own)']); // we specifically don't want this here
 		$view_data = ['deals' => $deals, 'categories' => $categories];
 
 		if (Auth::user()->user_type === 'admin') {
@@ -235,6 +236,45 @@ class DealsController extends \BaseController {
 		Deal::destroy($id);
 
 		return Redirect::route('deals.index');
+	}
+
+	/** deal categories **/
+	public function create_category() {
+
+	}
+
+	public function store_category() {
+		$name = Input::get('name');
+
+		$input = ['name' => $name];
+
+		$validatus = Validator::make($input, Category::$rules);
+		if ($validatus->fails()) {
+			return Response::json('error: category was not created', 200);
+		} 
+		
+		Category::create($input);
+
+		return Response::json('"' . $name . '" was created', 200);
+	}
+
+	public function update_category() {
+		$category_to_update = Input::get('cat_to_update');
+		$updated_category_name = Input::get('updated_cat_name');
+		$input = ['name' => $updated_category_name];
+
+
+		Category::findOrFail($category_to_update)->update($input);
+
+		return Response::json('"' . $category_to_update . '" was updated to' . ' "' . $updated_category_name . '"', 200);
+	}
+
+	public function destroy_category() {
+		$category = Input::get('cat_to_delete');
+
+		Category::destroy($category);
+
+		return Response::json('"' . $category . '" was deleted', 200);
 	}
 
 }

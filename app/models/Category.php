@@ -1,7 +1,7 @@
 <?php
 
 class Category extends \Eloquent {
-	public static $rules = ['name' => 'required|max:255|alphaNum'];
+	public static $rules = ['name' => 'required|max:255'];
 
 	protected $fillable = ['name']; // this is the only field on the table
 	protected $guarded = null;

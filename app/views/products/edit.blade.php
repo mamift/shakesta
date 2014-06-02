@@ -130,7 +130,7 @@
 				<td><a href="{{ URL::route('deals.edit', $deal->id) }}">Edit</a></td>
 				<td>{{ Form::open(['route' => ['deals.destroy', $deal->id], 'onSubmit' => 'return confirm_delete();']) }}
 						{{ Form::hidden('_method', 'DELETE') }}
-						{{ Form::submit('Delete') }}
+						{{ Form::submit('Delete', ['class' => 'btn btn-danger btn-xs']) }}
 					{{ Form::close() }}</td>
 			</tr>
 		@endforeach
