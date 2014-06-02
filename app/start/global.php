@@ -51,6 +51,17 @@ App::error(function(Exception $exception, $code)
 	Log::error($exception);
 });
 
+App::error(function(Symfony\Component\HttpFoundation\File\Exception\FileException $exception)
+{
+	$file_max = Symfony\Component\HttpFoundation\File\UploadedFile::getMaxFilesize();
+
+    Log::error($exception);
+
+    // return "File size limit is exceeded, please go back and try uploading again";
+    return Redirect::back()->with('file_exception_message', "File size too big! Must be equal to or less than 2MB (" . $file_max / 1024 . " KB )")->withInput();
+});
+
+
 /*
 |--------------------------------------------------------------------------
 | Maintenance Mode Handler

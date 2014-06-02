@@ -30,6 +30,35 @@ class ProductsController extends \BaseController {
 		return $all_retailers;
 	}
 
+	private static function upload_file(&$input) {		
+		// var_dump($input['image_file']);  exit();
+		// if no image is specified, then exit
+		if (!isset($input['image_file']))
+			return;
+		else
+			if ($input['image_file']->getClientSize() == 0) 
+				return;
+
+		// var_dump($input); exit();
+		// uploading files
+		$upload_path = public_path() . '/images/products/';
+		$file = $input['image_file'];
+		// var_dump($file); exit();
+		// $file_mime = $file->getMimeType();
+		// $file_ext = explode('/', $file_mime, 2)[1];
+		$file_ext = $file->getClientOriginalExtension();
+		// var_dump($file_ext); exit;
+
+		// generate a unique filename (this will get stored in the 'image_url' column)
+		$file_name = uniqid('image_', true) . '.' . $file_ext;
+		$file_path = $upload_path . $file_name;
+
+		$file->move($upload_path, $file_name);
+
+		$input['image_url'] = $file_name;
+		// var_dump($input); exit();
+	}
+
 	/**
 	 * Display a listing of products
 	 *
@@ -68,14 +97,18 @@ class ProductsController extends \BaseController {
 	 */
 	public function store()
 	{
-		$validator = Validator::make($data = Input::all(), Product::$rules);
+		$input = Input::all();
+		$validator = Validator::make($input, Product::$rules);
 
-		if ($validator->fails())
-		{
+		if ($validator->fails()) {
 			return Redirect::back()->withErrors($validator)->withInput();
+
+		} else {
+			ProductsController::upload_file($input);
+
 		}
 
-		Product::create($data);
+		Product::create($input);
 
 		return Redirect::route('products.index');
 	}
@@ -89,10 +122,12 @@ class ProductsController extends \BaseController {
 	public function show($id)
 	{
 		$product = Product::findOrFail($id);
-		
 		$all_retailers = ProductsController::get_all_retailers_list();
 
-		return View::make('products.show', compact('product'))->with('all_retailers', $all_retailers);
+		$deals_for_this_product = Deal::where('product_id','=', $product->product_id)->get();
+
+		return View::make('products.show', ['product' => $product, 'deals' => $deals_for_this_product])
+						->with('all_retailers', $all_retailers);
 	}
 
 	/**
@@ -104,10 +139,12 @@ class ProductsController extends \BaseController {
 	public function edit($id)
 	{
 		$product = Product::findOrFail($id);
-		
 		$all_retailers = ProductsController::get_all_retailers_list();
 
-		return View::make('products.edit', ['product' => $product])->with('all_retailers', $all_retailers);
+		$deals_for_this_product = Deal::where('product_id','=', $product->product_id)->get();
+
+		return View::make('products.edit', ['product' => $product, 'deals' => $deals_for_this_product])
+						->with('all_retailers', $all_retailers);
 	}
 
 	/**
@@ -119,17 +156,21 @@ class ProductsController extends \BaseController {
 	public function update($id)
 	{
 		$product = Product::findOrFail($id);
+		$input = Input::all();
+	
+		$validator = Validator::make($input, Product::$rules);
 
-		$validator = Validator::make($data = Input::all(), Product::$rules);
-
-		if ($validator->fails())
-		{
+		// if ($input['image_file']->getClientSize() >= $max_filesize)
+			
+		if ($validator->fails()) {
 			return Redirect::back()->withErrors($validator)->withInput();
+		} else {
+			ProductsController::upload_file($input);
 		}
 
-		$product->update($data);
+		$product->update($input);
 
-		return Redirect::route('products.index');
+		return Redirect::route('products.show', $input['product_id']);
 	}
 
 	/**

@@ -36,11 +36,6 @@ class Deal extends Eloquent {
 		return (float) $this->attributes['price_discount'];
 	}
 
-	// original_price
-	public function getOriginalPriceAttribute() {
-		return (float) $this->attributes['original_price'];
-	}
-
 	/** custom attributes **/
 
 	public function getIdAttribute() {

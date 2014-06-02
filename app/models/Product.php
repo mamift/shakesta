@@ -5,10 +5,11 @@ class Product extends \Eloquent {
 	// Add your validation rules here
 	public static $rules = [
 		'title' => 'required'
+		// 'image_file' => 'required|image'
 	];
 
 	// hidden
-	protected $hidden = ['product_id'];
+	protected $hidden = ['product_id','image'];
 
 	protected $table = 'product';
 	protected $primaryKey = 'product_id';
@@ -17,7 +18,7 @@ class Product extends \Eloquent {
 	public $incrementing = true;
 
 	// Don't forget to fill this array
-	protected $fillable = ['title','description','retailer_id','retail_price','image'];
+	protected $fillable = ['title','description','retailer_id','retail_price','image','image_url'];
 
 	// these fields aren't
 	protected $guarded = ['product_id'];
@@ -34,6 +35,14 @@ class Product extends \Eloquent {
 
 	public function getIdAttribute() {
 		return $this->attributes['product_id'];
+	}
+
+	public function getImageUrlAttribute() {
+		// return 'http:://' . $_SERVER['HTTP_HOST'] . '/images/products/' . $this->attributes['image_url'];
+		if (isset($this->attributes['image_url']))
+			return '/images/products/' . $this->attributes['image_url'];
+		else 
+			return null;
 	}
 
 	public function retailer() {

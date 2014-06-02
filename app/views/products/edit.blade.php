@@ -6,8 +6,8 @@
 	<h2>
 		<a href="{{ URL::route('products.index') }}">&lt; Go to products</a>
 	</h2>
-	<div>
-		{{ Form::model($product, ['method' => 'PATCH', 'route' => ['products.update', $product->product_id]]) }}
+	<div id="edit-form">
+		{{ Form::model($product, ['method' => 'PATCH', 'route' => ['products.update', $product->product_id], 'files' => 'true']) }}
 			<table class="tabulus tabulus-form">
 				<thead>
 					<tr>
@@ -17,7 +17,7 @@
 					</tr>
 				</thead>
 				<tbody>
-					<tr>
+					<tr style="visibility:hidden; display:none">
 						<td>{{ Form::label('product_id', 'ID') }}</td>
 						<td>
 							{{ Form::input('text', 'product_id', $product->product_id, ['readonly' => 'readonly']) }}
@@ -46,20 +46,33 @@
 					</tr>
 					<tr>
 						<td>{{ Form::label('retail_price','Retail Price:') }}</td>
-						<td>
-							&dollar; {{ Form::input('number', 'retail_price', null, ['step' => '0.01']) }}
-						</td>
+						<td>&dollar; {{ Form::input('number', 'retail_price', null, ['step' => '0.01']) }}</td>
 					</tr>
 					<tr>
+						@if ($product->image_url)
+						<td colspan="2" class="image-td-span-bordered">
+							<img src="{{ $product->image_url or '/images/hive-logo.png' }}" />
+						</td>
+						@else
 						<td colspan="2" class="image-td-span">
 							<img src="/images/hive-logo.png" />
+							<br/>(no image set)
 						</td>
+						@endif
 					</tr>
 					<tr>
-						<td>{{ Form::label('image', 'Image') }}</td>
-						<td>{{ Form::file('image') }}</td>
+						<td>{{ Form::label('image_file', 'Image') }}</td>
+						<td>
+							@if (!$product->image_url)NOTE: This will replace the existing image file @endif
+							{{ Form::file('image_file') }}
+							<br />
+							
+							<span class="error">
+								{{{ Session::get('file_exception_message') }}}
+							</span>
+							
+						</td>
 					</tr>
-					{{-- var_dump($all_retailers); --}}
 					<!-- <tr>
 						<td>Created </td>
 						<td>{{ Form::input('time', 'created_at', null, ['readonly' => 'readonly']) }}</td>
@@ -79,4 +92,61 @@
 			</table>
 		{{ Form::close() }}
 	</div>
+
+	<div id="deals-for-product">
+		<h2>
+			Deals current for this product
+		</h2>	
+		<table>
+		<thead>	
+			<tr>
+				<td colspan="8"><a href="{{ URL::route('deals.create') }}">Create a new deal</a></td>
+			</tr>
+			<tr>
+				<!-- <th>ID</th> -->
+				<th>Price + Discount</th>
+				<th>Terms</th>
+				<th>Begins</th>
+				<th>Expires</th>
+				<th>Ends in</th>
+				<th>Category</th>
+				<th>Edit</th>
+				<th>Delete</th>
+			</tr>
+		</thead>
+		<tbody>
+		@if (count($deals) > 0)
+		@foreach ($deals as $deal)
+			<tr>
+				<td>
+					Original: &dollar;{{ $product->retail_price }} <br />
+					Discount: {{ $deal->price_discount * 100 }} &percnt; <br/>
+					Deal price: &dollar;{{ $deal->original_price - ($deal->original_price * $deal->price_discount) }}
+				</td>
+				<td>{{ $deal->terms }}</td>
+				<td><a href="{{ URL::route('deals.show', $deal->id) }}">{{ $deal->begins_datetime }}</a></td>
+				<td><a href="{{ URL::route('deals.show', $deal->id) }}">{{ $deal->expires_datetime }}</a></td>
+				<td>{{ $deal->expiry_time }}</td>
+				<td>{{ $deal->category }}</td>
+				<td><a href="{{ URL::route('deals.edit', $deal->id) }}">Edit</a></td>
+				<td>{{ Form::open(['route' => ['deals.destroy', $deal->id], 'onSubmit' => 'return confirm_delete();']) }}
+						{{ Form::hidden('_method', 'DELETE') }}
+						{{ Form::submit('Delete') }}
+					{{ Form::close() }}</td>
+			</tr>
+		@endforeach
+		@else
+		<tr>
+    		<td colspan="8" style="text-align: center;">No deals here!</td>
+    	</tr>
+		@endif
+		</tbody>
+		<tfoot>
+			<tr>
+				<td colspan="8"><a href="{{ URL::route('deals.create') }}">Create a new deal</a></td>
+			</tr>
+		</tfoot>
+		</table>
+	</div>
+	
 @stop

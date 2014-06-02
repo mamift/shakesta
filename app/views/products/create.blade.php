@@ -7,7 +7,7 @@
 		<a href="{{ URL::route('products.index') }}">&lt; Go to products</a>
 	</h2>
 	<div>
-		{{ Form::open(['route' => 'products.store']) }}
+		{{ Form::open(['route' => 'products.store', 'files' => 'true']) }}
 			<table class="tabulus tabulus-form">
 				<thead>
 					<tr>
@@ -55,13 +55,11 @@
 					</tr>
 					<tr>
 						<td>{{ Form::label('retail_price','Retail Price:') }}</td>
-						<td>
-							{{ Form::input('number', 'retail_price', '0.0', ['step' => '0.01']) }}
-						</td>
+						<td>{{ Form::input('number', 'retail_price', '0.0', ['step' => '0.01']) }}</td>
 					</tr>
 					<tr>
-						<td>{{ Form::label('image', 'Image') }}</td>
-						<td>{{ Form::file('image') }}</td>
+						<td>{{ Form::label('image_file', 'Image') }}</td>
+						<td>{{ Form::file('image_file') }}</td>
 					</tr>
 					<!-- <tr>
 						<td>Created </td>

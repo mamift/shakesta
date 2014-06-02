@@ -7,6 +7,19 @@ Stylsheet for a custom formatted table
 	text-align: center;
 }
 
+.tabulus-form .image-td-span-bordered {
+	text-align: center;
+}
+
+.tabulus-form .image-td-span-bordered img {
+	
+	max-width: 300px;
+	max-height: 300px;
+
+	border: 2px solid black;
+	margin: 0 auto;
+}
+
 
 .tabulus-menu .toolbar {
 /**	border-top: 2pt #333333 dotted;

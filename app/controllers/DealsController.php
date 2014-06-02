@@ -44,6 +44,11 @@ class DealsController extends \BaseController {
 		return $all_products;
 	}
 
+	private static function process_input(&$input)
+	{
+		
+	}
+
 	// same as index(), except items are sorted by category
 	public function index_deals_by_category() {
 		$deals = DealsController::get_deals_list();

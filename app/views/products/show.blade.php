@@ -48,10 +48,16 @@
 						</td>
 					</tr>
 					<tr>
+						@if ($product->image_url)
+						<td colspan="2" class="image-td-span-bordered">
+							<img src="{{ $product->image_url or '/images/hive-logo.png' }}" />
+						</td>
+						@else
 						<td colspan="2" class="image-td-span">
 							<img src="/images/hive-logo.png" />
 							<br/>(no image set)
 						</td>
+						@endif
 					</tr>
 					<!-- <tr>
 						<td>Created </td>
