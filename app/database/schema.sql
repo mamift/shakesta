@@ -107,6 +107,16 @@ CREATE TABLE IF NOT EXISTS `category` (
   PRIMARY KEY (`name`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+/* default categories */
+INSERT INTO `chana13_shakesta`.`category` (`name`) VALUES ('Electrical & Electronics');
+INSERT INTO `chana13_shakesta`.`category` (`name`) VALUES ('Food & Grocery');
+INSERT INTO `chana13_shakesta`.`category` (`name`) VALUES ('Computing');
+INSERT INTO `chana13_shakesta`.`category` (`name`) VALUES ('Gaming');
+INSERT INTO `chana13_shakesta`.`category` (`name`) VALUES ('Fashion & Apparel');
+INSERT INTO `chana13_shakesta`.`category` (`name`) VALUES ('Mobile');
+INSERT INTO `chana13_shakesta`.`category` (`name`) VALUES ('Entertainment');
+INSERT INTO `chana13_shakesta`.`category` (`name`) VALUES ('Travel');
+
 /* we're now enabling linked categories */
 ALTER TABLE `deal` CHANGE `category` `category` VARCHAR(255) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL;
 ALTER TABLE `deal` ADD INDEX(`category`);

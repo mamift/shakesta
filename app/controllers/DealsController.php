@@ -54,7 +54,11 @@ class DealsController extends \BaseController {
 		}
 
 		// var_dump($categories); exit();
-		$categories['(other: enter your own)'] = '(other: enter your own)';
+
+		// only admins can add their own category
+		if (Auth::user()->is_admin)
+			$categories['(other: enter your own)'] = '(other: enter your own)';
+
 
 
 		return $categories;
@@ -62,10 +66,10 @@ class DealsController extends \BaseController {
 
 	private static function process_input(&$input) 
 	{
-		$other_new_category = $input['other_new_category'];
+		// $other_new_category = 
 		// var_dump($other_new_category); exit();
 
-		if (isset($other_new_category)) { // when a user has entered their own category
+		if (isset($input['other_new_category'])) { // when a user has entered their own category
 			$preexisting_categories = DB::table('category')->lists('name');
 			// var_dump($preexisting_categories); 
 			$exists = in_array($other_new_category, $preexisting_categories);
@@ -103,11 +107,14 @@ class DealsController extends \BaseController {
 	public function index()
 	{	
 		$deals = DealsController::get_deals_list();
+		$categories = DB::table('category')->lists('name');
+
+		$view_data = ['deals' => $deals, 'categories' => $categories];
 
 		if (Auth::user()->user_type === 'admin') {
-			return View::make('deals.index-admin', ['deals' => $deals]);
+			return View::make('deals.index-admin', $view_data);
 		} else {
-			return View::make('deals.index', ['deals' => $deals]);
+			return View::make('deals.index', $view_data);
 		}
 	}
 
