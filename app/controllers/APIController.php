@@ -159,7 +159,8 @@ class APIController extends \BaseController {
 	 */
 	public function index_deal_categories() 
 	{
-		$deal_categories = DB::table('deal')->distinct()->lists('category');
+		$deal_categories = DB::table('category')->lists('name');
+		// $deal_categories = DB::table('deal')->distinct()->lists('category');
 		$response = ['total' => count($deal_categories), 'data' => $deal_categories];
 		return Response::json($response, 200);
 	}

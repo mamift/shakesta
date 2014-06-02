@@ -1,7 +1,6 @@
 @extends('layout')
 
 @section('content')
-
 	<h2>
 		<a href="{{ URL::route('deals.index') }}">&lt; Go to deals</a>
 	</h2>
@@ -73,20 +72,29 @@
 					<tr>
 						<td>{{ Form::label('category', 'Category') }}</td>
 						<td>
-							{{ Form::input('text', 'category') }}
+							{{ Form::select('category', $categories, $deal->category, ['id' => 'enter-categories-select']) }}
 							@if ($errors)
 								<span class="error">{{ $errors->first('category') }}</span>
 							@endif
 						</td>
 					</tr>
-					<!-- <tr>
-						<td>Created </td>
-						<td>{{ Form::input('time', 'created_at', null, ['readonly' => 'readonly']) }}</td>
+					@if (Session::get('category_already_exists'))
+					<tr id="enter-your-own-category-row">
+						<td>{{ Form::label('other_new_category', 'Enter your own category') }}</td>
+						<td>
+							{{ Form::text('other_new_category', '', ['id' => 'other_new_category','enabled' => 'enabled']) }}
+							<span class="error">{{ Session::get('category_already_exists') }}</span>
+						</td>
 					</tr>
-					<tr>
-						<td>Last updated</td>
-						<td>{{ Form::input('time', 'updated_at', null, ['readonly' => 'readonly']) }}</td>
-					</tr> -->
+					@else
+					<tr id="enter-your-own-category-row" style="display:none;">
+						<td>{{ Form::label('other_new_category', 'Enter your own category') }}</td>
+						<td>
+							{{ Form::text('other_new_category', '', ['id' => 'other_new_category','disabled' => 'disabled']) }}
+							<span class="error">{{ Session::get('category_already_exists') }}</span>
+						</td>
+					</tr>
+					@endif
 				</tbody>
 				<tfoot>
 					<tr class="">
@@ -98,5 +106,4 @@
 			</table>
 		{{ Form::close() }}
 	</div>
-
 @stop

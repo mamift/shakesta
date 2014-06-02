@@ -44,9 +44,42 @@ class DealsController extends \BaseController {
 		return $all_products;
 	}
 
-	private static function process_input(&$input)
+	private static function get_categories()
 	{
-		
+		$deal_categories = DB::table('category')->lists('name');
+		$categories = array();
+
+		foreach ($deal_categories as $key => $val)  {
+			$categories[$val] = $val;
+		}
+
+		// var_dump($categories); exit();
+		$categories['(other: enter your own)'] = '(other: enter your own)';
+
+
+		return $categories;
+	}
+
+	private static function process_input(&$input) 
+	{
+		$other_new_category = $input['other_new_category'];
+		// var_dump($other_new_category); exit();
+
+		if (isset($other_new_category)) { // when a user has entered their own category
+			$preexisting_categories = DB::table('category')->lists('name');
+			// var_dump($preexisting_categories); 
+			$exists = in_array($other_new_category, $preexisting_categories);
+			// var_dump($exists); exit();
+
+			if ($exists) {
+				return Redirect::back()->with('category_already_exists', "Category already exists, yo!")->withInput();
+				
+			} else {
+				Category::create(['name' => $other_new_category]);
+			}
+
+			$input['category'] = $other_new_category;
+		}
 	}
 
 	// same as index(), except items are sorted by category
@@ -90,11 +123,14 @@ class DealsController extends \BaseController {
 
 		$all_products = DealsController::get_products_list();
 
+		$categories = DealsController::get_categories();
+
+		// var_dump($categories); exit();
+
 		if (Auth::user()->is_admin) {
-			return View::make('deals.create', ['all_products' => $all_products]);
+			return View::make('deals.create', ['all_products' => $all_products, 'categories' => $categories]);
 		} else {
-			return View::make('deals.create', ['retailer_id' => Auth::user()->retailer_id])
-												->with('all_products', $all_products);
+			return View::make('deals.create', ['all_products' => $all_products, 'categories' => $categories])->with('all_products', $all_products);
 		}
 	}
 
@@ -105,14 +141,18 @@ class DealsController extends \BaseController {
 	 */
 	public function store()
 	{
-		$validator = Validator::make($data = Input::all(), Deal::$create_rules);
+		$input = Input::all();
+		$validator = Validator::make($input, Deal::$create_rules);
+		var_dump($input);
 
-		if ($validator->fails())
-		{
+		if ($validator->fails()) {
 			return Redirect::back()->withErrors($validator)->withInput();
+		} else {
+			DealsController::process_input($input);
 		}
 
-		Deal::create($data);
+
+		Deal::create($input);
 
 		return Redirect::route('deals.index');
 	}
@@ -131,7 +171,7 @@ class DealsController extends \BaseController {
 			'title' => $deal->product->product_id . ": " . $deal->product->title
 		];
 
-		$retailer = Retailer::findOrFail(1);
+		$retailer = Retailer::findOrFail($deal->product->retailer_id);
 
 		return View::make('deals.show', ['deal' => $deal, 'product' => $product, 'retailer' => $retailer]);
 	}
@@ -145,8 +185,9 @@ class DealsController extends \BaseController {
 	public function edit($id)
 	{
 		$deal = Deal::find($id);
+		$categories = DealsController::get_categories();
 
-		return View::make('deals.edit')->with('deal', $deal);
+		return View::make('deals.edit', ['categories' => $categories])->with('deal', $deal);
 	}
 
 	/**
@@ -158,15 +199,20 @@ class DealsController extends \BaseController {
 	public function update($id)
 	{
 		$deal = Deal::findOrFail($id);
+		$input = Input::all();
 
-		$validator = Validator::make($data = Input::all(), Deal::$create_rules);
+		// var_dump($input); exit();
 
-		if ($validator->fails())
-		{
+		$validator = Validator::make($input, Deal::$create_rules);
+
+		if ($validator->fails()) {
 			return Redirect::back()->withErrors($validator)->withInput();
+		} else {
+			DealsController::process_input($input);
+
 		}
 
-		$deal->update($data);
+		$deal->update($input);
 
 		return Redirect::route('deals.index');
 	}

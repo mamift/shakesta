@@ -99,3 +99,17 @@ ALTER TABLE `user` ADD INDEX(`apikey`);
 /* either enabled or disabled */
 ALTER TABLE `user` ADD `status` VARCHAR(10) NULL DEFAULT NULL AFTER `apikey`;
 ALTER TABLE `user` CHANGE `status` `status` ENUM('enabled','disabled') CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT 'disabled';
+
+
+/* categories table */
+CREATE TABLE IF NOT EXISTS `category` (
+  `name` varchar(255) NOT NULL DEFAULT '',
+  PRIMARY KEY (`name`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+/* we're now enabling linked categories */
+ALTER TABLE `deal` CHANGE `category` `category` VARCHAR(255) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL;
+ALTER TABLE `deal` ADD INDEX(`category`);
+
+ALTER TABLE `deal` ADD CONSTRAINT `deal_categories` FOREIGN KEY (`category`) REFERENCES `chana13_shakesta`.`category`(`name`) ON DELETE RESTRICT ON UPDATE CASCADE;
+

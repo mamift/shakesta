@@ -33,3 +33,20 @@ $('.datetime_field').datetimepicker({
     startDate:'+2014/01/01',
     format:'Y-m-d H:i:s'
 });
+
+$(document).ready(function() {
+    $('#enter-categories-select').change(function() {
+        // hide or show the enter your own category options
+        // css({'visibility':'visible', 'dispaly':'block'});
+        // alert($('#enter-categories-select option:selected').text());
+        if ($('#enter-categories-select option:selected').text() == '(other: enter your own)') {
+            $('#enter-your-own-category-row').show();
+            $('#other_new_category').attr('enabled','enabled').removeAttr('disabled');
+        } else {
+            $('#enter-your-own-category-row').hide();
+            $('#other_new_category').attr('disabled','disabled').removeAttr('enabled');
+        }
+    });
+});
+
+
