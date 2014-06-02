@@ -7,6 +7,12 @@
 		}
 	</script>
 	<h1>All Retailers</h1>
+	@if (Session::get('delete_error'))
+		<p class="error">
+			{{ Session::get('delete_error') }} <br/>
+			Delete all associated users, then try deleting this retailer.
+		</p>
+	@endif
 	<table class="table table-bordered table-hover table-striped table-condensed">
 		<thead>	
 			<tr>
@@ -48,10 +54,4 @@
 			</tr>
 		</tfoot>
 	</table>
-	@if (Session::get('delete_error'))
-		<p class="error">
-			{{ Session::get('delete_error') }} <br/>
-			Delete all associated users, then try deleting this retailer.
-		</p>
-	@endif
 @stop

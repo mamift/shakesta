@@ -11,6 +11,14 @@
 	@else
 	<h1>All Products</h1>
 	@endif
+
+	@if (Session::get('delete_error'))
+	<p class="error">
+		{{ Session::get('delete_error') }} <br/>
+		Delete all associated deals, then try deleting this product.
+	</p>
+	@endif
+	
 	<table class="table table-bordered table-hover table-striped table-condensed">
 		<thead>	
 			<tr>
@@ -59,10 +67,4 @@
 			</tr>
 		</tfoot>
 	</table>
-	@if (Session::get('delete_error'))
-		<p class="error">
-			{{ Session::get('delete_error') }} <br/>
-			Delete all associated deals, then try deleting this product.
-		</p>
-	@endif
 @stop
