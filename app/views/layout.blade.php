@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 <html>
 <head> 
-	<link rel="stylesheet" href="/style.css" />
 	<link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Lato">
+	<link rel="stylesheet" href="/style.css" />
+	<link rel="stylesheet" href="/css/style.css" />
 	<!-- <link rel="stylesheet" href="/css/5grid/core-desktop.css" /> -->
 	<!-- <link rel="stylesheet" href="/css/5grid/core-1200px.css" /> -->
 	<!-- <link rel="stylesheet" href="/css/5grid/core-noscript.css" /> -->
-	<link rel="stylesheet" href="/css/style.css" />
 	<!-- <link rel="stylesheet" href="/css/style-desktop.css" /> -->
 	<link rel="stylesheet" type="text/css" href="/jquery.datetimepicker.css"/ >
 

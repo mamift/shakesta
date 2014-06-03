@@ -2,9 +2,9 @@
 
 body
 {
-background: url('images/backad.jpg');
-background-position:50% 0%; 
-background-repeat:repeat;
+background: url('images/back-123.jpg');
+/*background-position:50% 0%; */
+background-repeat:no-repeat;
 background-color:white;
 
 font-family: 'Lato'!important;
@@ -74,14 +74,18 @@ a:active {color:black;}  /* selected link */
 
 .content
 {
-    
-	width:700px;
+    /*background-color: #fff;*/
+
+	min-width:700px;
+	max-width: 100%;
 	min-height:500px;	
 	margin-left:230px;
 	margin-top:60px;
 }
 
-
+.content table {
+	background-color: #fff;
+}
 
 
 
