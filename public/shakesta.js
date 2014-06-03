@@ -28,13 +28,26 @@ $(function(){
     .attr('onclick','$(this).find("form").submit();');
 });
 
-//client side datepicker
-$('.datetime_field').datetimepicker({
-    startDate:'+2014/01/01',
-    format:'Y-m-d H:i:s'
-});
 
 $(document).ready(function() {
+    //client side datepicker
+    $('.datetime_field').datetimepicker({ 
+        format: 'Y-m-d H:i:s',
+        // startDate: '+2014-05-01',
+        todayButton: true,
+        yearStart: 2010,
+        yearEnd: 2020,
+        defaultSelect: true
+    });
+
+    // $('#expires_time').datetimepicker({
+
+    // });
+    
+    // $('#begins_time').datetimepicker({
+
+    // });
+
     $('#enter-categories-select').change(function() {
         // hide or show the enter your own category options
         // css({'visibility':'visible', 'dispaly':'block'});
