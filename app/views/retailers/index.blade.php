@@ -16,7 +16,7 @@
 	<table class="table table-bordered table-hover table-striped table-condensed">
 		<thead>	
 			<tr>
-				<td colspan="4"><a href="{{ URL::route('retailers.create') }}">Create a new retailer</a></td>
+				<td colspan="4"><a href="{{ URL::route('retailers.create') }}" class="btn btn-primary btn-xs">Create a new retailer</a></td>
 			</tr>
 			<tr>
 				<!-- <th>ID</th> -->
@@ -33,7 +33,7 @@
 				<!-- <td>{{ $retailer->id }}</td> -->
 				<td><a href="{{ URL::route('retailers.show', $retailer->id) }}">{{ $retailer->title }}</a></td>
 				<td>{{ $retailer->description }} </td>
-				<td><a href="{{ URL::route('retailers.edit', $retailer->id) }}">Edit</a></td>
+				<td><a href="{{ URL::route('retailers.edit', $retailer->id) }}" class="btn btn-warning btn-xs">Edit</a></td>
 				<td>
 					{{ Form::open(['route' => ['retailers.destroy', $retailer->id], 'onSubmit' => 'return confirm_delete();']) }}
 						{{ Form::hidden('_method', 'DELETE') }}
@@ -50,7 +50,7 @@
 		</tbody>
 		<tfoot>
 			<tr>
-				<td colspan="4"><a href="{{ URL::route('retailers.create') }}">Create a new retailer</a></td>
+				<td colspan="4"><a href="{{ URL::route('retailers.create') }}" class="btn btn-primary btn-xs">Create a new retailer</a></td>
 			</tr>
 		</tfoot>
 	</table>

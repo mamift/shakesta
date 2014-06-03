@@ -22,7 +22,7 @@
 	<table class="table table-bordered table-hover table-striped table-condensed">
 		<thead>	
 			<tr>
-				<td colspan="7"><a href="{{ URL::route('products.create') }}">Create a new product</a></td>
+				<td colspan="7"><a href="{{ URL::route('products.create') }}" class="btn btn-primary btn-xs">Create a new product</a></td>
 			</tr>
 			<tr>
 				<!-- <th>ID</th> -->
@@ -46,7 +46,7 @@
 				<td>&dollar;{{ $product->retail_price }}</td>
 				<td>
 					@if ($product->image_url) Yes @else None set  @endif</td>
-				<td><a href="{{ URL::route('products.edit', $product->product_id) }}">Edit</a></td>
+				<td><a href="{{ URL::route('products.edit', $product->product_id) }}" class="btn btn-warning btn-xs">Edit</a></td>
 				<td>
 					{{ Form::open(['route' => ['products.destroy', $product->product_id], 'onSubmit' => 'return confirm_delete();']) }}
 						{{ Form::hidden('_method', 'DELETE') }}
@@ -63,7 +63,7 @@
 		</tbody>
 		<tfoot>
 			<tr>
-				<td colspan="7"><a href="{{ URL::route('products.create') }}">Create a new product</a></td>
+				<td colspan="7"><a href="{{ URL::route('products.create') }}" class="btn btn-primary btn-xs">Create a new product</a></td>
 			</tr>
 		</tfoot>
 	</table>

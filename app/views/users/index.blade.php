@@ -6,7 +6,7 @@
 	<table class="table table-bordered table-hover table-striped table-condensed">
 		<thead>	
 			<tr>
-				<td colspan="7"><a href="{{ URL::route('users.create') }}">Create a new user</a></td>
+				<td colspan="7"><a href="{{ URL::route('users.create') }}" class="btn btn-primary btn-xs">Create a new user</a></td>
 			</tr>
 			<tr>
 				<!-- <th>ID</th> -->
@@ -37,7 +37,7 @@
 				</td>
 				<td>{{ isset($user->apikey) ? 'Yes' : 'No' }}</td>
 				<td>{{ $user->status }}</td>
-				<td><a href="{{ URL::route('users.edit', $user->id) }}">Edit</a></td>
+				<td><a href="{{ URL::route('users.edit', $user->id) }}" class="btn btn-warning btn-xs">Edit</a></td>
 				<td>
 					{{-- You can't delete the admin user --}}
 					@if (Auth::user()->user_type === 'admin' and $user->username !== 'admin')
@@ -57,7 +57,7 @@
 		</tbody>
 		<tfoot>
 			<tr>
-				<td colspan="7"><a href="{{ URL::route('users.create') }}">Create a new user</a></td>
+				<td colspan="7"><a href="{{ URL::route('users.create') }}" class="btn btn-primary btn-xs">Create a new user</a></td>
 			</tr>
 		</tfoot>
 	</table>

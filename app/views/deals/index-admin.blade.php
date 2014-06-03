@@ -10,7 +10,7 @@
 	<table class="table table-bordered table-hover table-striped table-condensed" id="index-of-deals-table">
 		<thead>	
 			<tr>
-				<td colspan="11"><a href="{{ URL::route('deals.create') }}">Create a new deal</a></td>
+				<td colspan="11"><a href="{{ URL::route('deals.create') }}" class="btn btn-primary btn-xs">Create a new deal</a></td>
 			</tr>
 			<tr>
 				<!-- <th>ID</th> -->
@@ -49,7 +49,7 @@
 				<td><a href="{{ URL::route('deals.show', $deal->id) }}">{{ $deal->expires_datetime }}</a></td>
 				<td>{{ $deal->expiry_time }}</td>
 				<td>{{ $deal->category }}</td>
-				<td><a href="{{ URL::route('deals.edit', $deal->id) }}">Edit</a></td>
+				<td><a href="{{ URL::route('deals.edit', $deal->id) }}" class="btn btn-warning btn-xs">Edit</a></td>
 				<td>
 					{{ Form::open(['route' => ['deals.destroy', $deal->id], 'onSubmit' => 'return confirm_delete();']) }}
 						{{ Form::hidden('_method', 'DELETE') }}
@@ -66,12 +66,12 @@
 		</tbody>
 		<tfoot>
 			<tr>
-				<td colspan="11"><a href="{{ URL::route('deals.create') }}">Create a new deal</a></td>
+				<td colspan="11"><a href="{{ URL::route('deals.create') }}" class="btn btn-primary btn-xs">Create a new deal</a></td>
 			</tr>
 		</tfoot>
 	</table>
 
-	<h1>Deals Categories</h1>
+	<h1>Deal Categories</h1>
 	<form id="new-category-form">
 
 	</form>
@@ -79,7 +79,7 @@
 	<table class="table table-bordered table-hover table-striped table-condensed">
 		<thead>	
 			<tr>
-				<td colspan="3"><a href="" class="btn btn-primary">Create a new Category</a></td>
+				<td colspan="3"><a href="" class="btn btn-primary btn-xs">Create a new Category</a></td>
 			</tr>
 			<tr>
 				<td>Name</td>
@@ -104,8 +104,8 @@
 				<td colspan="3">
 					{{ Form::open(['url' => '/api/v1.2/categories/apikey=' . Auth::user()->apikey . '/create', 'method' => 'POST', 'role' => 'form', 'class' => 'form-inline']) }}
 						{{ Form::label('name', 'Category Name') }}
-						{{ Form::text('name', '', ['class' => 'form-control']) }}
-						{{ Form::submit('Create', ['class' => 'btn btn-primary']) }}
+						{{ Form::text('name', '', ['class' => 'form-control input-sm']) }}
+						{{ Form::submit('Create', ['class' => 'btn btn-primary btn-xs']) }}
 					{{ Form::close() }}
 				</td>
 			</tr>
@@ -115,13 +115,13 @@
 					{{ Form::open(['url' => '/api/v1.2/categories/apikey=' . Auth::user()->apikey . '/update', 'method' => 'POST', 'role' => 'form', 'class' => 'form-inline']) }}
 						<div class="form-group">
 							{{ Form::label('cat_to_update', 'Category to update') }}
-							{{ Form::select('cat_to_update', $categories, 0, ['class' => 'form-control']) }}
+							{{ Form::select('cat_to_update', $categories, 0, ['class' => 'form-control input-sm']) }}
 						</div>
 						<p></p>
 						<div class="form-group">
 							{{ Form::label('updated_cat_name', 'New category name') }}
-							{{ Form::text('updated_cat_name', '',['class' => 'form-control']) }}
-							{{ Form::submit('Update', ['class' => 'btn btn-primary']) }}
+							{{ Form::text('updated_cat_name', '',['class' => 'form-control input-sm']) }}
+							{{ Form::submit('Update', ['class' => 'btn btn-warning btn-xs']) }}
 						</div>
 					{{ Form::close() }}
 				</td>
@@ -131,15 +131,15 @@
 				<td colspan="3">
 					{{ Form::open(['url' => '/api/v1.2/categories/apikey=' . Auth::user()->apikey . '/destroy', 'method' => 'POST', 'role' => 'form', 'class' => 'form-inline']) }}
 						{{ Form::label('cat_to_delete', 'Category to delete') }}
-						{{ Form::select('cat_to_delete', $categories, null, ['class' => 'form-control']) }}
-						{{ Form::submit('Delete', ['class' => 'btn btn-danger']) }}
+						{{ Form::select('cat_to_delete', $categories, null, ['class' => 'form-control input-sm']) }}
+						{{ Form::submit('Delete', ['class' => 'btn btn-danger btn-xs']) }}
 					{{ Form::close() }}
 				</td>
 			</tr>
 		</tbody>
 		<tfoot>
 			<tr>
-				<td colspan="3"><a href="" class="btn btn-primary">Create a new Category</a></td>
+				<td colspan="3"><a href="" class="btn btn-primary btn-xs">Create a new Category</a></td>
 			</tr>
 		</tfoot>
 	</table>
