@@ -7,7 +7,7 @@
 	</h2>
 	<div>
 		{{ Form::open(['method' => 'GET', 'route' => 'products.index']) }}
-			<table class="table table-bordered table-hover table-striped table-condensed">
+			<table class="table table-hover table-striped table-condensed">
 				<thead>
 					<tr>
 						<th colspan="2">

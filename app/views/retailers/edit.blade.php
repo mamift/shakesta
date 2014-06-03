@@ -7,7 +7,7 @@
 	</h2>
 	<div>
 		{{ Form::model($retailer, ['method' => 'PATCH', 'route' => ['retailers.update', $retailer->id], 'role' => 'form', 'class' => 'form-inline']) }}
-			<table class="table table-bordered table-hover table-striped table-condensed">
+			<table class="table table-hover table-striped table-condensed">
 				<thead>
 					<tr>
 						<th colspan="2">

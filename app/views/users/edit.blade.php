@@ -18,8 +18,8 @@
 		<a href="{{ URL::route('users.index') }}">&lt; Back to users</a>
 	</h2>
 	<div>
-		{{ Form::model($user, ['method' => 'PATCH', 'route' => ['users.update', $user->id]]) }}
-			<table class="table table-bordered table-hover table-striped table-condensed">
+		{{ Form::model($user, ['method' => 'PATCH', 'route' => ['users.update', $user->id], 'role' => 'form', 'class' => 'form-inline']) }}
+			<table class="table table-hover table-striped table-condensed">
 				<thead>
 					<tr>
 						<th colspan="2">
@@ -31,20 +31,20 @@
 					<tr>
 						<td>{{ Form::label('user_id', 'ID') }}</td>
 						<td>
-							{{ Form::input('text', 'user_id', $user->id, ['readonly' => 'readonly']) }}
+							{{ Form::input('text', 'user_id', $user->id, ['readonly' => 'readonly', 'class' => 'form-control input-sm']) }}
 						</td>
 					</tr>
 					<tr>
 						<td>{{ Form::label('username','Username:') }}</td>
 						<td>
-							{{ Form::text('username') }}
+							{{ Form::text('username', null, ['class' => 'form-control input-sm']) }}
 							<span class="error">{{{ $username_message = $errors->first('username') }}}</span>
 						</td>
 					</tr>
 					<tr>
 						<td>{{ Form::label('email','E-mail:') }}</td>
 						<td>
-							{{ Form::text('email') }}
+							{{ Form::text('email', null, ['class' => 'form-control input-sm']) }}
 						</td>
 					</tr>
 					<tr>
@@ -52,33 +52,33 @@
 						<td>
 							{{-- The admin user cannot demote himself (neither can any other admin user) --}}
 							@if (Auth::user()->is_admin && $user->username == 'admin')
-							{{ Form::select('retailer_id', $retailers, 'null', ['disabled' => 'disabled']) }}
+							{{ Form::select('retailer_id', $retailers, 'null', ['disabled' => 'disabled', 'class' => 'form-control input-sm']) }}
 							{{-- The admin user can turn admin users into retail users --}}
 							@elseif (Auth::user()->is_admin && $user->is_admin && $user->username != 'admin') 
-							{{ Form::select('retailer_id', $retailers, 'null') }}
+							{{ Form::select('retailer_id', $retailers, 'null', ['class' => 'form-control input-sm']) }}
 							@else
-							{{ Form::select('retailer_id', $retailers, $user->retailer_id) }}
+							{{ Form::select('retailer_id', $retailers, $user->retailer_id, ['class' => 'form-control input-sm']) }}
 							@endif
 						</td>
 					</tr>
 					<tr>
 						<td>{{ Form::label('new_password','New passowrd:') }}</td>
 						<td>
-							{{ Form::password('new_password', ['placeholder' => 'Min 6 chars']) }} 
+							{{ Form::password('new_password', ['placeholder' => 'Min 6 chars', 'class' => 'form-control input-sm']) }}
 							<span class="error">{{{ $password_message1 = $errors->first('new_password') }}}</span>
 						</td>
 					</tr>
 					<tr>
 						<td>{{ Form::label('new_password_confirm','New passowrd (confirm):') }}</td>
 						<td>
-							{{ Form::password('new_password_confirmation', ['placeholder' => 'Min 6 chars']) }} 
+							{{ Form::password('new_password_confirmation', ['placeholder' => 'Min 6 chars', 'class' => 'form-control input-sm']) }} 
 							<span class="error">{{{ $password_message2 = $errors->first('new_password_confirmation') }}}</span>
 						</td>
 					</tr>
 					<tr>
 						<td>{{ Form::label('generate_or_delete_apikey','Generate new api key?') }}</td>
 						<td>
-							{{ Form::checkbox('generate_or_delete_apikey', 'generate_apikey', false) }}
+							{{ Form::checkbox('generate_or_delete_apikey', 'generate_apikey', false, ['class' => 'form-control input-sm']) }}
 							
 						</td>
 					</tr>
@@ -86,9 +86,9 @@
 						<td>{{ Form::label('status','Enable user?') }}</td>
 						{{-- Can't disable the admin user--}}
 						@if (Auth::user()->is_admin && $user->username === 'admin')
-						<td>{{ Form::select('status', ['enabled' => 'enabled','disabled' => 'disabled'], $user->status, ['disabled' => 'disabled']) }}</td>	
+						<td>{{ Form::select('status', ['enabled' => 'enabled','disabled' => 'disabled'], $user->status, ['disabled' => 'disabled', 'class' => 'form-control input-sm']) }}</td>	
 						@else
-						<td>{{ Form::select('status', ['enabled' => 'enabled','disabled' => 'disabled'], $user->status) }}</td>
+						<td>{{ Form::select('status', ['enabled' => 'enabled','disabled' => 'disabled', 'class' => 'form-control input-sm'], $user->status) }}</td>
 						@endif
 					</tr>
 					@if ($user->apikey)

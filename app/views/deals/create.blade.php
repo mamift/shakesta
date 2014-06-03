@@ -6,7 +6,7 @@
 	</h2>
 	<div>
 		{{ Form::open(['method' => 'POST','route' => 'deals.store', 'role' => 'form', 'class' => 'form-inline']) }}
-			<table class="table table-bordered table-hover table-striped table-condensed">
+			<table class="table table-hover table-striped table-condensed">
 				<thead>
 					<tr>
 						<th colspan="2">

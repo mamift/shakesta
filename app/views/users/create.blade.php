@@ -5,8 +5,8 @@
 		<a href="{{ URL::route('users.index') }}">&lt; Back to users</a>
 	</h2>
 	<div>
-		{{ Form::open(['route' => 'users.store']) }}
-			<table class="table table-bordered table-hover table-striped table-condensed">
+		{{ Form::open(['route' => 'users.store', 'role' => 'form', 'class' => 'form-inline']) }}
+			<table class="table table-hover table-striped table-condensed">
 				<thead>
 					<tr>
 						<th colspan="2">
@@ -24,36 +24,36 @@
 					<tr>
 						<td>{{ Form::label('username','Username:') }}</td>
 						<td>
-							{{ Form::text('username') }}
+							{{ Form::text('username', null, ['class' => 'form-control input-sm']) }}
 							<span class="error">{{{ $username_message = $errors->first('username') }}}</span>
 						</td>
 					</tr>
 					<tr>
 						<td>{{ Form::label('email','E-mail:') }}</td>
 						<td>
-							{{ Form::text('email', null, ['size' => '30']) }}
+							{{ Form::text('email', null, ['size' => '30', 'class' => 'form-control input-sm']) }}
 						</td>
 					</tr>
 					<tr>
 						<td>{{ Form::label('retailer_id','Retailer:') }}</td>
 						<td>
-							{{ Form::select('retailer_id', $retailers) }}
+							{{ Form::select('retailer_id', $retailers, null, ['class' => 'form-control input-sm']) }}
 						</td>
 					</tr>
 					<tr>
 						<td>{{ Form::label('password','Password:') }}</td>
 						<td>
-							{{ Form::password('password', ['placeholder' => '(Minimum 6 chars)']) }} 
+							{{ Form::password('password', ['placeholder' => '(Minimum 6 chars)', 'class' => 'form-control input-sm']) }} 
 							<span class="error">{{{ $password_message = $errors->first('password') }}}</span>
 						</td>
 					</tr>
 					<tr style="display:none; visibility:hidden;">
 						<td>{{ Form::label('enabled','Enable user?') }}</td>
-						<td>{{ Form::checkbox('enabled', "enabled", true) }}</td>
+						<td>{{ Form::checkbox('enabled', "enabled", true, ['class' => 'form-control input-sm']) }}</td>
 					</tr>
 					<tr style="display:none; visibility: hidden;">
 						<td>{{ Form::label('generate_or_delete_apikey','Generate API Key?') }}</td>
-						<td>{{ Form::checkbox('generate_or_delete_apikey', "generate_apikey", true) }}</td>
+						<td>{{ Form::checkbox('generate_or_delete_apikey', "generate_apikey", true, ['class' => 'form-control input-sm']) }}</td>
 					</tr>
 					<!-- <tr>
 						<td>Created </td>

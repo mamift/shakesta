@@ -7,7 +7,7 @@
 	</h2>
 	<div id="edit-form">
 		{{ Form::model($product, ['method' => 'PATCH', 'route' => ['products.update', $product->product_id], 'files' => 'true', 'role' => 'form', 'class' => 'form-inline']) }}
-			<table class="table table-bordered table-hover table-striped table-condensed">
+			<table class="table table-hover table-striped table-condensed">
 				<thead>
 					<tr>
 						<th colspan="2">
@@ -98,7 +98,7 @@
 		<h2>
 			Deals current for this product
 		</h2>	
-		<table class="table table-bordered table-hover table-striped table-condensed">
+		<table class="table  table-hover table-striped table-condensed">
 		<thead>	
 			<tr>
 				<td colspan="8"><a href="{{ URL::route('deals.create') }}" class="btn btn-primary btn-xs">Create a new deal</a></td>

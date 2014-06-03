@@ -6,8 +6,8 @@
 		<a href="{{ URL::route('retailers.index') }}">&lt; Go to retailers</a>
 	</h2>
 	<div>
-		{{ Form::open(['route' => 'retailers.store']) }}
-			<table class="table table-bordered table-hover table-striped table-condensed">
+		{{ Form::open(['route' => 'retailers.store', 'role' => 'form', 'class' => 'form-inline']) }}
+			<table class="table table-hover table-striped table-condensed">
 				<thead>
 					<tr>
 						<th colspan="2">
@@ -25,13 +25,13 @@
 					<tr>
 						<td>{{ Form::label('title','Title:') }}</td>
 						<td>
-							{{ Form::text('title') }}
+							{{ Form::text('title', null, ['class' => 'form-control input-sm']) }}
 						</td>
 					</tr>
 					<tr>
 						<td>{{ Form::label('description','Description:') }}</td>
 						<td>
-							{{ Form::textarea('description') }}
+							{{ Form::textarea('description', null, ['class' => 'form-control input-sm']) }}
 						</td>
 					</tr>
 					<!-- <tr>
