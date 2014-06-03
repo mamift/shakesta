@@ -6,7 +6,7 @@
 		<a href="{{ URL::route('products.index') }}">&lt; Go to products</a>
 	</h2>
 	<div>
-		{{ Form::open(['route' => 'products.store', 'files' => 'true']) }}
+		{{ Form::open(['route' => 'products.store', 'files' => 'true', 'class' => 'form-inline', 'role' => 'form']) }}
 			<table class="table table-bordered table-hover table-striped table-condensed">
 				<thead>
 					<tr>
@@ -25,7 +25,7 @@
 					<tr>
 						<td>{{ Form::label('title','Title:') }}</td>
 						<td>
-							{{ Form::text('title') }}
+							{{ Form::text('title', null, ['class' => 'form-control input-sm', 'size' => 30]) }}
 							@if ($errors->first('title'))
 								<span class="error">{{ $title_message = $errors->first('title') }}</span>
 							@endif
@@ -34,7 +34,7 @@
 					<tr>
 						<td>{{ Form::label('description','Description:') }}</td>
 						<td>
-							{{ Form::textarea('description') }}
+							{{ Form::textarea('description', null, ['class' => 'form-control input-sm']) }}
 						</td>
 					</tr>
 					<tr>
@@ -43,7 +43,7 @@
 						</td>
 						<td>
 							@if (Auth::user()->is_admin)
-							{{ Form::select('retailer_id', $all_retailers) }}
+							{{ Form::select('retailer_id', $all_retailers, null, ['class' => 'form-control input-sm']) }}
 							<br/>
 							<a href="{{ URL::route('retailers.create') }}"> (Click here to create new retailer)</a>
 							@else 
@@ -53,11 +53,11 @@
 					</tr>
 					<tr>
 						<td>{{ Form::label('retail_price','Retail Price:') }}</td>
-						<td>{{ Form::input('number', 'retail_price', '0.0', ['step' => '0.01']) }}</td>
+						<td>{{ Form::input('number', 'retail_price', '0.0', ['step' => '0.01', 'class' => 'form-control input-sm']) }}</td>
 					</tr>
 					<tr>
 						<td>{{ Form::label('image_file', 'Image') }}</td>
-						<td>{{ Form::file('image_file') }}</td>
+						<td>{{ Form::file('image_file', ['class' => 'form-control input-sm']) }}</td>
 					</tr>
 					<!-- <tr>
 						<td>Created </td>

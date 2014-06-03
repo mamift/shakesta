@@ -3,7 +3,7 @@
 @section('content')
 <div id="enabled-users">
 	<h1>All Users</h1>
-	<table class="table table-bordered table-hover table-striped table-condensed">
+	<table class="table table-hover table-striped table-condensed">
 		<thead>	
 			<tr>
 				<td colspan="7"><a href="{{ URL::route('users.create') }}" class="btn btn-primary btn-xs">Create a new user</a></td>
@@ -65,7 +65,7 @@
 
 <div id="disabled-users">
 	<h1>Disabled Users</h1>
-	<table class="table table-bordered table-hover table-striped table-condensed">
+	<table class="table table-hover table-striped table-condensed">
 		<thead>	
 			<tr>
 				<!-- <th>ID</th> -->

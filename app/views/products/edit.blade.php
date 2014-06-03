@@ -6,7 +6,7 @@
 		<a href="{{ URL::route('products.index') }}">&lt; Go to products</a>
 	</h2>
 	<div id="edit-form">
-		{{ Form::model($product, ['method' => 'PATCH', 'route' => ['products.update', $product->product_id], 'files' => 'true']) }}
+		{{ Form::model($product, ['method' => 'PATCH', 'route' => ['products.update', $product->product_id], 'files' => 'true', 'role' => 'form', 'class' => 'form-inline']) }}
 			<table class="table table-bordered table-hover table-striped table-condensed">
 				<thead>
 					<tr>
@@ -19,13 +19,13 @@
 					<tr style="visibility:hidden; display:none">
 						<td>{{ Form::label('product_id', 'ID') }}</td>
 						<td>
-							{{ Form::input('text', 'product_id', $product->product_id, ['readonly' => 'readonly']) }}
+							{{ Form::input('text', 'product_id', $product->product_id, ['readonly' => 'readonly', 'class' => 'form-control input-sm']) }}
 						</td>
 					</tr>
 					<tr>
 						<td>{{ Form::label('title','Title:') }}</td>
 						<td>
-							{{ Form::text('title') }}
+							{{ Form::text('title', null, ['class' => 'form-control input-sm']) }}
 							@if ($errors->first('title'))
 								<span class="error">{{ $title_message = $errors->first('title') }}</span>
 							@endif
@@ -34,20 +34,20 @@
 					<tr>
 						<td>{{ Form::label('description','Description:') }}</td>
 						<td>
-							{{ Form::textarea('description', null, ['cols' => '40', 'rows' => '10']) }}
+							{{ Form::textarea('description', null, ['cols' => '40', 'rows' => '10', 'class' => 'form-control input-sm']) }}
 						</td>
 					</tr>
 					<tr>
 						<td>{{ Form::label('retailer_id', 'For Retailer: ') }} <br/>(retailer must already exist)</td>
 						<td>
-							{{ Form::select('retailer_id', $all_retailers, $product->retailer_id, ['disabled' => 'disabled']) }}
+							{{ Form::select('retailer_id', $all_retailers, $product->retailer_id, ['disabled' => 'disabled', 'class' => 'form-control input-sm']) }}
 							<br/>
 							<a href="{{ URL::route('retailers.create') }}"> (Click here to create new retailer)</a>
 						</td>
 					</tr>
 					<tr>
 						<td>{{ Form::label('retail_price','Retail Price:') }}</td>
-						<td>&dollar; {{ Form::input('number', 'retail_price', null, ['step' => '0.01']) }}</td>
+						<td>&dollar; {{ Form::input('number', 'retail_price', null, ['step' => '0.01', 'class' => 'form-control input-sm']) }}</td>
 					</tr>
 					<tr>
 						@if ($product->image_url)
@@ -65,7 +65,7 @@
 						<td>{{ Form::label('image_file', 'Image') }}</td>
 						<td>
 							@if (!$product->image_url)NOTE: This will replace the existing image file @endif
-							{{ Form::file('image_file') }}
+							{{ Form::file('image_file', ['class' => 'form-control input-sm']) }}
 							<br />
 							
 							<span class="error">
@@ -101,7 +101,7 @@
 		<table class="table table-bordered table-hover table-striped table-condensed">
 		<thead>	
 			<tr>
-				<td colspan="8"><a href="{{ URL::route('deals.create') }}">Create a new deal</a></td>
+				<td colspan="8"><a href="{{ URL::route('deals.create') }}" class="btn btn-primary btn-xs">Create a new deal</a></td>
 			</tr>
 			<tr>
 				<!-- <th>ID</th> -->
@@ -144,7 +144,7 @@
 		</tbody>
 		<tfoot>
 			<tr>
-				<td colspan="8"><a href="{{ URL::route('deals.create') }}">Create a new deal</a></td>
+				<td colspan="8"><a href="{{ URL::route('deals.create') }}" class="btn btn-primary btn-xs">Create a new deal</a></td>
 			</tr>
 		</tfoot>
 		</table>

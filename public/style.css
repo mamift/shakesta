@@ -85,6 +85,11 @@ a:active {color:black;}  /* selected link */
 
 .content table {
 	background-color: #fff;
+	border-radius: 10px;
+}
+
+.content .table-bordered {
+	border-radius: 10px;
 }
 
 

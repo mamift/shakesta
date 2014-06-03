@@ -5,7 +5,7 @@
 		
 	</script>
 	<h1>All Deals</h1>
-	<table class="table table-bordered table-hover table-striped table-condensed" id="index-of-deals-table">
+	<table class="table table-hover table-striped table-condensed" id="index-of-deals-table">
 		<thead>	
 			<tr>
 				<td colspan="11"><a href="{{ URL::route('deals.create') }}" class="btn btn-primary btn-xs">Create a new deal</a></td>
@@ -126,7 +126,7 @@
 	{{ Form::close() }}
 	</div>
 
-	<table class="table table-bordered table-hover table-striped table-condensed">
+	<table class="table table-hover table-striped table-condensed">
 		<thead>	
 			<tr>
 				<td colspan="3">
@@ -182,7 +182,7 @@
 		</tbody>
 		<tfoot>
 			<tr>
-				<td colspan="3"><a href="" class="btn btn-primary btn-xs">Create a new Category</a></td>
+				<td colspan="3"><a href="#" class="btn btn-primary btn-xs" data-toggle="modal" data-target="#create-category-modal">Create a new Category</a></td>
 			</tr>
 		</tfoot>
 	</table>

@@ -22,7 +22,7 @@
 		@if (Auth::user()->apikey)
 		<p>You API key is: <span class="error">{{ Auth::user()->apikey }}</span></p>
 		@endif
-		<p><a href="{{ URL::to('user-logout') }}">Click here to logout.</a></p>
+		<p><a href="{{ URL::to('user-logout') }}" class="btn btn-danger">Click here to logout.</a></p>
 		
 	@else
 	<h1>Login to Web App</h1>

@@ -19,7 +19,7 @@
 	</p>
 	@endif
 	
-	<table class="table table-bordered table-hover table-striped table-condensed">
+	<table class="table table-hover table-striped table-condensed">
 		<thead>	
 			<tr>
 				<td colspan="7"><a href="{{ URL::route('products.create') }}" class="btn btn-primary btn-xs">Create a new product</a></td>

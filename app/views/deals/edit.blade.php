@@ -5,7 +5,7 @@
 		<a href="{{ URL::route('deals.index') }}">&lt; Go to deals</a>
 	</h2>
 	<div>
-		{{ Form::model($deal, ['method' => 'PATCH', 'route' => ['deals.update', $deal->deal_id]] ) }}
+		{{ Form::model($deal, ['method' => 'PATCH', 'route' => ['deals.update', $deal->deal_id], 'role' => 'form', 'class' => 'form-inline']) }}
 			<table class="table table-bordered table-hover table-striped table-condensed">
 				<thead>
 					<tr>
@@ -24,7 +24,7 @@
 					<tr>
 						<td>{{ Form::label('product_id', 'For Product: ') }}</td>
 						<td>
-							{{ Form::select('product_id', [$deal->product->id => $deal->product->id . ": " .$deal->product->title], $deal->product->id) }}
+							{{ Form::select('product_id', [$deal->product->id => $deal->product->id . ": " .$deal->product->title], $deal->product->id, ['class' => 'form-control input-sm']) }}
 							<br />
 							<a href="{{ URL::route('products.create') }}">
 							(Click here to create new product)
@@ -40,7 +40,7 @@
 							(enter as decimal&colon; e.g. 0.5 &equals; 50&percnt;)
 						</td>
 						<td>
-							{{ Form::input('number', 'price_discount', null, ['step' => '0.01', 'placeholder' => 'Decimal: 0.5 = 50%']) }}
+							{{ Form::input('number', 'price_discount', null, ['step' => '0.01', 'placeholder' => 'Decimal: 0.5 = 50%', 'class' => 'form-control input-sm']) }}
 							@if ($errors)
 								<span class="error">{{ $errors->first('price_discount') }}</span>
 							@endif
@@ -49,7 +49,7 @@
 					<tr>
 						<td>{{ Form::label('terms','Terms:') }}</td>
 						<td>
-							{{ Form::textarea('terms') }}
+							{{ Form::textarea('terms', null, ['class' => 'form-control input-sm']) }}
 							@if ($errors)
 								<span class="error">{{ $errors->first('terms') }}</span>
 							@endif
@@ -58,7 +58,7 @@
 					<tr>
 						<td>{{ Form::label('begins', 'Begins') }}</td>
 						<td>
-							{{ Form::input('text', 'begins_time', $deal->begins_time, ['class' => 'datetime_field']) }}
+							{{ Form::input('text', 'begins_time', $deal->begins_time, ['class' => 'datetime_field form-control input-sm']) }}
 							@if ($errors)
 								<span class="error">{{ $errors->first('begins_time') }}</span>
 							@endif
@@ -67,7 +67,7 @@
 					<tr>
 						<td>{{ Form::label('expires', 'Expires') }}</td>
 						<td>
-							{{ Form::input('text', 'expires_time', $deal->expires_time, ['class' => 'datetime_field']) }}
+							{{ Form::input('text', 'expires_time', $deal->expires_time, ['class' => 'datetime_field form-control input-sm']) }}
 							@if ($errors)
 								<span class="error">{{ $errors->first('expires_time') }}</span>
 							@endif
@@ -76,7 +76,7 @@
 					<tr>
 						<td>{{ Form::label('category', 'Category') }}</td>
 						<td>
-							{{ Form::select('category', $categories, $deal->category, ['id' => 'enter-categories-select']) }}
+							{{ Form::select('category', $categories, $deal->category, ['id' => 'enter-categories-select', 'class' => 'form-control input-sm']) }}
 							@if ($errors)
 								<span class="error">{{ $errors->first('category') }}</span>
 							@endif

@@ -6,7 +6,7 @@
 		<a href="{{ URL::route('retailers.index') }}">&lt; Go to retailers</a>
 	</h2>
 	<div>
-		{{ Form::model($retailer, ['method' => 'PATCH', 'route' => ['retailers.update', $retailer->id]]) }}
+		{{ Form::model($retailer, ['method' => 'PATCH', 'route' => ['retailers.update', $retailer->id], 'role' => 'form', 'class' => 'form-inline']) }}
 			<table class="table table-bordered table-hover table-striped table-condensed">
 				<thead>
 					<tr>
@@ -16,22 +16,22 @@
 					</tr>
 				</thead>
 				<tbody>
-					<tr>
+					<tr style="visibility:hidden;display:none;">
 						<td>{{ Form::label('retailer_id', 'ID') }}</td>
 						<td>
-							{{ Form::input('text', 'retailer_id', $retailer->id, ['readonly' => 'readonly']) }}
+							{{ Form::input('text', 'retailer_id', $retailer->id, ['readonly' => 'readonly', 'class' => 'form-control input-sm']) }}
 						</td>
 					</tr>
 					<tr>
 						<td>{{ Form::label('title','Title:') }}</td>
 						<td>
-							{{ Form::text('title') }}
+							{{ Form::text('title', null, ['class' => 'form-control input-sm']) }}
 						</td>
 					</tr>
 					<tr>
 						<td>{{ Form::label('description','Description:') }}</td>
 						<td>
-							{{ Form::textarea('description') }}
+							{{ Form::textarea('description', null, ['class' => 'form-control input-sm']) }}
 						</td>
 					</tr>
 					<!-- <tr>

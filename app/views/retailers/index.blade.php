@@ -13,7 +13,7 @@
 			Delete all associated users, then try deleting this retailer.
 		</p>
 	@endif
-	<table class="table table-bordered table-hover table-striped table-condensed">
+	<table class="table table-hover table-striped table-condensed">
 		<thead>	
 			<tr>
 				<td colspan="4"><a href="{{ URL::route('retailers.create') }}" class="btn btn-primary btn-xs">Create a new retailer</a></td>
