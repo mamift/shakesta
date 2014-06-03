@@ -129,7 +129,9 @@
 	<table class="table table-bordered table-hover table-striped table-condensed">
 		<thead>	
 			<tr>
-				<td colspan="3"><a href="" class="btn btn-primary btn-xs" data-toggle="modal" data-target="#create-category-modal">Create a new Category</a></td>
+				<td colspan="3">
+					<a href="#" class="btn btn-primary btn-xs" data-toggle="modal" data-target="#create-category-modal">Create a new Category</a>
+				</td>
 			</tr>
 			<tr>
 				<td>Name</td>

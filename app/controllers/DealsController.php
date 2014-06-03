@@ -59,8 +59,6 @@ class DealsController extends \BaseController {
 		if (Auth::user()->is_admin)
 			$categories['(other: enter your own)'] = '(other: enter your own)';
 
-
-
 		return $categories;
 	}
 
@@ -248,9 +246,14 @@ class DealsController extends \BaseController {
 
 		$input = ['name' => $name];
 
+		if (!isset($name) || $name == '' || strlen($name) < 1) {
+			return Redirect::back()->with('created_category','Nothing was not created. You need to provide a value, fool!');
+		}
+
 		$validatus = Validator::make($input, Category::$rules);
 		if ($validatus->fails()) {
 			return Response::json('error: category was not created', 200);
+
 		} 
 		
 		Category::create($input);
@@ -261,8 +264,12 @@ class DealsController extends \BaseController {
 	public function update_category() {
 		$category_to_update = Input::get('cat_to_update');
 		$updated_category_name = Input::get('updated_cat_name');
-		$input = ['name' => $updated_category_name];
 
+		if (!isset($updated_category_name) || $updated_category_name == '' || strlen($updated_category_name) < 1) {
+			return Redirect::back()->with('updated_category','"' . $category_to_update . '" was not updated. You need to provide a value, fool!');
+		}
+
+		$input = ['name' => $updated_category_name];
 
 		Category::findOrFail($category_to_update)->update($input);
 
