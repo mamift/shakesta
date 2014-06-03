@@ -116,7 +116,7 @@
 				<tfoot>
 					<tr class="">
 						<td colspan="2">
-							{{ Form::submit('Save') }}
+							{{ Form::submit('Save', ['class' => 'btn btn-primary']) }}
 						</td>
 					</tr>
 				</tfoot>

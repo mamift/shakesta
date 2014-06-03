@@ -27,12 +27,10 @@
 						</td>
 						<td>
 							{{ Form::select('product_id', $all_products, 'NULL') }}
-							@if (Auth::user()->is_admin)
 							<br />
 							<a href="{{ URL::route('products.create') }}">
 							(Click here to create new product)
 							</a>
-							@endif
 							@if ($errors)
 								<span class="error">{{ $errors->first('product_id') }}</span>
 							@endif
@@ -107,7 +105,7 @@
 				<tfoot>
 					<tr class="">
 						<td colspan="2">
-							{{ Form::submit('Save') }}
+							{{ Form::submit('Save', ['class' => 'btn btn-primary']) }}
 						</td>
 					</tr>
 				</tfoot>

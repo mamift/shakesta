@@ -2,9 +2,7 @@
 
 @section('content')
 	<script type="text/javascript">
-		function confirm_delete() {
-			return confirm("Are you sure about deleting this?");
-		}
+		
 	</script>
 	<h1>All Deals</h1>
 	<table class="table table-bordered table-hover table-striped table-condensed" id="index-of-deals-table">
@@ -72,14 +70,66 @@
 	</table>
 
 	<h1>Deal Categories</h1>
-	<form id="new-category-form">
 
-	</form>
+	<p class="error">{{ Session::get('deleted_category') }}</p>
+	<p class="error">{{ Session::get('created_category') }}</p>
+	<p class="error">{{ Session::get('updated_category') }}</p>
+
+	<!-- Edit Modal -->
+	<div class="modal fade" id="update-category-modal" tabindex="-1" role="dialog" aria-labelledby="update-category-modalLabel" aria-hidden="true">
+    {{ Form::open(['url' => '/api/v1.2/categories/apikey=' . Auth::user()->apikey . '/update', 'method' => 'POST', 'role' => 'form', 'class' => 'form-inline']) }}
+	  <div class="modal-dialog">
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+	        <h4 class="modal-title" id="update-category-modalLabel">Modal title</h4>
+	      </div>
+	      <div class="modal-body">
+				<div class="form-group">
+					{{ Form::label('cat_to_update', 'Category to update') }}
+					{{ Form::select('cat_to_update', $categories, 0, ['class' => 'form-control input-sm']) }}
+				</div>
+				<p></p>
+				<div class="form-group">
+					{{ Form::label('updated_cat_name', 'New category name') }}
+					{{ Form::text('updated_cat_name', '',['class' => 'form-control input-sm']) }}
+				</div>
+	      </div>
+	      <div class="modal-footer">
+	        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+			{{ Form::submit('Update', ['class' => 'btn btn-primary']) }}
+	      </div>
+	    </div>
+	  </div>
+	{{ Form::close() }}
+	</div>
+
+	<!-- Create Modal -->
+	<div class="modal fade" id="create-category-modal" tabindex="-2" role="dialog" aria-labelledby="create-category-modalLabel" aria-hidden="true">
+	{{ Form::open(['url' => '/api/v1.2/categories/apikey=' . Auth::user()->apikey . '/create', 'method' => 'POST', 'role' => 'form', 'class' => 'form-inline']) }}
+	  <div class="modal-dialog">
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+	        <h4 class="modal-title" id="create-category-modalLabel">Modal title</h4>
+	      </div>
+	      <div class="modal-body">
+				{{ Form::label('name', 'Category Name') }}
+				{{ Form::text('name', '', ['class' => 'form-control input-sm']) }}
+	      </div>
+	      <div class="modal-footer">
+	        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+			{{ Form::submit('Create', ['class' => 'btn btn-primary']) }}
+	      </div>
+	    </div>
+	  </div>
+	{{ Form::close() }}
+	</div>
 
 	<table class="table table-bordered table-hover table-striped table-condensed">
 		<thead>	
 			<tr>
-				<td colspan="3"><a href="" class="btn btn-primary btn-xs">Create a new Category</a></td>
+				<td colspan="3"><a href="" class="btn btn-primary btn-xs" data-toggle="modal" data-target="#create-category-modal">Create a new Category</a></td>
 			</tr>
 			<tr>
 				<td>Name</td>
@@ -89,51 +139,42 @@
 		</thead>
 		<tbody>
 			@if (count($categories) > 0)
+			@foreach ($categories as $cat)
 			<tr>
-				<td></td>
-				<td></td>
-				<td></td>
+				<td>{{ $cat }}</td>
+				<td>
+					<a href="#" class="btn btn-warning btn-xs" data-toggle="modal" data-target="#update-category-modal" onclick="change_select_category_to_update('{{$cat}}');">Edit</a>
+				</td>
+				<td>
+				{{ Form::open(['url' => '/api/v1.2/categories/apikey=' . Auth::user()->apikey . '/destroy', 'method' => 'POST', 'role' => 'form', 'class' => 'form-inline', 'onSubmit' => 'return confirm_delete();']) }}
+					{{ Form::label('cat_to_delete', 'Category to delete', ['hidden' => 'true']) }}
+					{{ Form::select('cat_to_delete', $categories, null, ['class' => 'form-control input-sm hidden']) }}
+					{{ Form::submit('Delete', ['class' => 'btn btn-danger btn-xs']) }}
+				{{ Form::close() }}
+				</td>
 			</tr>
+			@endforeach
 			@else
 			<tr>
 				<td colspan="3">No categories set</td>
 			</tr>
 			@endif
 
-			<tr id="new-category-form-row">
+			<tr id="new-category-form-row" class="hidden-form">
 				<td colspan="3">
-					{{ Form::open(['url' => '/api/v1.2/categories/apikey=' . Auth::user()->apikey . '/create', 'method' => 'POST', 'role' => 'form', 'class' => 'form-inline']) }}
-						{{ Form::label('name', 'Category Name') }}
-						{{ Form::text('name', '', ['class' => 'form-control input-sm']) }}
-						{{ Form::submit('Create', ['class' => 'btn btn-primary btn-xs']) }}
-					{{ Form::close() }}
+					
 				</td>
 			</tr>
 
-			<tr id="edit-category-form-row">
+			<tr id="edit-category-form-row" class="hidden-form">
 				<td colspan="3">
-					{{ Form::open(['url' => '/api/v1.2/categories/apikey=' . Auth::user()->apikey . '/update', 'method' => 'POST', 'role' => 'form', 'class' => 'form-inline']) }}
-						<div class="form-group">
-							{{ Form::label('cat_to_update', 'Category to update') }}
-							{{ Form::select('cat_to_update', $categories, 0, ['class' => 'form-control input-sm']) }}
-						</div>
-						<p></p>
-						<div class="form-group">
-							{{ Form::label('updated_cat_name', 'New category name') }}
-							{{ Form::text('updated_cat_name', '',['class' => 'form-control input-sm']) }}
-							{{ Form::submit('Update', ['class' => 'btn btn-warning btn-xs']) }}
-						</div>
-					{{ Form::close() }}
+
 				</td>
 			</tr>
 
-			<tr id="delete-category-form-row">
+			<tr id="delete-category-form-row" class="hidden-form">
 				<td colspan="3">
-					{{ Form::open(['url' => '/api/v1.2/categories/apikey=' . Auth::user()->apikey . '/destroy', 'method' => 'POST', 'role' => 'form', 'class' => 'form-inline']) }}
-						{{ Form::label('cat_to_delete', 'Category to delete') }}
-						{{ Form::select('cat_to_delete', $categories, null, ['class' => 'form-control input-sm']) }}
-						{{ Form::submit('Delete', ['class' => 'btn btn-danger btn-xs']) }}
-					{{ Form::close() }}
+					
 				</td>
 			</tr>
 		</tbody>

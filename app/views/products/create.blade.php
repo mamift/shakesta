@@ -44,9 +44,8 @@
 						<td>
 							@if (Auth::user()->is_admin)
 							{{ Form::select('retailer_id', $all_retailers) }}
-							<a href="{{ URL::route('retailers.create') }}">
-							(Click here to create new retailer)
-							</a>
+							<br/>
+							<a href="{{ URL::route('retailers.create') }}"> (Click here to create new retailer)</a>
 							@else 
 							{{ Form::select('retailer_id', [$retailer_id => $all_retailers[$retailer_id]], $retailer_id) }}
 							@endif
@@ -72,7 +71,7 @@
 				<tfoot>
 					<tr class="">
 						<td colspan="2">
-							{{ Form::submit('Save') }}
+							{{ Form::submit('Save', ['class' => 'btn btn-primary']) }}
 						</td>
 					</tr>
 				</tfoot>

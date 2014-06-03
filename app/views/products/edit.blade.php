@@ -41,6 +41,8 @@
 						<td>{{ Form::label('retailer_id', 'For Retailer: ') }} <br/>(retailer must already exist)</td>
 						<td>
 							{{ Form::select('retailer_id', $all_retailers, $product->retailer_id, ['disabled' => 'disabled']) }}
+							<br/>
+							<a href="{{ URL::route('retailers.create') }}"> (Click here to create new retailer)</a>
 						</td>
 					</tr>
 					<tr>
@@ -84,7 +86,7 @@
 				<tfoot>
 					<tr class="">
 						<td colspan="2">
-							{{ Form::submit('Save') }}
+							{{ Form::submit('Save', ['class' => 'btn btn-primary']) }}
 						</td>
 					</tr>
 				</tfoot>

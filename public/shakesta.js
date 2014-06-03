@@ -60,4 +60,10 @@ $(document).ready(function() {
             $('#other_new_category').attr('disabled','disabled').removeAttr('enabled');
         }
     });
+
+    $('.hidden-form').hide();
 });
+
+function change_select_category_to_update(category) {
+    $('#cat_to_update').val(category);
+}

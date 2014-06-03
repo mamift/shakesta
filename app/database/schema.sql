@@ -123,3 +123,7 @@ ALTER TABLE `deal` ADD INDEX(`category`);
 
 ALTER TABLE `deal` ADD CONSTRAINT `deal_categories` FOREIGN KEY (`category`) REFERENCES `chana13_shakesta`.`category`(`name`) ON DELETE RESTRICT ON UPDATE CASCADE;
 
+/** need to allow 1.0 in price_discount changes **/
+ALTER TABLE `deal` CHANGE `price_discount` `price_discount` FLOAT NULL DEFAULT NULL;
+
+

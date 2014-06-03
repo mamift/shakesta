@@ -255,7 +255,7 @@ class DealsController extends \BaseController {
 		
 		Category::create($input);
 
-		return Response::json('"' . $name . '" was created', 200);
+		return Redirect::back()->with('created_category', 'Category "' . $name . '" was created!');
 	}
 
 	public function update_category() {
@@ -266,7 +266,7 @@ class DealsController extends \BaseController {
 
 		Category::findOrFail($category_to_update)->update($input);
 
-		return Response::json('"' . $category_to_update . '" was updated to' . ' "' . $updated_category_name . '"', 200);
+		return Redirect::back()->with('updated_category','"' . $category_to_update . '" was updated to' . ' "' . $updated_category_name . '"');
 	}
 
 	public function destroy_category() {
@@ -274,7 +274,7 @@ class DealsController extends \BaseController {
 
 		Category::destroy($category);
 
-		return Response::json('"' . $category . '" was deleted', 200);
+		return Redirect::back()->with('deleted_category', 'Category "' .$category . '" was deleted!');
 	}
 
 }

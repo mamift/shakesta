@@ -40,11 +40,11 @@
 					</a>
 				</li>
 				@if (!Auth::check())
-				<li>
+				<!-- <li>
 					<a href="/user-signup">
 						Register new account
 					</a>
-				</li>
+				</li> -->
 				@endif
 
 			@if (Auth::check())

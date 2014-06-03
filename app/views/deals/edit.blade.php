@@ -25,6 +25,10 @@
 						<td>{{ Form::label('product_id', 'For Product: ') }}</td>
 						<td>
 							{{ Form::select('product_id', [$deal->product->id => $deal->product->id . ": " .$deal->product->title], $deal->product->id) }}
+							<br />
+							<a href="{{ URL::route('products.create') }}">
+							(Click here to create new product)
+							</a>
 							@if ($errors)
 								<span class="error">{{ $errors->first('product_id') }}</span>
 							@endif
@@ -99,7 +103,7 @@
 				<tfoot>
 					<tr class="">
 						<td colspan="2">
-							{{ Form::submit('Save') }}
+							{{ Form::submit('Save', ['class' => 'btn btn-primary']) }}
 						</td>
 					</tr>
 				</tfoot>
