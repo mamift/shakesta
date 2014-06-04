@@ -39,7 +39,7 @@
 					</tr>
 					<tr>
 						<td>
-							{{ Form::label('retailer_id', 'For Retailer: ') }} <br/>
+							{{ Form::label('retailer_id', 'For Client: ') }} <br/>
 						</td>
 						<td>
 							@if (Auth::user()->is_admin)

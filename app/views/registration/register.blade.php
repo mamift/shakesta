@@ -43,7 +43,7 @@
 						</td>
 					</tr>
 					<tr>
-						<td>{{ Form::label('retailer_id','Retailer:') }}<span class="error"></span></td>
+						<td>{{ Form::label('retailer_id','Client (or retailer):') }}<span class="error"></span></td>
 						<td>
 							{{ Form::select('retailer_id', $retailers, null, ['class' => 'form-control input-sm']) }}
 

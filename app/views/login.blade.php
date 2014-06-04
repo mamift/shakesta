@@ -14,7 +14,7 @@
 		<p>You are a <strong>{{ Auth::user()->user_type; }}</strong> user</p>
 		{{-- <p>Retailer: {{ Retailer::find(Auth::user()->retailer_id); }}</p> --}}
 		@if (Auth::user()->user_type === 'retailer')
-		<p>Retailer: {{ $retailer = User::find(Auth::user()->user_id)->retailer->title; }}</p>
+		<p>Client: {{ $retailer = User::find(Auth::user()->user_id)->retailer->title; }}</p>
 		@else
 		<p>You are an administrator and can manage other users.</p>
 		@endif

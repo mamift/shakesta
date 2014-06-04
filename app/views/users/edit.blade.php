@@ -56,7 +56,7 @@
 					</tr>
 					@endif
 					<tr>
-						<td>{{ Form::label('retailer_id','Retailer:') }}</td>
+						<td>{{ Form::label('retailer_id','Client:') }}</td>
 						<td>
 							{{-- The admin user cannot demote himself (neither can any other admin user) --}}
 							@if (Auth::user()->is_admin && $user->username == 'admin')

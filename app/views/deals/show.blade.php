@@ -31,6 +31,12 @@
 						</td>
 					</tr>
 					<tr>
+						<td>{{ Form::label('product', 'Client (or retailer): ') }}</td>
+						<td>
+							{{ ProductDealsRetailers::find($deal->deal_id)->retailer }}
+						</td>
+					</tr>
+					<tr>
 						<td>{{ Form::label('price_discount', 'Price Discount') }} </td>
 						<td>
 							{{ $deal->price_discount }}

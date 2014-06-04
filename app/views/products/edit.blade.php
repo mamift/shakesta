@@ -38,7 +38,7 @@
 						</td>
 					</tr>
 					<tr>
-						<td>{{ Form::label('retailer_id', 'For Retailer: ') }} <br/>(retailer must already exist)</td>
+						<td>{{ Form::label('retailer_id', 'For Client: ') }} <br/>(retailer must already exist)</td>
 						<td>
 							{{ Form::select('retailer_id', $all_retailers, $product->retailer_id, ['disabled' => 'disabled', 'class' => 'form-control input-sm']) }}
 							<br/>
