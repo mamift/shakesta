@@ -4,11 +4,11 @@
 	<script type="text/javascript">
 		
 	</script>
-	<h1>All Deals</h1>
+	<h1>All Campaigns</h1>
 	<table class="table table-hover table-striped table-condensed" id="index-of-deals-table">
 		<thead>	
 			<tr>
-				<td colspan="11"><a href="{{ URL::route('deals.create') }}" class="btn btn-primary btn-xs">Create a new deal</a></td>
+				<td colspan="11"><a href="{{ URL::route('deals.create') }}" class="btn btn-primary btn-xs">Create a new Campaign</a></td>
 			</tr>
 			<tr>
 				<!-- <th>ID</th> -->
@@ -58,18 +58,18 @@
     @endforeach
     @else
     	<tr>
-    		<td colspan="11" style="text-align: center;">No deals here!</td>
+    		<td colspan="11" style="text-align: center;">No campaigns here!</td>
     	</tr>
     @endif
 		</tbody>
 		<tfoot>
 			<tr>
-				<td colspan="11"><a href="{{ URL::route('deals.create') }}" class="btn btn-primary btn-xs">Create a new deal</a></td>
+				<td colspan="11"><a href="{{ URL::route('deals.create') }}" class="btn btn-primary btn-xs">Create a new Campaign</a></td>
 			</tr>
 		</tfoot>
 	</table>
 
-	<h1>Deal Categories</h1>
+	<h1>Campaign Categories</h1>
 
 	<p class="error">{{ Session::get('deleted_category') }}</p>
 	<p class="error">{{ Session::get('created_category') }}</p>
@@ -82,7 +82,7 @@
 	    <div class="modal-content">
 	      <div class="modal-header">
 	        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-	        <h4 class="modal-title" id="update-category-modalLabel">Modal title</h4>
+	        <h4 class="modal-title" id="update-category-modalLabel">Update Category</h4>
 	      </div>
 	      <div class="modal-body">
 				<div class="form-group">
@@ -111,7 +111,7 @@
 	    <div class="modal-content">
 	      <div class="modal-header">
 	        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-	        <h4 class="modal-title" id="create-category-modalLabel">Modal title</h4>
+	        <h4 class="modal-title" id="create-category-modalLabel">Create new Catetgory</h4>
 	      </div>
 	      <div class="modal-body">
 				{{ Form::label('name', 'Category Name') }}

@@ -51,34 +51,38 @@
 
 				@if (Auth::user()->user_type === 'admin')
 
+				<li><a href="/retailers">Manage Clients</a></li>
 				<li><a href="/users">Manage Users</a></li>
-				<li><a href="/deals">Manage Deals</a></li>
 				<li><a href="/products">Manage Products</a></li>
-				<li><a href="/retailers">Manage Retailers</a></li>
+				<li><a href="/deals">Manage Campaigns</a></li>
 				<!-- <li><a href="/shops">Manage Shop Locations</a></li> -->
 
 				@elseif (Auth::user()->user_type === 'retailer')
-
-				<li><a href="/deals">View My Deals</a>
-					<ul>
-						<li><a href="/deals/create">Create Deal</a></li>
-					</ul>
-				</li>
-				
-
 				<li><a href="/products">View My Products</a>
 					<ul>
 						<li><a href="/products/create">Create Product</a></li>
 					</ul>
 				</li>
+
+				<li><a href="/deals">View My Campaign</a>
+					<ul>
+						<li><a href="/deals/create">Create Campaign</a></li>
+					</ul>
+				</li>
+				
+
 				@endif
 				
 				<li><a href="/user-logout">Logout</a></li>
+				
 				<li style="font-size: 9pt;">Logged in as {{ Auth::user()->username }}</li>
 
 			@endif
 
-				<li><a href="/contact-us">Contact Us</a></li>
+			@if (!Auth::check())
+				<!-- <li><a href="/contact-us">Contact Us</a></li> -->
+			@endif
+
 			</ul>
 		</div>
 		

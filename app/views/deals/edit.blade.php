@@ -2,7 +2,7 @@
 
 @section('content')
 	<h2>
-		<a href="{{ URL::route('deals.index') }}">&lt; Go to deals</a>
+		<a href="{{ URL::route('deals.index') }}">&lt; Go to Campaigns</a>
 	</h2>
 	<div>
 		{{ Form::model($deal, ['method' => 'PATCH', 'route' => ['deals.update', $deal->deal_id], 'role' => 'form', 'class' => 'form-inline']) }}
@@ -10,7 +10,7 @@
 				<thead>
 					<tr>
 						<th colspan="2">
-							<h3>Edit Deal &#35;{{ $deal->deal_id }}</h3>
+							<h3>Edit Campaign &#35;{{ $deal->deal_id }}</h3>
 						</th>
 					</tr>
 				</thead>

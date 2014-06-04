@@ -3,7 +3,7 @@
 @section('content')
 
 	<h2>
-		<a href="{{ URL::route('deals.index') }}">&lt; Go to deals</a>
+		<a href="{{ URL::route('deals.index') }}">&lt; Go to All Campaigns</a>
 	</h2>
 	<div>
 		{{ Form::model($deal, ['method' => 'GET', 'route' => ['deals.index']] ) }}
@@ -11,7 +11,7 @@
 				<thead>
 					<tr>
 						<th colspan="2">
-							<h3>View Deal &#35;{{ $deal->deal_id }}</h3>
+							<h3>View Campaign &#35;{{ $deal->deal_id }}</h3>
 						</th>
 					</tr>
 				</thead>
@@ -66,8 +66,8 @@
 				<tfoot>
 					<tr class="">
 						<td colspan="2">
-							{{ Form::submit('Back') }}
-							<button type="button" onClick="window.location='{{ URL::route('deals.edit', $deal->deal_id) }}'">Edit deal</button>
+							{{ Form::submit('Back', ['class' => 'btn btn-primary']) }}
+							<button type="button" onClick="window.location='{{ URL::route('deals.edit', $deal->deal_id) }}'" class="btn btn-warning">Edit campaign</button>
 						</td>
 					</tr>
 				</tfoot>

@@ -4,7 +4,7 @@ class Retailer extends \Eloquent {
 
 	// Add your validation rules here
 	public static $rules = [
-		// 'title' => 'required'
+		'title' => 'required|unique:retailer'
 	];
 
 	// Don't forget to fill this array

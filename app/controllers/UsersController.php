@@ -116,7 +116,12 @@ class UsersController extends \BaseController {
 		// $latest_user = User::orderBy('user_id','DESC')->get()->first();
 		// $new_id = $latest_user->user_id + 1;
 
-		return View::make('users.create', ['retailers' => $retailers]);
+		if (Auth::user()->is_admin) { 
+			// $retailers['(create new retailer)'] = '(create new retailer)';
+			return View::make('users.create', ['retailers' => $retailers]);
+			
+		} else
+			return View::make('users.create', ['retailers' => $retailers]);
 	}
 
 	/**
@@ -133,13 +138,13 @@ class UsersController extends \BaseController {
 		$email = Input::get('email');
 
 		// check for pre-existing username and e-mail
-		if (AuthenticationController::check_username($username)) {
-			return Redirect::back()->with('username_message', "Username already taken!")->withInput();
-		} 
+		// if (AuthenticationController::check_username($username)) {
+			// return Redirect::back()->with('username_message', "Username already taken!")->withInput();
+		// } 
 
-		if (AuthenticationController::check_email($email)) {
-			return Redirect::back()->with('email_message', "Email already taken!")->withInput();
-		}
+		// if (AuthenticationController::check_email($email)) {
+			// return Redirect::back()->with('email_message', "Email already taken!")->withInput();
+		// }
 
 		if ($validator->fails()) {
 			return Redirect::back()->withErrors($validator)->withInput();
@@ -154,7 +159,7 @@ class UsersController extends \BaseController {
 		if (Auth::check()) {
 			return Redirect::route('users.index');
 
-		} else {
+		} else { // this should only occur with self-service user registration
 			return View::make('users.confirmation');
 		}
 	}
@@ -168,8 +173,9 @@ class UsersController extends \BaseController {
 	public function show($id)
 	{
 		$user = User::findOrFail($id);
+		$retailer = Retailer::find($user->retailer_id);
 
-		return View::make('users.show', compact('user'));
+		return View::make('users.show', ['user' => $user, 'retailer' => $retailer]);
 	}
 
 	/**
@@ -205,7 +211,8 @@ class UsersController extends \BaseController {
 		// var_dump($input); exit();
 
 		$update_user_validation_rules = [
-			'username' => 'required', 
+			'username' => 'required|unique:user,username', 
+			'email' => 'required|unique:user,email', 
 			'new_password' => 'min:6|confirmed', 
 			'new_password_confirmation' => 'min:6'
 		];

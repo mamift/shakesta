@@ -3,7 +3,7 @@
 @section('content')
 
 	<h2 class="">
-		<a href="{{ URL::route('retailers.index') }}">&lt; Go to retailers</a>
+		<a href="{{ URL::route('retailers.index') }}">&lt; Go to client</a>
 	</h2>
 	<div>
 		{{ Form::open(['method' => 'GET', 'route' => 'retailers.index']) }}
@@ -11,7 +11,7 @@
 				<thead>
 					<tr>
 						<th colspan="2">
-							<h3>View retailer: {{ $retailer->title }} </h3>
+							<h3>View client: {{ $retailer->title }} </h3>
 						</th>
 					</tr>
 				</thead>
@@ -46,8 +46,8 @@
 				<tfoot>
 					<tr class="">
 						<td colspan="2">
-							{{ Form::submit('Back') }}
-							<button type="button" onClick="window.location='{{ URL::route('retailers.edit', $retailer->id) }}'">Edit retailer</button>
+							{{ Form::submit('Back', ['class' => 'btn btn-primary']) }}
+							<button type="button" onClick="window.location='{{ URL::route('retailers.edit', $retailer->id) }}'" class="btn btn-warning">Edit client</button>
 						</td>
 					</tr>
 				</tfoot>

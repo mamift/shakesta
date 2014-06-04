@@ -70,8 +70,8 @@
 				<tfoot>
 					<tr>
 						<td colspan="2">
-							{{ Form::submit('Back') }}
-							<button type="button" onClick="window.location='{{ URL::route('products.edit', $product->product_id) }}'">Edit product</button>
+							{{ Form::submit('Back', ['class' => 'btn btn-primary']) }}
+							<button type="button" onClick="window.location='{{ URL::route('products.edit', $product->product_id) }}'" class="btn btn-warning">Edit product</button>
 						</td>
 					</tr>
 				</tfoot>

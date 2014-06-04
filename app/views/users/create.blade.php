@@ -25,19 +25,21 @@
 						<td>{{ Form::label('username','Username:') }}</td>
 						<td>
 							{{ Form::text('username', null, ['class' => 'form-control input-sm']) }}
-							<span class="error">{{{ $username_message = $errors->first('username') }}}</span>
+							<span class="error">{{ $errors->first('username') }}</span>
 						</td>
 					</tr>
 					<tr>
 						<td>{{ Form::label('email','E-mail:') }}</td>
 						<td>
 							{{ Form::text('email', null, ['size' => '30', 'class' => 'form-control input-sm']) }}
+							<span class="error">{{{ $username_message = $errors->first('email') }}}</span>
 						</td>
 					</tr>
 					<tr>
 						<td>{{ Form::label('retailer_id','Retailer:') }}</td>
 						<td>
-							{{ Form::select('retailer_id', $retailers, null, ['class' => 'form-control input-sm']) }}
+							{{ Form::select('retailer_id', $retailers, null, ['class' => 'form-control input-sm']) }} <br />
+							<a href="{{ URL::route('retailers.create') }}"> (Click here to create new retailer) </a>
 						</td>
 					</tr>
 					<tr>

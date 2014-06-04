@@ -88,7 +88,7 @@
 						@if (Auth::user()->is_admin && $user->username === 'admin')
 						<td>{{ Form::select('status', ['enabled' => 'enabled','disabled' => 'disabled'], $user->status, ['disabled' => 'disabled', 'class' => 'form-control input-sm']) }}</td>	
 						@else
-						<td>{{ Form::select('status', ['enabled' => 'enabled','disabled' => 'disabled', 'class' => 'form-control input-sm'], $user->status) }}</td>
+						<td>{{ Form::select('status', ['enabled' => 'enabled','disabled' => 'disabled'], null, ['class' => 'form-control input-sm'], $user->status) }}</td>
 						@endif
 					</tr>
 					@if ($user->apikey)

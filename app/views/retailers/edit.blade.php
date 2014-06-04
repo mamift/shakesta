@@ -3,7 +3,7 @@
 @section('content')
 
 	<h2 class="">
-		<a href="{{ URL::route('retailers.index') }}">&lt; Go to retailers</a>
+		<a href="{{ URL::route('retailers.index') }}">&lt; Go to clients</a>
 	</h2>
 	<div>
 		{{ Form::model($retailer, ['method' => 'PATCH', 'route' => ['retailers.update', $retailer->id], 'role' => 'form', 'class' => 'form-inline']) }}
@@ -11,7 +11,7 @@
 				<thead>
 					<tr>
 						<th colspan="2">
-							<h3>Create new retailer</h3>
+							<h3>Create new client</h3>
 						</th>
 					</tr>
 				</thead>

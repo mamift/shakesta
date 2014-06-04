@@ -33,6 +33,14 @@
 							{{ $user->email or "no e-mail address provided" }}
 						</td>
 					</tr>
+					@if ($retailer)
+					<tr>
+						<td>{{ Form::label('retailer','Client:') }}</td>
+						<td>
+							<a href="{{ URL::route('retailers.show', $retailer->id) }}">{{ $retailer->title }}</a>
+						</td>
+					</tr>
+					@endif
 					<tr>
 						<td>{{ Form::label('enabled','Status') }}</td>
 						@if ($user->is_enabled)
@@ -54,8 +62,8 @@
 				<tfoot>
 					<tr class="">
 						<td colspan="2">
-							{{ Form::submit('Back') }}
-							<button type="button" onClick="window.location='{{ URL::route('users.edit', $user->user_id) }}'">Edit user</button>
+							{{ Form::submit('Back', ['class' => 'btn btn-primary']) }}
+							<button type="button" onClick="window.location='{{ URL::route('users.edit', $user->user_id) }}'" class="btn btn-warning">Edit user</button>
 						</td>
 					</tr>
 				</tfoot>

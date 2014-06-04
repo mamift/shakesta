@@ -6,17 +6,17 @@
 			return confirm("Are you sure about deleting this?");
 		}
 	</script>
-	<h1>All Retailers</h1>
+	<h1>All Clients</h1>
 	@if (Session::get('delete_error'))
 		<p class="error">
 			{{ Session::get('delete_error') }} <br/>
-			Delete all associated users, then try deleting this retailer.
+			Delete all associated users, then try deleting this client.
 		</p>
 	@endif
 	<table class="table table-hover table-striped table-condensed">
 		<thead>	
 			<tr>
-				<td colspan="4"><a href="{{ URL::route('retailers.create') }}" class="btn btn-primary btn-xs">Create a new retailer</a></td>
+				<td colspan="4"><a href="{{ URL::route('retailers.create') }}" class="btn btn-primary btn-xs">Create a new client</a></td>
 			</tr>
 			<tr>
 				<!-- <th>ID</th> -->
@@ -44,13 +44,13 @@
     @endforeach
     @else
     	<tr>
-    		<td colspan="4" style="text-align: center;">No retailers here!</td>
+    		<td colspan="4" style="text-align: center;">No clients here!</td>
     	</tr>
     @endif
 		</tbody>
 		<tfoot>
 			<tr>
-				<td colspan="4"><a href="{{ URL::route('retailers.create') }}" class="btn btn-primary btn-xs">Create a new retailer</a></td>
+				<td colspan="4"><a href="{{ URL::route('retailers.create') }}" class="btn btn-primary btn-xs">Create a new client</a></td>
 			</tr>
 		</tfoot>
 	</table>

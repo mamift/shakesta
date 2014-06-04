@@ -2,7 +2,7 @@
 
 @section('content')
 	<h2>
-		<a href="{{ URL::route('deals.index') }}">&lt; Go to deals</a>
+		<a href="{{ URL::route('deals.index') }}">&lt; Go to Campaigns</a>
 	</h2>
 	<div>
 		{{ Form::open(['method' => 'POST','route' => 'deals.store', 'role' => 'form', 'class' => 'form-inline']) }}
@@ -10,7 +10,7 @@
 				<thead>
 					<tr>
 						<th colspan="2">
-							<h3>Create new Deal</h3>
+							<h3>Create new Campaign</h3>
 						</th>
 					</tr>
 				</thead>
@@ -96,7 +96,7 @@
 					<tr id="enter-your-own-category-row" style="display:none;">
 						<td>{{ Form::label('other_new_category', 'Enter your own category') }}</td>
 						<td>
-							{{ Form::text('other_new_category', '', ['id' => 'other_new_category','disabled' => 'disabled']) }}
+							{{ Form::text('other_new_category', '', ['id' => 'other_new_category','disabled' => 'disabled', 'class' => 'form-control input-sm']) }}
 							<span class="error">{{ Session::get('category_already_exists') }}</span>
 						</td>
 					</tr>

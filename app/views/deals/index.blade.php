@@ -10,7 +10,7 @@
 	<table class="table table-hover table-striped table-condensed">
 		<thead>	
 			<tr>
-				<td colspan="9"><a href="{{ URL::route('deals.create') }}">Create a new deal</a></td>
+				<td colspan="9"><a href="{{ URL::route('deals.create') }}">Create a new Campaign</a></td>
 			</tr>
 			<tr>
 				<!-- <th>ID</th> -->
@@ -56,13 +56,13 @@
     @endforeach
     @else
     	<tr>
-    		<td colspan="9" style="text-align: center;">No deals here!</td>
+    		<td colspan="9" style="text-align: center;">No Campaigns here!</td>
     	</tr>
     @endif
 		</tbody>
 		<tfoot>
 			<tr>
-				<td colspan="9"><a href="{{ URL::route('deals.create') }}">Create a new deal</a></td>
+				<td colspan="9"><a href="{{ URL::route('deals.create') }}">Create a new Campaign</a></td>
 			</tr>
 		</tfoot>
 	</table>

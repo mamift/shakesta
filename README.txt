@@ -1,6 +1,6 @@
 API: 
-Accessible via www.shakesta.com/api/v1.1/
-Protected via HTTP basic authentication.
+Accessible via www.shakesta.com/api/v1.2/
+Protected via API key token authentication
 
 Default API User account:s
 
