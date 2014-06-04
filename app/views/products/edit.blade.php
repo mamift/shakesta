@@ -38,11 +38,11 @@
 						</td>
 					</tr>
 					<tr>
-						<td>{{ Form::label('retailer_id', 'For Client: ') }} <br/>(retailer must already exist)</td>
+						<td>{{ Form::label('retailer_id', 'For Client: ') }} <br/>(must already exist)</td>
 						<td>
 							{{ Form::select('retailer_id', $all_retailers, $product->retailer_id, ['disabled' => 'disabled', 'class' => 'form-control input-sm']) }}
 							<br/>
-							<a href="{{ URL::route('retailers.create') }}"> (Click here to create new retailer)</a>
+							<a href="{{ URL::route('retailers.create') }}"> (Click here to create new client)</a>
 						</td>
 					</tr>
 					<tr>
