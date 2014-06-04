@@ -80,8 +80,13 @@ class Deal extends Eloquent {
 	public function getExpiryTimeAttribute() {
 		$now_datetime = new DateTime('now');
 		$datetime = new DateTime($this->attributes['expires_time']);
+		$expiry_time = $now_datetime->diff($datetime)->format('%d days, %h hours, %i mins, %s secs');
 
-		return $now_datetime->diff($datetime)->format('%R%d days, %h hours, %s secs');
+		if ($this->getIsExpiredAttribute()) 
+			return "(expired by " . $expiry_time . ")";
+		else {
+			return $expiry_time;
+		}
 	}
 
 	public function getIsExpiredAttribute() {
