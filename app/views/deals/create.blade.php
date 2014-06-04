@@ -38,6 +38,15 @@
 					</tr>
 					<tr>
 						<td>
+							{{ Form::label('title', 'Campaign Title: ') }} 
+						</td>
+						<td>
+							{{ Form::text('title', null, ['placeholder' => 'Enter a title', 'class' => 'form-control input-sm']) }}
+							<span class="error">{{ $errors->first('title') }}</span>
+						</td>
+					</tr>
+					<tr>
+						<td>
 							{{ Form::label('price_discount', 'Price Discount') }} <br/>
 							(enter as decimal&colon; e.g. 0.5 &equals; 50&percnt;)
 						</td>

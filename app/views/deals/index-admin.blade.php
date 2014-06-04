@@ -13,10 +13,11 @@
 			<tr>
 				<!-- <th>ID</th> -->
 				<th>Product</th>
-				<th>Discount</th>
-				<th>Original Price</th>
+				<th>Title</th>
+				<th>Original &plus; Discount &equals; Price</th>
+				<!-- <th>Original Price</th> -->
 				<th>Retailer</th>
-				<th>Terms</th>
+				<!-- <th>Terms</th> -->
 				<th>Begins</th>
 				<th>Expires</th>
 				<th>Ends in</th>
@@ -35,14 +36,15 @@
 						{{ $deal->product_id . ": " . $deal->product_title }}
 					</a>
 				</td>
-				<td>{{ $deal->price_discount * 100 }} &percnt; </td>
-				<td>{{ $deal->original_price }} </td>
+				<td><a href="{{ URL::route('deals.show', $deal->id) }}">{{ $deal->title }}</a></td>
+				<td>&dollar; {{ $deal->original_price }} - {{ $deal->price_discount * 100 }} &percnt; &nbsp; <br /> &equals; &dollar; {{ $deal->discount_price }}</td>
+				<!-- <td> </td> -->
 				<td>
 					<a href="{{ URL::route('retailers.show', $deal->retailer_id) }}">
 						{{ $deal->retailer_id . ": " . $deal->retailer }}
 					</a>
 				</td>
-				<td>{{ $deal->terms }}</td>
+				<!-- <td>{{-- $deal->terms --}}</td> -->
 				<td><a href="{{ URL::route('deals.show', $deal->id) }}">{{ $deal->begins_datetime }}</a></td>
 				<td><a href="{{ URL::route('deals.show', $deal->id) }}">{{ $deal->expires_datetime }}</a></td>
 				<td>{{ $deal->expiry_time }}</td>

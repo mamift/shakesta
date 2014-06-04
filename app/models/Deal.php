@@ -4,6 +4,7 @@ class Deal extends Eloquent {
 	
 	// validation rules here
 	public static $create_rules = [
+		'title'				=> '',
 		'product_id' 		=> 'required|numeric',
 		'price_discount' 	=> 'required|numeric|min:0.01|max:1.00',
 		'terms' 		 	=> 'required',
@@ -33,7 +34,9 @@ class Deal extends Eloquent {
 
 	// price_discount
 	public function getPriceDiscountAttribute() {
-		return (float) $this->attributes['price_discount'];
+		$price_discount = (float) number_format($this->attributes['price_discount'], 2, '.', ',');
+		return round($price_discount, 3);
+		// return $price_discount;
 	}
 
 	/** custom attributes **/
@@ -84,7 +87,9 @@ class Deal extends Eloquent {
 		$original_price = $this->attributes['original_price'];
 		$price_discount = $this->attributes['price_discount'];
 
-		return $original_price - ($original_price * $price_discount);
+		$discount_price = (float) ($original_price - ((float) $original_price * (float) $price_discount));
+		
+		return round($discount_price, 3);
 	}
 
 	public function product() {
