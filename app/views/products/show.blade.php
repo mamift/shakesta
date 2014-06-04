@@ -43,7 +43,7 @@
 					<tr>
 						<td>{{ Form::label('retail_price','Retail Price:') }}</td>
 						<td>
-							{{ $product->retail_price }}
+							&dollar; {{ $product->retail_price }}
 						</td>
 					</tr>
 					<tr>

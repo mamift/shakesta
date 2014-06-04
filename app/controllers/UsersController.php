@@ -37,6 +37,7 @@ class UsersController extends \BaseController {
 
 			if ($enabled == true || $enabled == 'true') {
 				$input['status'] = 'enabled';
+
 			} else {
 				$input['status'] = 'disabled';
 			}
@@ -211,8 +212,8 @@ class UsersController extends \BaseController {
 		// var_dump($input); exit();
 
 		$update_user_validation_rules = [
-			'username' => 'required|unique:user,username', 
-			'email' => 'required|unique:user,email', 
+			'username' => 'min:1',
+			'email' => 'min:1', 
 			'new_password' => 'min:6|confirmed', 
 			'new_password_confirmation' => 'min:6'
 		];

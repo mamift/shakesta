@@ -58,6 +58,14 @@
 						</td>
 					</tr>
 					@endif
+					@if ($user->notes && $user->status === 'disabled')
+					<tr>
+						<td>{{ Form::label('notes','User notes:') }}</td>
+						<td>
+							{{ $user->notes }} <br />
+						</td>
+					</tr>
+					@endif
 				</tbody>
 				<tfoot>
 					<tr class="">

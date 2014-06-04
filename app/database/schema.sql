@@ -126,4 +126,8 @@ ALTER TABLE `deal` ADD CONSTRAINT `deal_categories` FOREIGN KEY (`category`) REF
 /** need to allow 1.0 in price_discount changes **/
 ALTER TABLE `deal` CHANGE `price_discount` `price_discount` FLOAT NULL DEFAULT NULL;
 
+/* minor user detail: notes for self-registrered users */
+ALTER TABLE `user` ADD `notes` TEXT NULL DEFAULT NULL AFTER `email`;
+
+
 

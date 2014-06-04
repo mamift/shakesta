@@ -17,7 +17,7 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 	 *
 	 * @var array
 	 */
-	protected $hidden = ['password','remember_token','created_at','updated_at'];
+	protected $hidden = ['password','remember_token','created_at','updated_at','notes'];
 
 	/**
 	 * Get the unique identifier for the user.
@@ -87,7 +87,7 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 	];
 
 	// fields that are mass assignable
-	protected $fillable = ['username','password','email','retailer_id','apikey','status'];
+	protected $fillable = ['username','password','email','retailer_id','apikey','status','notes'];
 
 	protected $primaryKey = 'user_id';
 

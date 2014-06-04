@@ -75,6 +75,7 @@ a:active {color:black;}  /* selected link */
 .content
 {
     /*background-color: #fff;*/
+    /*position: fixed;*/
 
 	min-width:700px;
 	max-width: 100%;
@@ -84,8 +85,10 @@ a:active {color:black;}  /* selected link */
 }
 
 .content table {
-	background-color: #fff;
+	background-color: rgba(255,255,255,1);
+	border-collapse: collapse;
 	border-radius: 10px;
+	/*border: 1px solid black;*/
 }
 
 .content .table-bordered {
@@ -162,4 +165,25 @@ tr:last-child {
 
 	border: 2px solid black;
 	margin: 0 auto;
+}
+
+.margin-centered {
+	/*text-align: center;*/
+	width: 600px;
+	margin: 10px auto;
+	border-radius: 20px;
+	padding: 10px;
+}
+
+.center-aligned {
+	text-align: center;
+}
+
+p {
+	border-radius: 20px;
+	background-color: rgba(255,255,255,0.5);
+}
+
+.no-bg {
+	background-color: transparent;
 }

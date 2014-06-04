@@ -6,11 +6,11 @@
 			return confirm("Are you sure about deleting this?");
 		}
 	</script>
-	<h1>Current Deals listed for {{ $retailer = User::find(Auth::user()->user_id)->retailer->title; }}</h1>
+	<h1>Current Campaigns listed for {{ $retailer = User::find(Auth::user()->user_id)->retailer->title; }}</h1>
 	<table class="table table-hover table-striped table-condensed">
 		<thead>	
 			<tr>
-				<td colspan="9"><a href="{{ URL::route('deals.create') }}">Create a new Campaign</a></td>
+				<td colspan="9"><a href="{{ URL::route('deals.create') }}" class="btn btn-primary btn-xs">Create a new Campaign</a></td>
 			</tr>
 			<tr>
 				<!-- <th>ID</th> -->
@@ -45,7 +45,7 @@
 				<td><a href="{{ URL::route('deals.show', $deal->id) }}">{{ $deal->expires_datetime }}</a></td>
 				<td>{{ $deal->expiry_time }}</td>
 				<td>{{ $deal->category }}</td>
-				<td><a href="{{ URL::route('deals.edit', $deal->id) }}">Edit</a></td>
+				<td><a href="{{ URL::route('deals.edit', $deal->id) }}" class="btn btn-warning btn-xs">Edit</a></td>
 				<td>
 					{{ Form::open(['route' => ['deals.destroy', $deal->id], 'onSubmit' => 'return confirm_delete();']) }}
 						{{ Form::hidden('_method', 'DELETE') }}
@@ -62,7 +62,7 @@
 		</tbody>
 		<tfoot>
 			<tr>
-				<td colspan="9"><a href="{{ URL::route('deals.create') }}">Create a new Campaign</a></td>
+				<td colspan="9"><a href="{{ URL::route('deals.create') }}" class="btn btn-primary btn-xs">Create a new Campaign</a></td>
 			</tr>
 		</tfoot>
 	</table>

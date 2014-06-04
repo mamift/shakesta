@@ -7,7 +7,7 @@
 			if ($("#retailer_id option:selected").val() == 'null') {
 				$("#retailer_id").change(function() {
 					if (!fired_once) {
-						alert('This will demote this user to a retailer! Only an administrator can change this back!');
+						alert('NOTE: Only an administrator can change this back!');
 						fired_once = true;
 					}
 				});
@@ -47,6 +47,14 @@
 							{{ Form::text('email', null, ['class' => 'form-control input-sm']) }}
 						</td>
 					</tr>
+					@if ($user->notes && $user->status === 'disabled')
+					<tr>
+						<td>{{ Form::label('notes','User notes:') }}</td>
+						<td>
+							{{ $user->notes }} <br />
+						</td>
+					</tr>
+					@endif
 					<tr>
 						<td>{{ Form::label('retailer_id','Retailer:') }}</td>
 						<td>
@@ -85,11 +93,17 @@
 					<tr>
 						<td>{{ Form::label('status','Enable user?') }}</td>
 						{{-- Can't disable the admin user--}}
+						<td>
 						@if (Auth::user()->is_admin && $user->username === 'admin')
-						<td>{{ Form::select('status', ['enabled' => 'enabled','disabled' => 'disabled'], $user->status, ['disabled' => 'disabled', 'class' => 'form-control input-sm']) }}</td>	
+						{{ Form::select('status', ['enabled' => 'enabled','disabled' => 'disabled'], $user->status, ['disabled' => 'disabled', 'class' => 'form-control input-sm']) }}
+						@elseif ($user->status == 'disabled' && !isset($user->retailer_id))
+							<span class="error">Give this user a client or retailer then try to enable this user</span>
+						@elseif (isset($user->notes) && $user->status == 'disabled' && isset($user->retailer_id)) 
+							{{ Form::select('status', ['enabled' => 'enabled','disabled' => 'disabled'], null, ['class' => 'form-control input-sm'], $user->status) }}
 						@else
-						<td>{{ Form::select('status', ['enabled' => 'enabled','disabled' => 'disabled'], null, ['class' => 'form-control input-sm'], $user->status) }}</td>
+						{{ Form::select('status', ['enabled' => 'enabled','disabled' => 'disabled'], null, ['class' => 'form-control input-sm'], $user->status) }}
 						@endif
+						</td>	
 					</tr>
 					@if ($user->apikey)
 					<tr>
@@ -104,6 +118,7 @@
 						</td>
 					</tr> -->
 					@endif
+
 					<!-- <tr>
 						<td>Created </td>
 						<td>{{ Form::input('time', 'created_at', null, ['readonly' => 'readonly']) }}</td>

@@ -3,6 +3,7 @@
 @section('content')
 <div id="enabled-users">
 	<h1>Users</h1>
+	<p>Any users without a retailer set are administrator users, and can manager other users except the admin user.</p>
 	<table class="table table-hover table-striped table-condensed">
 		<thead>	
 			<tr>
@@ -65,6 +66,7 @@
 
 <div id="disabled-users">
 	<h1>Disabled Users</h1>
+	<p>These are users who have signed up via the self-registration form on the homepage. See the user's notes for details on which client they wish to represent if they have no retailer set.</p>
 	<table class="table table-hover table-striped table-condensed">
 		<thead>	
 			<tr>
@@ -96,7 +98,7 @@
 				</td>
 				<td>{{ isset($duser->apikey) ? 'Yes' : 'No' }}</td>
 				<td>{{ $duser->status }}</td>
-				<td><a href="{{ URL::route('users.edit', $duser->id) }}">Edit</a></td>
+				<td><a href="{{ URL::route('users.edit', $duser->id) }}" class="btn btn-warning btn-xs">Edit</a></td>
 				<td>
 					{{-- You can't delete the admin user --}}
 					@if (Auth::user()->user_type === 'admin' and $duser->username !== 'admin')

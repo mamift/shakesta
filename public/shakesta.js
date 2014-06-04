@@ -61,6 +61,22 @@ $(document).ready(function() {
         }
     });
 
+    if ($('#registration-form #retailer_id option:selected').val() == '(other: enter your own)') {
+        $('#registration-form #suggested_retailer_name').show();
+        $('#registration-form #suggested_retailer_name').attr('enabled','enabled').removeAttr('disabled');
+    }
+
+    $('#registration-form #retailer_id').change(function() {
+        // alert('test');
+        if ($('#registration-form #retailer_id option:selected').val() == '(other: enter your own)') {
+            $('#registration-form #suggested_retailer_name').show();
+            $('#registration-form #suggested_retailer_name').attr('enabled','enabled').removeAttr('disabled');
+        } else {
+            $('#registration-form #suggested_retailer_name').hide();
+            $('#registration-form #suggested_retailer_name').attr('disabled','disabled').removeAttr('enabled');
+        }
+    });
+
     $('.hidden-form').hide();
 });
 

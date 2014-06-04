@@ -69,6 +69,7 @@
 		</tfoot>
 	</table>
 
+	<a id="categories"></a>
 	<h1>Campaign Categories</h1>
 
 	<p class="error">{{ Session::get('deleted_category') }}</p>

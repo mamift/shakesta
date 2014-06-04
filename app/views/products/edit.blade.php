@@ -96,12 +96,12 @@
 
 	<div id="deals-for-product">
 		<h2>
-			Deals current for this product
+			Campaigns current for this product
 		</h2>	
 		<table class="table  table-hover table-striped table-condensed">
 		<thead>	
 			<tr>
-				<td colspan="8"><a href="{{ URL::route('deals.create') }}" class="btn btn-primary btn-xs">Create a new deal</a></td>
+				<td colspan="8"><a href="{{ URL::route('deals.create') }}" class="btn btn-primary btn-xs">Create a new campaign</a></td>
 			</tr>
 			<tr>
 				<!-- <th>ID</th> -->
@@ -138,13 +138,13 @@
 		@endforeach
 		@else
 		<tr>
-    		<td colspan="8" style="text-align: center;">No deals here!</td>
+    		<td colspan="8" style="text-align: center;">No Campaigns here!</td>
     	</tr>
 		@endif
 		</tbody>
 		<tfoot>
 			<tr>
-				<td colspan="8"><a href="{{ URL::route('deals.create') }}" class="btn btn-primary btn-xs">Create a new deal</a></td>
+				<td colspan="8"><a href="{{ URL::route('deals.create') }}" class="btn btn-primary btn-xs">Create a new Campaign</a></td>
 			</tr>
 		</tfoot>
 		</table>

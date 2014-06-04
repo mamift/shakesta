@@ -104,6 +104,7 @@ class AuthenticationController extends \BaseController {
 		if (!Auth::check()) {
 			$retailers = UsersController::get_retailers_list();
 			unset($retailers['null']); // don't allow self-admin registration
+			$retailers['(other: enter your own)'] = '(other: enter your own)';
 
 			return View::make('registration.register', ['retailers' => $retailers]);
 			
@@ -122,24 +123,46 @@ class AuthenticationController extends \BaseController {
 	{
 		$input = Input::all();
 		$self_sign_rules = [
-			'username' => 'required',
+			'username' => 'required|unique:user,username',
+			'email' => 'required|unique:user,email',
 			'password' => 'required|min:6|confirmed',
-			'password_confirmation' => 'required|min:6'
+			'password_confirmation' => 'required|min:6',
+			'suggested_retailer_name' => 'min:1|unique:retailer,title'
 		];
 
 		$validator = Validator::make($input, $self_sign_rules);
 
 		$username = Input::get('username');
 		$email = Input::get('email');
+		$suggested_retailer = Input::get('suggested_retailer_name');
+		$retailer = Input::get('retailer_id');
 
-		// check for pre-existing username and e-mail
-		if (AuthenticationController::check_username($username)) {
-			return Redirect::back()->with('username_message', "Username already taken!")->withInput();
-		} 
-
-		if (AuthenticationController::check_email($email)) {
-			return Redirect::back()->with('email_message', "Email already taken!")->withInput();
+		if (isset($suggested_retailer) && strlen($suggested_retailer) == 0) {
+			return Redirect::back()->with('suggested_retailer_name', 'You need to actually enter something here if you\'re gonna specify your own retailer!')->withInput()->withErrors($validator);
 		}
+
+		if ($retailer != '(other: enter your own)' && isset($suggested_retailer)) {
+			// go with the retailer_id value
+			unset($input['suggested_retailer_name']);
+
+		}
+
+		// var_dump($input); exit();
+		if (isset($suggested_retailer) && $retailer == '(other: enter your own)') {
+			// if no retailer_id is set, then place this in the user notes
+			$input['notes'] = 'This user wants to represent a client not in the database, and that client is: "' . $suggested_retailer . '". When enabling this user, you might want to create a new Client for this retailer if it doesn\'t already exist.';
+			unset($input['retailer_id']); // we don't want sql errors
+		}
+
+		// I AM A MORON: apparently this validation is already built-into Laravel! see the above rules
+		// check for pre-existing username and e-mail
+		// if (AuthenticationController::check_username($username)) {
+			// return Redirect::back()->with('username_message', "Username already taken!")->withInput();
+		// } 
+
+		// if (AuthenticationController::check_email($email)) {
+			// return Redirect::back()->with('email_message', "Email already taken!")->withInput();
+		// }
 
 		if ($validator->fails()) {
 				return Redirect::back()->withErrors($validator)->withInput();

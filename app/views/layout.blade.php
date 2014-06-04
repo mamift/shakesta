@@ -20,8 +20,6 @@
 </head>
 
 <body>
-
-
 	<div class="container">
 		<div class="logo">
 			<img src="/images/shakesta.gif"/>
@@ -55,6 +53,7 @@
 				<li><a href="/users">Manage Users</a></li>
 				<li><a href="/products">Manage Products</a></li>
 				<li><a href="/deals">Manage Campaigns</a></li>
+				<li><a href="/deals#categories">Manage Campaign Categories</a></li>
 				<!-- <li><a href="/shops">Manage Shop Locations</a></li> -->
 
 				@elseif (Auth::user()->user_type === 'retailer')
