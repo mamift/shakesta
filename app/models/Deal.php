@@ -13,7 +13,7 @@ class Deal extends Eloquent {
 	];
 
 	// hidden
-	protected $hidden = ['deal_id','created_at','updated_at','begins_time','expires_time'];
+	protected $hidden = ['deal_id','created_at','updated_at'];
 
 	protected $table = 'deal';
 	protected $primaryKey = 'deal_id';
@@ -22,7 +22,7 @@ class Deal extends Eloquent {
 	public $incrementing = true;
 
 	// these fields are mass-assignable
-	protected $fillable = ['price_discount','terms','expires_time','begins_time','category','product_id'];
+	protected $fillable = ['title','price_discount','terms','expires_time','begins_time','category','product_id'];
 
 	// these fields aren't
 	protected $guarded = ['deal_id'];

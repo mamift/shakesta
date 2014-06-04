@@ -55,7 +55,7 @@ class DealsController extends \BaseController {
 
 		// var_dump($categories); exit();
 
-		// only admins can add their own category
+		// only admins can add their own category when making a new deal
 		if (Auth::user()->is_admin)
 			$categories['(other: enter your own)'] = '(other: enter your own)';
 
@@ -237,9 +237,6 @@ class DealsController extends \BaseController {
 	}
 
 	/** deal categories **/
-	public function create_category() {
-
-	}
 
 	public function store_category() {
 		$name = Input::get('name');

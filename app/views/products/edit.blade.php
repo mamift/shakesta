@@ -106,7 +106,7 @@
 			<tr>
 				<!-- <th>ID</th> -->
 				<th>Price + Discount</th>
-				<th>Terms</th>
+				<!-- <th>Terms</th> -->
 				<th>Begins</th>
 				<th>Expires</th>
 				<th>Ends in</th>
@@ -124,7 +124,7 @@
 					Discount: {{ $deal->price_discount * 100 }} &percnt; <br/>
 					Deal price: &dollar;{{ $deal->original_price - ($deal->original_price * $deal->price_discount) }}
 				</td>
-				<td>{{ $deal->terms }}</td>
+				<!-- <td>{{ $deal->terms }}</td> -->
 				<td><a href="{{ URL::route('deals.show', $deal->id) }}">{{ $deal->begins_datetime }}</a></td>
 				<td><a href="{{ URL::route('deals.show', $deal->id) }}">{{ $deal->expires_datetime }}</a></td>
 				<td>{{ $deal->expiry_time }}</td>

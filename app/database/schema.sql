@@ -129,5 +129,8 @@ ALTER TABLE `deal` CHANGE `price_discount` `price_discount` FLOAT NULL DEFAULT N
 /* minor user detail: notes for self-registrered users */
 ALTER TABLE `user` ADD `notes` TEXT NULL DEFAULT NULL AFTER `email`;
 
+/* added title field for deals */
+ALTER TABLE `deal` ADD `title` VARCHAR(500) NULL DEFAULT NULL AFTER `deal_id`;
+
 
 
