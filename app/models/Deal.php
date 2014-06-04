@@ -4,6 +4,16 @@ class Deal extends Eloquent {
 	
 	// validation rules here
 	public static $create_rules = [
+		'title'				=> 'required',
+		'product_id' 		=> 'required|numeric',
+		'price_discount' 	=> 'required|numeric|min:0.01|max:1.00',
+		'terms' 		 	=> 'required',
+		'begins_time' 	 	=> 'required|date|date_format:"Y-m-d H:i:s"',
+		'expires_time' 	 	=> 'required|date|date_format:"Y-m-d H:i:s"|after:begins_time',
+		'category' 		 	=> 'required',
+	];
+
+	public static $update_rules = [
 		'title'				=> '',
 		'product_id' 		=> 'required|numeric',
 		'price_discount' 	=> 'required|numeric|min:0.01|max:1.00',

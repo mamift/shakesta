@@ -119,7 +119,7 @@
 		@if (count($deals) > 0)
 		@foreach ($deals as $deal)
 			<tr>
-				<td>
+				<td style="font-size:8pt;">
 					Original: &dollar;{{ $product->retail_price }} <br />
 					Discount: {{ $deal->price_discount * 100 }} &percnt; <br/>
 					Deal price: &dollar;{{ $deal->original_price - ($deal->original_price * $deal->price_discount) }}

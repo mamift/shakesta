@@ -209,7 +209,7 @@ class DealsController extends \BaseController {
 
 		// var_dump($input); exit();
 
-		$validator = Validator::make($input, Deal::$create_rules);
+		$validator = Validator::make($input, Deal::$update_rules);
 
 		if ($validator->fails()) {
 			return Redirect::back()->withErrors($validator)->withInput();

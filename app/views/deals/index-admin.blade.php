@@ -37,7 +37,11 @@
 					</a>
 				</td>
 				<td><a href="{{ URL::route('deals.show', $deal->id) }}">{{ $deal->title }}</a></td>
-				<td>&dollar; {{ $deal->original_price }} - {{ $deal->price_discount * 100 }} &percnt; &nbsp; <br /> &equals; &dollar; {{ $deal->discount_price }}</td>
+				<td style="font-size: 8pt;">
+					Original: &dollar;{{ $deal->original_price }} <br />
+					Discount: {{ $deal->price_discount * 100 }} &percnt; <br/>
+					Deal price: &dollar;{{ $deal->discount_price }}
+				</td>
 				<!-- <td> </td> -->
 				<td>
 					<a href="{{ URL::route('retailers.show', $deal->retailer_id) }}">
