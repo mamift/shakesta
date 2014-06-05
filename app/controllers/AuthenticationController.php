@@ -115,13 +115,16 @@ class AuthenticationController extends \BaseController {
 	}
 
 	/**
-	 * Store the new user information
+	 * Store new user information, but disable the user
 	 *
 	 * @return Response
 	 */
 	public function self_signup_store() 
 	{
 		$input = Input::all();
+
+		$input['status'] = 'disabled'; // always disable a new user; admins must approve
+
 		$self_sign_rules = [
 			'username' => 'required|unique:user,username',
 			'email' => 'required|unique:user,email',
@@ -138,7 +141,7 @@ class AuthenticationController extends \BaseController {
 		$retailer = Input::get('retailer_id');
 
 		if (isset($suggested_retailer) && strlen($suggested_retailer) == 0) {
-			return Redirect::back()->with('suggested_retailer_name', 'You need to actually enter something here if you\'re gonna specify your own retailer!')->withInput()->withErrors($validator);
+			return Redirect::back()->with('suggested_retailer_name', 'You need to actually enter something here if you\'re gonna specify your own retailer, fool!')->withInput()->withErrors($validator);
 		}
 
 		if ($retailer != '(other: enter your own)' && isset($suggested_retailer)) {
@@ -165,12 +168,12 @@ class AuthenticationController extends \BaseController {
 		// }
 
 		if ($validator->fails()) {
-				return Redirect::back()->withErrors($validator)->withInput();
+			return Redirect::back()->withErrors($validator)->withInput();
 
-			} else {
-				UsersController::process_input($input);
-				UsersController::store_new_password($input);
-			}
+		} else {
+			UsersController::process_input($input);
+			UsersController::store_new_password($input);
+		}
 
 		User::create($input);
 

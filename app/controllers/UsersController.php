@@ -94,6 +94,22 @@ class UsersController extends \BaseController {
 	}
 
 	/**
+	 * Send an e-mail. Unused, and untested.
+	 * @param $data (title, body), $to, $from
+	 * @return redirects to home page
+	 */
+	public function sendEmail($view, $data, $to, $from, $message) {
+		// $mail_send_func = ;
+
+		Mail::send('emails.welcomenewuser', $data, function($message, $to, $from) {
+			$message->from($from, 'admin');
+			$message->to($to)->subject('Your user account is now active!');
+		});
+
+		return Redirect::route('users.index')->with('user_enabled', 'User was enabled.');
+	}
+
+	/**
 	 * Display a listing of users
 	 *
 	 * @return Response
@@ -208,7 +224,10 @@ class UsersController extends \BaseController {
 		$user = User::findOrFail($id);
 		$input = Input::all();
 
-		// var_dump($input); exit();
+		// var_dump($input);
+		// var_dump($user); exit();
+
+		$was_user_disabled = $user->status == 'disabled' ? true : false;
 
 		$update_user_validation_rules = [
 			'username' => 'min:1',
@@ -228,6 +247,32 @@ class UsersController extends \BaseController {
 		}
 
 		$user->update($input);
+
+		if ($was_user_disabled) {
+			if ($input['status'] === 'enabled') {
+				$from = 'admin@shakesta.com';
+				$to = $user->email;
+				// so were going to enabled a user
+				// let's send them an e-mail message that they can login now
+				$email_data = [
+					'username' => $user->username,
+					'password' => '(password you used when you registered)'
+				];
+
+				Mail::send('emails.welcomenewuser', $email_data, function($message) use ($user) {
+					// var_dump($user->email); exit();
+					$to = $user->email;
+		            $message->from('admin@shakesta.com', 'admin')->to($to)->subject('User account enabled: "' . $user->username . '"');
+		        });
+			}
+		} else if (!$was_user_disabled) {
+			if ($input['status'] === 'disabled') {
+				Mail::send('emails.userdisabled', [], function($message) use ($user) {
+					$to = $user->email;
+		            $message->from('admin@shakesta.com', 'admin')->to($to)->subject('User account disabled: "' . $user->username . '"');
+		        });	
+			}
+		}
 
 		return Redirect::route('users.index');
 	}

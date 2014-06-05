@@ -21,7 +21,7 @@ Can change user types from admin to retailer and vice versa.
 
 Can view all clients, users, products, and campaigns for everyone.
 
-The default "admin" user cannot delete himself, nor be deleted by anyone else.
+The default "admin" user cannot delete himself, nor be deleted by anyone else. The "admin" user can however, change his password also.
 
 ==== CLIENT USERS ====
 Can create new products for themselves.
@@ -45,9 +45,11 @@ Making a simple get request to www.shakesta.com/api/v1.1 will return a list of c
 	"deals/today",
 	"deals/week",
 	"deals/show/{id}"
+	"categories",
+	"bycategory/{category}"
 ]
 
-Every single command is a POST route, that returns JSON data; the only piece of data that must be POST'ed is the API key. Every request must have a valid API key, using the 'apikey=' prefix. Using GET requests will not work and return an error.
+Every single command is a GET route, that returns JSON data; the only piece of data that must be GET'ed is the API key. Every request must have a valid API key, using the 'apikey=' prefix. 
 For example, using the 'curl' command on linux: 
 
 	curl -d 'apikey=key5386ea461f9568.70167308' shakesta.com/api/v1.1/deals/all/expired

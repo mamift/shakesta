@@ -67,6 +67,7 @@
 							@else
 							{{ Form::select('retailer_id', $retailers, $user->retailer_id, ['class' => 'form-control input-sm']) }}
 							@endif
+							<a href="{{ URL::route('retailers.create') }}">(Click here to create a new client)</a>
 						</td>
 					</tr>
 					<tr>
