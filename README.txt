@@ -23,11 +23,13 @@ Can change user types from admin to retailer and vice versa.
 
 Can view all clients, users, products, and campaigns for everyone.
 
+Basically admin users can do everything.
+
 The default "admin" user cannot delete itself, nor be deleted by anyone else. The "admin" user can however, change its password.
 
 ==== CLIENT USERS ====
 Can create new products for themselves.
-Can create new deals for their own products.
+Can create new campaigns (deals) for their own products.
 
 Can only view their own campaigns.
 Can only view their own products.
@@ -35,6 +37,7 @@ Can only view their own products.
 Procedure for creating new campaigns (deals):
 	- Create a new product (include at least the title, and original price)
 	- Create a new campaign (choose the existing product to use, then spefiy a title, discount price, terms, begin time and end time and category)
+	- For now only admin users can create new campaign categories; this is a decision intended to stymie the proliferation of duplicate and very similar category names.
 
 ==== API ====
 The API can be interfaced with using this base URL:

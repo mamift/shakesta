@@ -280,6 +280,32 @@ class UsersController extends \BaseController {
 	}
 
 	/**
+	 * Update the specified resource in storage.
+	 *
+	 * @param  int  $id
+	 * @return Response
+	 */
+	public function self_update($id)
+	{
+		$user = User::find($id);
+
+		$password = Input::get('reset_password');
+		$password_confirm = Input::get('reset_password_confirmation');
+
+		if ($password == $password_confirm) {
+			$new_password = Hash::make($password);
+			$input = ['password' => $new_password];
+			
+			$user->update($input);
+		} else {
+			return Redirect::back()->with('password_msg', 'Passwords don\' match! Try again!');
+		}
+
+		return Redirect::back()->with('password_msg', 'Password updated!');
+
+	}
+
+	/**
 	 * Remove the specified resource from storage.
 	 *
 	 * @param  int  $id

@@ -24,6 +24,16 @@
 		<p>You are an administrator and can manage other users.</p>
 		@endif
 
+		@if (!Auth::user()->is_admin)
+		<p>Want to change your password? </p>
+		{{ Form::open(['method' => 'POST', 'url' => ['users-selfupdate', Auth::user()->id], 'role' => 'form', 'class' =>'form-inline' ]) }}
+			{{ Form::password('reset_password', null, ['class' => 'form-control input-sm', 'placeholder' => 'Reset password']) }}
+			{{ Form::password('reset_password_confirmation', null, ['class' => 'form-control input-sm', 'placeholder' => 'Reset password']) }}
+			{{ Form::submit() }}
+		<p class="error center-aligned">{{ Session::get('password_msg') }}</p>
+		{{ Form::close() }}
+		@endif
+
 		@if (Auth::user()->apikey)
 		<p>You API key is: <span class="error">{{ Auth::user()->apikey }}</span></p>
 		@endif
@@ -52,21 +62,6 @@
 			{{ Form::submit(); }}
 		</p>
 	{{ Form::close() }}
-	<!-- old stuff
-	<form method="post" action="index.html">
-		<p><input type="text" name="username" value="" placeholder="Username or Email"></p>
-		<p><input type="password" name="password" value="" placeholder="Password"></p>
-		<p class="remember_me">
-		<label>
-			<input type="checkbox" name="remember_me" id="remember_me" />
-			Remember me on this computer
-		</label>
-		</p>
-		<p class="submit">
-			<input type="submit" name="commit" value="Login">
-		</p>
-	</form>
-	-->
 	@endif
 </div>	
 @stop

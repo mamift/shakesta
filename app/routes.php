@@ -112,6 +112,8 @@ Route::group(['before' => 'auth'], function() {
 	Route::resource('deals', 'DealsController');
 	Route::resource('products', 'ProductsController');
 
+	Route::post('users-selfupdate/{user_id}', 'UsersController@self_update');
+
 	//only administrators can access these
 	Route::group(['before' => 'disallow_retailers'], function() {
 		Route::resource('retailers', 'RetailersController');
