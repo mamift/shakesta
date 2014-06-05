@@ -55,7 +55,7 @@ Route::group(['prefix' => 'api/v1.1'], function()
 			'deals/week',
 			'deals/show/{id}',
 			'deals/categories',
-			'deals/bycategory']
+			'deals/bycategory/{category}']
 		];
 	});
 
