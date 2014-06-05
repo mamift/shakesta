@@ -2,11 +2,7 @@ API:
 Accessible via www.shakesta.com/api/v1.2/
 Protected via API key token authentication
 
-Default API User account:s
-
 API routes:
-
-
 
 User guide to the web app 
 
@@ -15,23 +11,26 @@ login with default admin account:
 username: "admin"
 password: "gizmoe99"
 
-Can create new retailers,
-Can create new users for retailers (users without a retailer asisnged are admin users)
-Can create new products for retailers
-Can create new deals for products
+Can create new clients.
+Can create new users for client (users without a client assigned are admin users).
+Can create new products for client.
+Can create new deals for products.
 
-Can change passwords for all users
-Can change user types from admin to retailer and vice versa
+Can change passwords for all users.
+Can change user types from admin to retailer and vice versa.
 
-Can view all retailers, users, products, and deals for everyone
+Can view all clients, users, products, and campaigns for everyone.
 
+The default "admin" user cannot delete himself, nor be deleted by anyone else.
 
-==== RETAIL USERS ====
-Can create new products for themselves
-Can create new deals for their own products
+==== CLIENT USERS ====
+Can create new products for themselves.
+Can create new deals for their own products.
 
-Can only view their own deals 
-Can only view their own products
+Can only view their own campaigns.
+Can only view their own products.
+
+Procedure for creating new campaigns (deals).
 
 ==== API ====
 The API can be interfaced with using this base URL:
@@ -57,14 +56,14 @@ API keys are bound to user accounts. An API key is made everytime a new user is 
 
 The API can be interfaced using the following URL endpoints:
 
-1. www.shakesta.com/api/v1.2/deals/apikey={apikey}						
-2. www.shakesta.com/api/v1.2/deals/apikey={apikey}/all 				
-	- www.shakesta.com/api/v1.2/deals/apikey={apikey}/all/current 		
-	- www.shakesta.com/api/v1.2/deals/apikey={apikey}/all/expired 		
+1. www.shakesta.com/api/v1.2/deals/apikey={apikey}				
+2. www.shakesta.com/api/v1.2/deals/apikey={apikey}/all 	
+	- www.shakesta.com/api/v1.2/deals/apikey={apikey}/all/current		
+	- www.shakesta.com/api/v1.2/deals/apikey={apikey}/all/expired
 3. www.shakesta.com/api/v1.2/deals/apikey={apikey}/today	 			
-4. www.shakesta.com/api/v1.2/deals/apikey={apikey}/week	 			
+4. www.shakesta.com/api/v1.2/deals/apikey={apikey}/week			
 5. www.shakesta.com/api/v1.2/deals/apikey={apikey}/show/{id}			
-6. www.shakesta.com/api/v1.2/deals/apikey={apikey}/categories			
+6. www.shakesta.com/api/v1.2/deals/apikey={apikey}/categories
 7. www.shakesta.com/api/v1.2/deals/apikey={apikey}/bycategory/{category}
 
 The URL's explained:
