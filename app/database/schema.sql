@@ -19,22 +19,8 @@ SET time_zone = "+00:00";
 --
 -- Database: `chana13_shakesta`
 --
-
--- --------------------------------------------------------
-
---
--- Stand-in structure for view `admin_users`
---
-CREATE TABLE IF NOT EXISTS `admin_users` (
-`user_id` mediumint(9)
-,`username` text
-,`password` text
-,`email` mediumtext
-,`retailer_id` mediumint(9)
-,`remember_token` varchar(100)
-,`created_at` timestamp
-,`updated_at` timestamp
-);
+CREATE DATABASE IF NOT EXISTS `chana13_shakesta`;
+USE `chana13_shakesta`;
 -- --------------------------------------------------------
 
 --
@@ -308,6 +294,20 @@ ALTER TABLE `shop`
 ALTER TABLE `user`
   ADD CONSTRAINT `retailer_user_FK1` FOREIGN KEY (`retailer_id`) REFERENCES `retailer` (`retailer_id`);
 
-/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
-/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
-/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+-- Add default admin user: "admin","gizmoe99"
+INSERT INTO `user` (`user_id`, `username`, `password`, `email`, `notes`, `retailer_id`, `remember_token`, `apikey`, `status`, `created_at`, `updated_at`) VALUES
+(1, 'admin', '$2y$10$PEKniW8sr8xUyNRgxVZQIOH.peO8i8BNHKCE2HdKUtrIjJDYPLhSO', 'admin@shakesta.com', 'The default and master admin user', NULL, 'B4lqwkHgddrqJ84yusyM4geWichtJmqtJzxAToPhqRpsyWJtz691ah2Bx6TA', NULL, 'enabled', '2014-06-05 02:39:36', '2014-06-05 02:39:42');
+
+-- default categories for campaigns
+
+INSERT INTO category (`name`) VALUES
+('Automotive'),
+('Computing'),
+('Electrical & Electronics'),
+('Entertainment'),
+('Fashion & Apparel'),
+('Food & Grocery'),
+('Gaming'),
+('Mobile'),
+('Music'),
+('Travel');

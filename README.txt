@@ -7,7 +7,7 @@ API routes:
 User guide to the web app 
 
 ==== ADMIN USERS ====
-login with default admin account:
+The default admin account:
 username: "admin"
 password: "gizmoe99"
 

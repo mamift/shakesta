@@ -247,9 +247,10 @@ class UsersController extends \BaseController {
 		}
 
 		$user->update($input);
+		$status = Input::get('status');
 
-		if ($was_user_disabled) {
-			if ($input['status'] === 'enabled') {
+		if ($was_user_disabled && isset($user->email)) {
+			if ($status === 'enabled') {
 				$from = 'admin@shakesta.com';
 				$to = $user->email;
 				// so were going to enabled a user
@@ -265,8 +266,9 @@ class UsersController extends \BaseController {
 		            $message->from('admin@shakesta.com', 'admin')->to($to)->subject('User account enabled: "' . $user->username . '"');
 		        });
 			}
-		} else if (!$was_user_disabled) {
-			if ($input['status'] === 'disabled') {
+		} else if (!$was_user_disabled && isset($user->email)) {
+			if ($status === 'disabled') {
+				// so we're disabling a user, lets send them an e-mail that they cannot login in
 				Mail::send('emails.userdisabled', [], function($message) use ($user) {
 					$to = $user->email;
 		            $message->from('admin@shakesta.com', 'admin')->to($to)->subject('User account disabled: "' . $user->username . '"');

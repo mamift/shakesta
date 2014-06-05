@@ -7,6 +7,11 @@
 		
 		<p>Hello, {{ Auth::user()->username; }} </p>
 		{{-- this $User_message is displayed if a retailer user has tried to access an admin-only page --}}
+		@if (Auth::user()->is_admin)
+		<p class="center-aligned"><a href="{{ URL::route('users.edit', Auth::user()->id) }}" class="btn btn-danger">Click here to update your user details.</a></p>
+		@else
+		<p>If this is your first time here, you first must create a new product, then create a new deal (campaign) associated with it. All changes to products and deals are pushed automatically to the API. To view the API commands for connecting a phone app, see the command list <a href="{{ URL::to('/api/v1.2/') }}"> here (presented as JSON).</a></p>
+		@endif
 		@if ($user_message = Session::get('user_message'))
 		<p><span class="error">{{ $user_message or "" }}</span></p>
 		@endif
@@ -22,8 +27,7 @@
 		@if (Auth::user()->apikey)
 		<p>You API key is: <span class="error">{{ Auth::user()->apikey }}</span></p>
 		@endif
-		<p><a href="{{ URL::to('user-logout') }}" class="btn btn-danger">Click here to logout.</a></p>
-		
+		<p class="center-aligned"><a href="{{ URL::to('user-logout') }}" class="btn btn-danger">Click here to logout.</a></p>
 	@else
 	<h1>Login to Web App</h1>
 

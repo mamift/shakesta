@@ -14,17 +14,9 @@ class UsersTableSeeder extends Seeder {
 			'username' => 'admin', 
 			'password' => Hash::make('gizmoe99'), 
 			'email' => 'admin@shakesta.com',
+			'status' => 'enabled',
+			'notes' => 'The default and master admin user',
 			'retailer_id' => null
 		]);
-
-		foreach(range(1, 3) as $index)
-		{
-			User::create([
-				'username' => $faker->text(10), 
-				'password' => Hash::make('password'),
-				'email' => $faker->email(),
-				'retailer_id' => null
-			]);
-		}
 	}
 }
