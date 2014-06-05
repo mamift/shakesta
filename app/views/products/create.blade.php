@@ -45,7 +45,7 @@
 							@if (Auth::user()->is_admin)
 							{{ Form::select('retailer_id', $all_retailers, null, ['class' => 'form-control input-sm']) }}
 							<br/>
-							<a href="{{ URL::route('retailers.create') }}"> (Click here to create new retailer)</a>
+							<a href="{{ URL::route('retailers.create') }}"> (Click here to create new client)</a>
 							@else 
 							{{ Form::select('retailer_id', [$retailer_id => $all_retailers[$retailer_id]], $retailer_id) }}
 							@endif

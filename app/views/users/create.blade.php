@@ -39,7 +39,7 @@
 						<td>{{ Form::label('retailer_id','Client:') }}</td>
 						<td>
 							{{ Form::select('retailer_id', $retailers, null, ['class' => 'form-control input-sm']) }} <br />
-							<a href="{{ URL::route('retailers.create') }}"> (Click here to create new retailer) </a>
+							<a href="{{ URL::route('retailers.create') }}"> (Click here to create new client) </a>
 						</td>
 					</tr>
 					<tr>

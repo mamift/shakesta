@@ -118,7 +118,6 @@ class UsersController extends \BaseController {
 		// $new_id = $latest_user->user_id + 1;
 
 		if (Auth::user()->is_admin) { 
-			// $retailers['(create new retailer)'] = '(create new retailer)';
 			return View::make('users.create', ['retailers' => $retailers]);
 			
 		} else

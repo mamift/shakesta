@@ -149,7 +149,7 @@ class DealsController extends \BaseController {
 	{
 		$input = Input::all();
 		$validator = Validator::make($input, Deal::$create_rules);
-		var_dump($input);
+		// var_dump($input);
 
 		if ($validator->fails()) {
 			return Redirect::back()->withErrors($validator)->withInput();
