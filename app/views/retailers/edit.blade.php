@@ -11,7 +11,7 @@
 				<thead>
 					<tr>
 						<th colspan="2">
-							<h3>Create new client</h3>
+							<h3>Edit client</h3>
 						</th>
 					</tr>
 				</thead>
@@ -26,6 +26,7 @@
 						<td>{{ Form::label('title','Title:') }}</td>
 						<td>
 							{{ Form::text('title', null, ['class' => 'form-control input-sm']) }}
+							<span class="error">{{ $errors->first('title') }}</span>
 						</td>
 					</tr>
 					<tr>

@@ -84,15 +84,19 @@ class RetailersController extends \BaseController {
 	public function update($id)
 	{
 		$retailer = Retailer::findOrFail($id);
+		$input = Input::all();
 
-		$validator = Validator::make($data = Input::all(), Retailer::$rules);
+		// var_dump($input); exit();
 
-		if ($validator->fails())
+		$validator = Validator::make($input, Retailer::$rules);
+		$same_mod = (Input::get('title') === $retailer->title);
+
+		if ($validator->fails() && !$same_mod)
 		{
 			return Redirect::back()->withErrors($validator)->withInput();
 		}
 
-		$retailer->update($data);
+		$retailer->update($input);
 
 		return Redirect::route('retailers.index');
 	}
