@@ -280,7 +280,7 @@ class UsersController extends \BaseController {
 	}
 
 	/**
-	 * Update the specified resource in storage.
+	 * Used by the userpage to change a user's (non-admin user) passowrd.
 	 *
 	 * @param  int  $id
 	 * @return Response

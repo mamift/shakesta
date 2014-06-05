@@ -67,8 +67,8 @@ The API can be interfaced using the following URL endpoints:
 
 1. www.shakesta.com/api/v1.2/deals/apikey={apikey}				
 2. www.shakesta.com/api/v1.2/deals/apikey={apikey}/all 	
-	- www.shakesta.com/api/v1.2/deals/apikey={apikey}/all/current		
-	- www.shakesta.com/api/v1.2/deals/apikey={apikey}/all/expired
+-  www.shakesta.com/api/v1.2/deals/apikey={apikey}/all/current		
+-  www.shakesta.com/api/v1.2/deals/apikey={apikey}/all/expired
 3. www.shakesta.com/api/v1.2/deals/apikey={apikey}/today	 			
 4. www.shakesta.com/api/v1.2/deals/apikey={apikey}/week			
 5. www.shakesta.com/api/v1.2/deals/apikey={apikey}/show/{id}			
